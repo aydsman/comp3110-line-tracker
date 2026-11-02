@@ -8,12 +8,14 @@ A team project to track corresponding lines between two versions of a source fil
 
 | Member | Role | Main responsibility |
 | --- | --- | --- |
-| Ali | 1. File Processing & Basic Matching | Read files, normalize lines, detect unchanged lines, format output |
-| Aadi | 2. Advanced Line Matching | SimHash candidates, similarity scoring, conflict resolution, line splits |
-| Mujtaba | 3. Dataset & Evaluation | 25-file dataset, verified mappings, evaluation and results |
-| Project owner (you) | 4. Frontend, Integration & Bug Tracing | JavaFX frontend, shared interfaces, integration, tests, bug-tracing extension |
+| Ayden | Backend | Unchanged-line matching, SimHash candidates, similarity scoring, conflict resolution, and line-split detection |
+| Aadi | Frontend | JavaFX file selection, side-by-side comparison, mapping highlights, and export controls |
+| Ali | Integration | File reading and normalization, shared models, pipeline connections, CLI, build setup, and output formatting |
+| Mujtaba | QA & Evaluation | 25-file dataset, verified mappings, automated tests, accuracy evaluation, and bug reports |
 
-Each member documents and tests their own work. The integration lead also helps Aadi with the advanced matching workload.
+Each member documents and tests their own work. Ali coordinates integration, and Mujtaba coordinates overall verification and evaluation. Bug tracing is a shared final milestone led by Ayden and Ali after the core tool works; confirm whether it is mandatory.
+
+These assignments replace the earlier role split. Ownership in the linked planning documents still needs to be aligned with this table.
 
 ## Project goals
 
@@ -45,4 +47,4 @@ Do not interpret the research benchmark numbers in the introduction as our own r
 
 ## Planned desktop frontend
 
-The project owner will build a JavaFX interface: choose the old and new files, click Compare, inspect original text and matching line numbers side by side, and export text/JSON mappings. This is a team-selected addition; the supplied slides do not explicitly require a GUI. The interface and command-line tool will share the same matching pipeline. Neither is implemented yet.
+Aadi will build a JavaFX interface: choose the old and new files, click Compare, inspect original text and matching line numbers side by side, and export text/JSON mappings. This is a team-selected addition; the supplied slides do not explicitly require a GUI. The interface and command-line tool will share the same matching pipeline. Neither is implemented yet.
