@@ -2,7 +2,7 @@
 
 A team project to track corresponding lines between two versions of a source file, including edited, moved, and split lines. The planned approach follows the LHDiff introduction supplied in class.
 
-**Status:** planning and repository scaffold. The matching tool has not been implemented yet. Python is the proposed implementation language, pending any course restrictions.
+**Status:** planning and repository scaffold. The matching tool has not been implemented yet. Java is the chosen implementation language. The proposed build uses Maven and Java 17.
 
 ## Team
 
@@ -26,9 +26,9 @@ The class slides describe normalization, diff-based unchanged matches, SimHash c
 ## Planned usage (not implemented yet)
 
 ```text
-python -m line_tracker map old.txt new.txt --format text
-python -m line_tracker map old.txt new.txt --format json --output mappings.json
-python -m line_tracker evaluate datasets/new/manifest.json --output results/new.json
+java -jar target/line-tracker.jar map old.txt new.txt --format text
+java -jar target/line-tracker.jar map old.txt new.txt --format json --output mappings.json
+java -jar target/line-tracker.jar evaluate datasets/new/manifest.json --output results/new.json
 ```
 
 Text output uses `old-new`, for example `4-8`. A split is represented as separate pairs, for example `4-8`, `4-9`, and `4-10`. JSON additionally records match kind, score, and unmatched lines. Line numbers are always one-based and refer to original input files.

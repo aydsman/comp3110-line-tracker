@@ -3,7 +3,7 @@
 ## Proposed defaults
 
 - Name: comp3110-line-tracker; private GitHub repository.
-- Python command-line tool; no GUI required initially.
+- Java command-line tool; no GUI required initially.
 - Implement an LHDiff-inspired pipeline; verify whether exact reproduction is required.
 - Keep original line numbers; use normalized copies only for comparison.
 - JSON for machine-readable mappings and evaluation; plain text for the required line-pair output.

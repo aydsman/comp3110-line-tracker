@@ -1,9 +1,8 @@
-__pycache__/
-*.py[cod]
-.venv/
-.pytest_cache/
-.coverage
-htmlcov/
+target/
+*.class
+.idea/
+*.iml
+.vscode/
 .env
 .env.*
 !.env.example
