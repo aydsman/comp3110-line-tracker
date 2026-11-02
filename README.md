@@ -11,7 +11,7 @@ A team project to track corresponding lines between two versions of a source fil
 | Ali | 1. File Processing & Basic Matching | Read files, normalize lines, detect unchanged lines, format output |
 | Aadi | 2. Advanced Line Matching | SimHash candidates, similarity scoring, conflict resolution, line splits |
 | Mujtaba | 3. Dataset & Evaluation | 25-file dataset, verified mappings, evaluation and results |
-| Project owner (you) | 4. Integration & Bug Tracing | Shared interfaces, integration, tests, releases, bug-tracing extension |
+| Project owner (you) | 4. Frontend, Integration & Bug Tracing | JavaFX frontend, shared interfaces, integration, tests, bug-tracing extension |
 
 Each member documents and tests their own work. The integration lead also helps Aadi with the advanced matching workload.
 
@@ -42,3 +42,7 @@ Text output uses `old-new`, for example `4-8`. A split is represented as separat
 - [Team contribution workflow](CONTRIBUTING.md)
 
 Do not interpret the research benchmark numbers in the introduction as our own results. No accuracy results have been produced yet.
+
+## Planned desktop frontend
+
+The project owner will build a JavaFX interface: choose the old and new files, click Compare, inspect original text and matching line numbers side by side, and export text/JSON mappings. This is a team-selected addition; the supplied slides do not explicitly require a GUI. The interface and command-line tool will share the same matching pipeline. Neither is implemented yet.

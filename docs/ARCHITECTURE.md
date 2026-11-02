@@ -2,7 +2,7 @@
 
 ## Scope and approach
 
-Build a local command-line application first. No web interface, database, or service is needed for the stated goals. Use Java 17, Maven, plain files, and explicit shared data models. Use JUnit 5 for tests. Choose and document a Java diff library or implement an LCS baseline after checking course library restrictions.
+Build the shared matching core and command-line application first, then connect a JavaFX desktop interface. Add a JavaFX desktop frontend for the team demo. No database or web service is planned. Use Java 17, Maven, plain files, and explicit shared data models. Use JUnit 5 for tests. Choose and document a Java diff library or implement an LCS baseline after checking course library restrictions.
 
 ```mermaid
 flowchart TD
@@ -72,3 +72,13 @@ After the base tool works: accept a repository and known bug-fix commit, compare
 ## Java project layout
 
 Use Maven conventions: `src/main/java/edu/comp3110/linetracker/` for production classes, `src/test/java/edu/comp3110/linetracker/` for JUnit tests, and `src/test/resources/` for small fixtures. Plan Jackson for JSON if external libraries are allowed. Add `pom.xml`, pinned dependency versions, a Maven wrapper, and executable JAR packaging in the first implementation milestone. Planned build commands are `./mvnw test` and `./mvnw package` (`mvnw.cmd` on Windows). They are not available in this planning scaffold yet.
+
+## JavaFX frontend — project owner
+
+Keep JavaFX classes in `edu.comp3110.linetracker.ui`; the matching core must not import JavaFX. A thin controller calls the same MappingPipeline used by the CLI.
+
+User flow: select old file, select new file, click Compare, inspect results, optionally export text or JSON. Show the two original files with one-based line numbers and a mapping table containing old line(s), new line(s), match kind, and similarity score. Selecting a mapping highlights the corresponding lines on both sides, including every line in a split. Display additions/deletions using labels as well as color.
+
+Disable Compare until both files are selected. Run comparison in a JavaFX background Task so the window remains responsive; update UI state on the JavaFX application thread. Show a busy indicator, readable file errors, and a clear empty/no-match state. When files change, clear stale results. Export only the completed result through the shared output formatter.
+
+First version excludes editing source files, repository browsing, and bug-history visualization. Add those only if needed after evaluation. Verify file selection, one-to-many highlights, error recovery, responsiveness, and export equivalence with CLI output. Pin compatible JavaFX/Maven dependencies when implementing; document platform-specific packaging.

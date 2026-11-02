@@ -3,7 +3,7 @@
 ## Proposed defaults
 
 - Name: comp3110-line-tracker; private GitHub repository.
-- Java command-line tool; no GUI required initially.
+- Java core with command-line access and a JavaFX desktop frontend.
 - Implement an LHDiff-inspired pipeline; verify whether exact reproduction is required.
 - Keep original line numbers; use normalized copies only for comparison.
 - JSON for machine-readable mappings and evaluation; plain text for the required line-pair output.
@@ -21,3 +21,7 @@
 ## Team decisions before advanced matching
 
 Freeze tokenization, empty-context behavior, thresholds, tie handling, and split limits in a short decision entry after testing development fixtures. Do not tune final settings using held-out test results. Replace the project owner's label with their preferred name when available. GitHub collaborator invitations require members' GitHub usernames.
+
+## Accepted frontend scope
+
+The team chose a JavaFX desktop frontend, owned by the project owner alongside integration and bug tracing. This is additional demo scope, not an explicit requirement in the supplied slides. Build the core first, then a file-selection and side-by-side comparison interface with mapping export.

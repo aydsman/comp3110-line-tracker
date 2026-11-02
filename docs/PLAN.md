@@ -24,6 +24,12 @@ Exit: one command maps identical files and reports additions/deletions; shared f
 
 Exit: edited, moved, and split-line examples pass; evaluation produces precision/recall/F1 and runtime with settings recorded.
 
+## Milestone 2b — JavaFX frontend
+
+Project owner: build file pickers, Compare action, side-by-side original files, mapping selection/highlights, and export. Call the existing pipeline in a background task. Ali supports output integration; Aadi supplies mapping examples; Mujtaba supplies reviewed demo fixtures.
+
+Exit: the GUI produces the same mappings as the CLI on identical inputs/settings, handles split highlights and file errors, and stays responsive. Complete this before the final demo; keep evaluation runnable independently.
+
 ## Milestone 3 — complete evaluation
 
 - Mujtaba: finish at least 25 distinct files, each with two versions and verified mappings; run new and existing datasets separately.
@@ -50,7 +56,8 @@ Integration lead owns a small verified historical example; others help validate 
 9. Integration lead — pipeline, CLI and regression checks (start with 1; integrate 3–6).
 10. Mujtaba — complete 25-file dataset and final evaluation (depends on 7–9).
 11. Integration lead — verified bug-fix tracing prototype (after core milestones).
-12. All — final reproducibility review and submission checklist.
+12. Integration lead — JavaFX frontend and GUI/CLI consistency checks (after baseline, using shared pipeline).
+13. All — final reproducibility review and submission checklist.
 
 ## Definition of done
 
