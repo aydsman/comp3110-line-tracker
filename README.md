@@ -70,3 +70,7 @@ Two synthetic development fixture pairs are included. They are not the required 
 - [Decisions and professor questions](docs/DECISIONS.md)
 - [Contribution workflow](CONTRIBUTING.md)
 - [Trello board](https://trello.com/b/6kk3pY0g/line-tracker)
+
+## Branch workflow
+
+Use `development` for shared integration. Branch each task from development and open its pull request back into development. Promote reviewed, tested code to `main` through a separate release pull request. See CONTRIBUTING.md for the workflow.

@@ -23,3 +23,7 @@
 ## Remaining team choices
 
 Before Task 2 integration freeze tokenization, SimHash details, context empty-vector handling, threshold, conflict tie rules and split limits. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+
+## Branch policy
+
+`development` is the shared working/integration branch. Task pull requests target development. Reviewed and tested releases move from development to main through a separate pull request; direct main pushes are outside the team workflow.
