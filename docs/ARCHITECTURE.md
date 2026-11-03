@@ -1,84 +1,65 @@
-# Architecture
+# Architecture and shared contracts
 
-## Scope and approach
+## Implemented foundation
 
-Build the shared matching core and command-line application first, then connect a JavaFX desktop interface. Add a JavaFX desktop frontend for the team demo. No database or web service is planned. Use Java 17, Maven, plain files, and explicit shared data models. Use JUnit 5 for tests. Choose and document a Java diff library or implement an LCS baseline after checking course library restrictions.
+Java 17, Maven, JUnit 5 and a plain Java core with no JavaFX dependency. Flow:
 
 ```mermaid
-flowchart TD
-    A[Old and new files] --> B[Read and normalize: Ali]
-    B --> C[Unchanged line matching: Ali]
-    C --> D[SimHash candidate shortlist: Aadi]
-    D --> E[Exact content and context scoring: Aadi]
-    E --> F[Resolve conflicts and detect splits: Aadi]
-    F --> G[Validate mappings and output: Ali + integration lead]
-    H[Verified dataset: Mujtaba] --> I[Evaluation: Mujtaba]
-    G --> I
-    G --> J[Bug tracing extension: integration lead]
+flowchart LR
+    CLI[Main CLI] --> P[MappingPipeline]
+    GUI[Future JavaFX UI] --> P
+    P --> R[SourceReader and Normalizer]
+    R --> M[LineMatcher]
+    M --> B[BaselineMatcher now; advanced matcher later]
+    B --> V[Validated MappingResult]
 ```
 
-## Modules and ownership
+Package: `edu.comp3110.linetracker`. Production code is under `src/main/java`; JUnit tests under `src/test/java`; shared development examples under `datasets/development`.
 
-| Module | Owner | Contract |
+| Component | Contract | Ongoing owner |
 | --- | --- | --- |
-| `SourceReader.java`, `Normalizer.java` | Ali | Load original lines, produce normalized comparison strings |
-| `BaselineMatcher.java` | Ali | Return unchanged matches plus unmatched line numbers |
-| `CandidateSelector.java`, `Similarity.java` | Aadi | Rank unmatched candidate pairs and calculate scores |
-| `MatchResolver.java`, `SplitDetector.java` | Aadi | Produce deterministic edited/moved/split matches |
-| `Evaluator.java` | Mujtaba | Compare predicted and verified mapping pairs |
-| `Main.java`, `MappingPipeline.java`, model records | Integration lead | Coordinate stages and enforce shared contracts |
-| `BugTracer.java` | Integration lead | Later extension using repository history |
+| SourceReader / Normalizer | UTF-8 files to original-numbered comparison lines | Ali |
+| SourceLine / SourceFile | Immutable original text plus normalized comparison text | Ali coordinates changes with team |
+| LineMatcher | `match(SourceFile oldFile, SourceFile newFile, MatchConfig config)` | Ayden |
+| BaselineMatcher | Ordered normalized-equality LCS with stable old-first ties | Ayden |
+| ContentSimilarity | `score(String left, String right)`; 1 minus normalized Levenshtein distance | Ayden |
+| MappingPipeline | `compare(Path oldPath, Path newPath, MatchConfig config)`; loads, delegates, validates | Ali |
+| Main | Baseline CLI, plain line-pair output and meaningful error codes | Ali |
+| Future JavaFX UI | Calls same pipeline in a background task | Aadi |
+| Future evaluator | Compares predicted and manually verified mappings | Mujtaba |
 
-These are planned module names; implementation files will be introduced as their tasks begin.
+Ayden authored this initial foundation to unblock development. Ownership above describes future responsibility, not authorship attribution.
 
-## Shared data contracts
+## Records and invariants
 
-Use Java records for immutable data models and typed collections; the following is a conceptual interface agreement (translate list[int] to List<Integer>, str to String, and dict to a configuration record):
+- `SourceLine(int number, String original, String normalized)` uses one-based original positions.
+- `SourceFile(String path, List<SourceLine> lines)` requires consecutive original line numbers, starting at 1. `fromLines` builds valid comparison copies.
+- `Match(List<Integer> oldLines, List<Integer> newLines, MatchKind kind, double score)` has one old line and one new line, or one old line and multiple consecutive new lines for SPLIT. Score is finite in [0,1], not a probability.
+- `MatchKind`: UNCHANGED, MODIFIED, MOVED, SPLIT. Only UNCHANGED is currently produced. Serialization should use lowercase names to match the dataset schema.
+- `MappingResult(List<Match> matches, List<Integer> deleted, List<Integer> added, MatchConfig config)` copies its lists. Call `validate(oldCount,newCount)` to enforce line bounds, complete coverage and exclusive ownership. MappingPipeline validates matcher results before returning.
+- `deleted` / `added` mean unmatched old/new lines at the current stage. Modified-line candidates remain in these lists until advanced matching resolves them. Match order from the baseline is increasing by original line number.
+- `MatchConfig(long maxLcsCells)` defaults to 4,000,000. Add advanced settings in a coordinated change rather than silently changing the interface.
 
-- `SourceLine(number: int, original: str, normalized: str)`
-- `SourceFile(path: str, lines: list[SourceLine])`
-- `Match(old_lines: list[int], new_lines: list[int], kind: str, score: float)`
-- `MappingResult(matches: list[Match], deleted: list[int], added: list[int], config: dict)`
-- Kinds: `unchanged`, `modified`, `moved`, `split`. Define moved classification explicitly before reporting it; positional shifts alone do not prove movement.
-- A normal match has one old and one new line. A split has one old and multiple consecutive new lines. Many-to-one merges are outside the initial scope pending instructor guidance.
-- Each line belongs to at most one match group. Unmatched old lines are deletions; unmatched new lines are additions. All input lines must be accounted for.
-- `score` is in [0, 1], with larger values indicating greater similarity; it is not a calibrated probability.
+## Baseline and normalization
 
-Planned stage functions: `load_source(path)`, `normalize(source, config)`, `match_unchanged(old, new)`, `build_candidates(old, new, unmatched, config)`, `resolve_matches(candidates, config)`, `detect_splits(old, new, remaining, config)`, and `evaluate(predicted, expected)`.
+Read all original lines, retaining blanks and original text. A terminal newline does not create a phantom additional line. Normalize using strip, Unicode whitespace collapse and Locale.ROOT lowercase; punctuation/comments remain. This deliberately ignores case/spacing, including within literals, and can hide meaningful changes. UNCHANGED means comparison equality only.
 
-## Algorithm decisions to implement
+BaselineMatcher computes an LCS of normalized lines. On tied alternatives it advances the old-file cursor first, making repeated-line results deterministic. Each resulting match has score 1. Remaining old/new line numbers are explicitly returned. Empty files are handled directly. Nonempty files exceeding the configured LCS cell budget fail before table allocation. This is an LCS baseline, not a claim of exact Unix diff/LHDiff reproduction.
 
-1. Keep original line numbers and text. Normalize only comparison text: lowercase, trim ends, collapse internal whitespace. Preserve punctuation, comments, and blank-line positions. Document that normalization can hide case-only changes.
-2. Detect unchanged normalized lines using a diff sequence matcher. Proposed baseline: an LCS-based line diff, or an approved Java diff library; verify instructor acceptance because the implementation may differ from Unix diff.
-3. For unmatched lines, compute content and context fingerprints. Context uses up to four original neighboring lines above and below, excluding the current line. Never derive context from the filtered unmatched list.
-4. Use deterministic tokenization, stable hashes, fixed fingerprint width, and weighted Hamming distance to rank candidates. Keep at most 15 per old line. Do not use platform-dependent or unspecified hashes for persistent fingerprints.
-5. Re-score shortlisted pairs using normalized Levenshtein similarity for content and cosine similarity for token-frequency context vectors. Combined score = `0.6 * content + 0.4 * context`. Specify empty-string/vector behavior and deterministic tie-breaking.
-6. Propose greedy selection by descending score, then ascending old/new line numbers, accepting only available lines above a configurable threshold. Validate conflict behavior on duplicates and repeated braces.
-7. Detect splits using remaining lines and permitted tentative matches: concatenate consecutive new lines while normalized Levenshtein distance improves, then stop. Permit replacing a tentative one-to-one match only when the group improves the score and consumes no line assigned elsewhere. Bound the search and verify cases where no fragment passed the initial match threshold.
-8. Sort final output by old line number, validate coverage/exclusivity, and expose text or JSON output.
+ContentSimilarity accepts comparison strings and calculates `1 - distance/max(lengths)`. Empty/empty is 1, one empty is 0. Inputs are Java UTF-16 code units; memory is O(min(lengths)), time O(length1*length2). The baseline does not greedily map similar edited lines yet.
 
-## Configuration
+## Next matching stages — Ayden Tasks 2–3
 
-Initial proposals: `candidate_count=15`, `context_window=4`, `content_weight=0.6`, `context_weight=0.4`, `simhash_bits=64`, `max_split_lines=5`. Threshold and tokenization are unresolved experiments. Select them using a development subset, then freeze them before final evaluation. Store all effective settings with results.
+Use stable SimHash for content/context to rank up to 15 new candidates per unmatched old line. Context uses up to four original lines above/below, excluding the current line. Re-score with content Levenshtein and context token-frequency cosine, starting at 0.6/0.4 weights. Define tokenization, zero-vector behavior, threshold and deterministic ties before integration. Select nonconflicting mappings, then detect splits by concatenating consecutive new lines while normalized distance improves. Do not reuse lines consumed by other groups. Tune on development data only; freeze settings before final evaluation.
 
-## Verification
+## JavaFX — Aadi
 
-Small fixtures must cover identical files, blank/empty files, additions, deletions, renaming, reordering, duplicate lines, line splits, whitespace/case changes, context at file boundaries, and no acceptable candidate. Check one-based bounds, deterministic output, exclusive line ownership, and complete coverage. Integration lead maintains end-to-end tests; each module owner covers their meaningful edge cases.
+Use `edu.comp3110.linetracker.ui` for future UI classes. Select old/new files, compare, display original text with line numbers and highlight all selected mapping lines, then export through Ali's formatter. Include labels alongside colors, errors and empty-result states. Clear stale results when inputs change. Run matching in a JavaFX Task; keep the core independent of JavaFX. Pin compatible JavaFX dependencies when implementing. CLI/GUI equivalence is required once integrated.
 
-## Bug-tracing extension
+## Bug tracing — Ayden and Ali
 
-After the base tool works: accept a repository and known bug-fix commit, compare its parent to the fix, identify changed/deleted pre-fix lines, and trace them through earlier revisions. Return candidate introducing commits with evidence, not claims of proven causation. Start with a single-parent, same-path case; document limits around renames, merge commits, mixed-purpose fixes, and refactoring. Commit keywords alone are weak evidence; manually verify selected bug fixes. Keep extension evaluation separate from line-mapping accuracy.
+Confirm whether required on Nov 3. If mandatory, start a small verified history example in Task 2 rather than waiting until the end. Compare a known bug-fix commit with its parent, identify pre-fix lines, trace backward and report candidate introducing commits with evidence. Initially restrict merge/rename complexity explicitly. Keywords alone do not establish that a commit fixes a bug or proves causation.
 
-## Java project layout
+## Verification and handoffs
 
-Use Maven conventions: `src/main/java/edu/comp3110/linetracker/` for production classes, `src/test/java/edu/comp3110/linetracker/` for JUnit tests, and `src/test/resources/` for small fixtures. Plan Jackson for JSON if external libraries are allowed. Add `pom.xml`, pinned dependency versions, a Maven wrapper, and executable JAR packaging in the first implementation milestone. Planned build commands are `./mvnw test` and `./mvnw package` (`mvnw.cmd` on Windows). They are not available in this planning scaffold yet.
-
-## JavaFX frontend — project owner
-
-Keep JavaFX classes in `edu.comp3110.linetracker.ui`; the matching core must not import JavaFX. A thin controller calls the same MappingPipeline used by the CLI.
-
-User flow: select old file, select new file, click Compare, inspect results, optionally export text or JSON. Show the two original files with one-based line numbers and a mapping table containing old line(s), new line(s), match kind, and similarity score. Selecting a mapping highlights the corresponding lines on both sides, including every line in a split. Display additions/deletions using labels as well as color.
-
-Disable Compare until both files are selected. Run comparison in a JavaFX background Task so the window remains responsive; update UI state on the JavaFX application thread. Show a busy indicator, readable file errors, and a clear empty/no-match state. When files change, clear stale results. Export only the completed result through the shared output formatter.
-
-First version excludes editing source files, repository browsing, and bug-history visualization. Add those only if needed after evaluation. Verify file selection, one-to-many highlights, error recovery, responsiveness, and export equivalence with CLI output. Pin compatible JavaFX/Maven dependencies when implementing; document platform-specific packaging.
+JUnit covers identical/blank/empty files, insertions/deletions with original numbering, entirely edited unmatched lines, stable duplicates, locale-independent normalization, known similarity values, invalid mapping coverage, split-shaped contracts, memory guards, UTF-8/CRLF input and CLI errors. CI runs Maven verify. The GUI, advanced matching, JSON export and real dataset evaluation cannot be validated until implemented. Development fixtures are synthetic and require teammate review; no benchmark accuracy claims are made.

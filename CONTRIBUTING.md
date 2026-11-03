@@ -1,7 +1,7 @@
 # Working together
 
-Use short-lived branches such as `ali/file-processing`, `aadi/candidates`, `mujtaba/dataset`, and `integration/pipeline`. Open pull requests into `main`; at least one other member reviews before merging. Prefer small changes that keep the pipeline usable.
+Use JDK 17+ and run `./mvnw verify` (`.\mvnw.cmd verify` on Windows). The wrapper downloads Maven on first use. Branch from current main using names such as `ayden/task-1-backend`, `aadi/task-1-frontend`, `ali/task-1-integration`, and `mujtaba/task-1-qa`. Open a pull request; have another teammate review before merging.
 
-Discuss shared-model changes before editing them. Each pull request explains the behavior changed and how it was verified. Keep data annotations separate from matching code when possible. Include dataset attribution and permission information. Do not upload credentials, personal data, or the professor's slides.
+Keep shared records and LineMatcher stable while teammates develop. Discuss necessary interface changes and update ARCHITECTURE.md with them. UI and evaluation should consume the shared result rather than implementing competing matching algorithms. Every contributor includes meaningful checks and documents limitations.
 
-Until a runnable package exists, development commands are proposals in the README. Add installation and test instructions when the first implementation is merged. Do not claim branch protections or CI exist until they are configured.
+Synthetic development fixtures are not benchmark data. Dataset gold labels must be verified independently, with provenance and permissions recorded. Do not upload credentials, personal data or the professor's slides. Do not mark tasks complete based solely on placeholder UI or fabricated accuracy numbers.
