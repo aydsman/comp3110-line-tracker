@@ -14,3 +14,9 @@ Typical flow: `task branch -> development -> reviewed release pull request -> ma
 Keep shared records and LineMatcher stable while teammates develop. Discuss necessary interface changes and update ARCHITECTURE.md with them. UI and evaluation should consume the shared result rather than implementing competing matching algorithms. Every contributor includes meaningful checks and documents limitations.
 
 Synthetic development fixtures are not benchmark data. Dataset gold labels must be verified independently, with provenance and permissions recorded. Do not upload credentials, personal data or the professor's slides. Do not mark tasks complete based solely on placeholder UI or fabricated accuracy numbers.
+
+## Before opening a pull request
+
+Run `./mvnw spotless:apply` to format Java, then `./mvnw clean verify` to check formatting, run tests and package the application (use `.\mvnw.cmd` on Windows). CI performs the same checks on Windows and Linux and uploads the JAR and test reports. Use the PR template and link the Trello task. See [getting started](docs/GETTING_STARTED.md) for a complete walkthrough.
+
+Dependency updates are proposed weekly into development through Dependabot after the configuration reaches the default branch; review and CI remain required. Both main and development require one approval and the aggregate test check.

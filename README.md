@@ -64,6 +64,7 @@ Two synthetic development fixture pairs are included. They are not the required 
 
 ## Project guide
 
+- [Getting started and CI downloads](docs/GETTING_STARTED.md)
 - [Architecture and interfaces](docs/ARCHITECTURE.md)
 - [Task 1–4 milestones and ownership](docs/PLAN.md)
 - [Dataset and evaluation protocol](docs/DATASET.md)
@@ -74,3 +75,7 @@ Two synthetic development fixture pairs are included. They are not the required 
 ## Branch workflow
 
 Use `development` for shared integration. Branch each task from development and open its pull request back into development. Promote reviewed, tested code to `main` through a separate release pull request. See CONTRIBUTING.md for the workflow.
+
+## Continuous integration
+
+Pull requests targeting development/main and branch pushes run formatting checks, JUnit tests and JAR packaging on Windows and Linux. The required `test` check passes only after both platforms succeed. Download JARs and reports from the workflow run artifacts (14-day retention). Use `./mvnw spotless:apply` (`.\mvnw.cmd spotless:apply` on Windows) to fix formatting locally. Weekly Dependabot updates target development once its configuration is present on the default branch.

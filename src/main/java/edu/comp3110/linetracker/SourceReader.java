@@ -6,9 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public final class SourceReader {
-    private SourceReader() { }
+  private SourceReader() {}
 
-    public static SourceFile read(Path path) throws IOException {
-        return SourceFile.fromLines(path.toString(), Files.readAllLines(path, StandardCharsets.UTF_8));
-    }
+  public static SourceFile read(Path path) throws IOException {
+    return SourceFile.fromLines(path.toString(), Files.readAllLines(path, StandardCharsets.UTF_8));
+  }
 }

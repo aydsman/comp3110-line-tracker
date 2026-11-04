@@ -1,8 +1,30 @@
 name: Java build
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+    branches: [development, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: java-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    name: Java (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            maven: ./mvnw
+          - os: windows-latest
+            maven: .\mvnw.cmd
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -10,4 +32,31 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - run: mvn --batch-mode verify
+      - name: Check formatting, test, and package
+        run: ${{ matrix.maven }} --batch-mode --no-transfer-progress clean verify
+      - name: Upload runnable baseline JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: line-tracker-${{ matrix.os }}
+          path: target/line-tracker.jar
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-${{ matrix.os }}
+          path: target/surefire-reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  test:
+    name: test
+    if: always()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require both platform builds to pass
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: test "$BUILD_RESULT" = "success"

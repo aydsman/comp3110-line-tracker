@@ -5,14 +5,16 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public final class MappingPipeline {
-    private final LineMatcher matcher;
+  private final LineMatcher matcher;
 
-    public MappingPipeline(LineMatcher matcher) { this.matcher = Objects.requireNonNull(matcher); }
+  public MappingPipeline(LineMatcher matcher) {
+    this.matcher = Objects.requireNonNull(matcher);
+  }
 
-    public MappingResult compare(Path oldPath, Path newPath, MatchConfig config) throws IOException {
-        SourceFile oldFile = SourceReader.read(oldPath), newFile = SourceReader.read(newPath);
-        MappingResult result = matcher.match(oldFile, newFile, config);
-        result.validate(oldFile.lines().size(), newFile.lines().size());
-        return result;
-    }
+  public MappingResult compare(Path oldPath, Path newPath, MatchConfig config) throws IOException {
+    SourceFile oldFile = SourceReader.read(oldPath), newFile = SourceReader.read(newPath);
+    MappingResult result = matcher.match(oldFile, newFile, config);
+    result.validate(oldFile.lines().size(), newFile.lines().size());
+    return result;
+  }
 }
