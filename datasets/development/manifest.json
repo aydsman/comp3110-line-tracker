@@ -1,0 +1,57 @@
+[
+  {
+    "id": "identical",
+    "old": "identical/old.txt",
+    "new": "identical/new.txt",
+    "expected": "identical/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review"
+  },
+  {
+    "id": "insert-delete",
+    "old": "insert-delete/old.txt",
+    "new": "insert-delete/new.txt",
+    "expected": "insert-delete/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review"
+  },
+  {
+    "id": "both-empty",
+    "old": "both-empty/old.txt",
+    "new": "both-empty/new.txt",
+    "expected": "both-empty/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review"
+  },
+  {
+    "id": "empty-to-content",
+    "old": "empty-to-content/old.txt",
+    "new": "empty-to-content/new.txt",
+    "expected": "empty-to-content/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review"
+  },
+  {
+    "id": "content-to-empty",
+    "old": "content-to-empty/old.txt",
+    "new": "content-to-empty/new.txt",
+    "expected": "content-to-empty/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review"
+  }
+]

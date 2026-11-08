@@ -1,0 +1,4 @@
+# Preserve downloaded source bytes so provenance checksums survive checkout.
+datasets/**/old.txt -text
+datasets/**/new.txt -text
+datasets/**/LICENSE* -text

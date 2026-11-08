@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "matches": [
+    {
+      "old_lines": [
+        1
+      ],
+      "new_lines": [
+        1
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        2
+      ],
+      "new_lines": [
+        2
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        3
+      ],
+      "new_lines": [
+        3
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        4
+      ],
+      "new_lines": [
+        4
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        5
+      ],
+      "new_lines": [
+        5
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        6
+      ],
+      "new_lines": [
+        6
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        7
+      ],
+      "new_lines": [
+        7
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        8
+      ],
+      "new_lines": [
+        8
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        9
+      ],
+      "new_lines": [
+        9
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        10
+      ],
+      "new_lines": [
+        10
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        11
+      ],
+      "new_lines": [
+        11
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        12
+      ],
+      "new_lines": [
+        12
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        13
+      ],
+      "new_lines": [
+        13
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        14
+      ],
+      "new_lines": [
+        14
+      ],
+      "kind": "unchanged"
+    }
+  ],
+  "deleted": [],
+  "added": []
+}
