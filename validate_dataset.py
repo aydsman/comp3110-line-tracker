@@ -10,7 +10,14 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def validate_case(manifest_path, case):
+def source_lines(path):
+    """Match Java readAllLines: CR/LF delimit lines, Unicode separators do not."""
+    text = path.read_text(encoding="utf-8")
+    lines = text.split("\n")
+    return lines[:-1] if text.endswith("\n") or not text else lines
+
+
+def validate_case(manifest_path, case, check_provenance=True):
     base = manifest_path.parent.resolve()
 
     def case_path(field):
@@ -21,8 +28,8 @@ def validate_case(manifest_path, case):
 
     old_path = case_path("old")
     new_path = case_path("new")
-    old_lines = old_path.read_text(encoding="utf-8").splitlines()
-    new_lines = new_path.read_text(encoding="utf-8").splitlines()
+    old_lines = source_lines(old_path)
+    new_lines = source_lines(new_path)
     expected = json.loads(case_path("expected").read_text(encoding="utf-8"))
     require(expected["schema_version"] == 1, "Unsupported schema version")
     ownership = {"old": [], "new": []}
@@ -35,6 +42,7 @@ def validate_case(manifest_path, case):
             ownership[side].extend(numbers)
         if group["kind"] == "split":
             require(len(group["old_lines"]) == 1 and len(group["new_lines"]) > 1, "Invalid split group")
+            require(group["new_lines"] == list(range(group["new_lines"][0], group["new_lines"][0] + len(group["new_lines"]))), "Split lines must be consecutive")
         else:
             require(len(group["old_lines"]) == len(group["new_lines"]) == 1, "Expected one-to-one group")
         if group["kind"] == "unchanged":
@@ -48,7 +56,7 @@ def validate_case(manifest_path, case):
         require(all(type(number) is int for number in expected[unmatched]), "Invalid unmatched line number")
         ownership[side].extend(expected[unmatched])
         require(sorted(ownership[side]) == list(range(1, len(lines) + 1)), f"{side}: bounds, duplicate ownership or missing coverage")
-    if not case.get("synthetic"):
+    if check_provenance and not case.get("synthetic"):
         for field in ("source_project", "source_url", "source_path", "old_revision", "new_revision", "license", "annotation_note", "annotator"):
             require(bool(case.get(field)), f"Missing provenance field: {field}")
         case_path("license_file")

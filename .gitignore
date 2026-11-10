@@ -8,3 +8,4 @@ target/
 !.env.example
 results/
 *.log
+__pycache__/
