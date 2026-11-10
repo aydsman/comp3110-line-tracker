@@ -127,5 +127,35 @@
     "annotation_note": "Line 1 changes the version literal. Blank line 2 is retained.",
     "old_sha256": "cbe8affaa25d987b16551e45b33630b0ca3501083caa9754d9a5399d3f92da84",
     "new_sha256": "4e4b742a721ec889671dd74e6b3f564a4922b25360a24240b84fa9e46a2b32aa"
+  },
+  {
+    "id": "is-stream-functions",
+    "old": "is-stream-functions/old.txt",
+    "new": "is-stream-functions/new.txt",
+    "expected": "is-stream-functions/expected.json",
+    "source_project": "is-stream",
+    "source_url": "https://github.com/sindresorhus/is-stream",
+    "source_path": "index.js",
+    "old_revision": "v2.0.1",
+    "new_revision": "v3.0.0",
+    "license": "MIT",
+    "old_source_url": "https://github.com/sindresorhus/is-stream/blob/v2.0.1/index.js",
+    "new_source_url": "https://github.com/sindresorhus/is-stream/blob/v3.0.0/index.js",
+    "license_file": "is-stream-functions/LICENSE",
+    "edit_categories": [
+      "function rewrite",
+      "function renaming",
+      "export rewrite",
+      "operator formatting",
+      "line insertion",
+      "line deletion"
+    ],
+    "annotator": "Codex draft for Mujtaba",
+    "reviewer": null,
+    "review_status": "pending teammate review",
+    "split": "development",
+    "annotation_note": "Pair corresponding function declarations and condition statements in order. Function properties writable/readable/duplex/transform become named exported functions. Returning conditions gain return and move && from line endings to following line beginnings. Added closing braces are new lines 5,12,19,24,29. Removed strict-mode directive and final CommonJS export are old lines 1 and 28. Delete leading/trailing separator blanks 2 and 27; retain inter-function separator blanks as 7->6,13->13,19->20,23->25. Duplicate blank identities are context-based and require peer review. No gold labels were generated from matcher predictions.",
+    "old_sha256": "14cddb2ce9959337b9f9f018ee57171ec8c4eacf1b27de9d5b5c268a2167288c",
+    "new_sha256": "a2910432ecbdd6ab7ae54aebeecc965ba39677275e59f563a73a885ca58d155d"
   }
 ]
