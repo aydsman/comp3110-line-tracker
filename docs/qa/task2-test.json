@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-10T18:57:06.833913+00:00",
+  "complete": true,
+  "manifest": "datasets\\new\\manifest.json",
+  "manifest_sha256": "401634ed91c84ded1b8ffea00a8f1c7a22e30014080c3e998fbbe0a7b6f76792",
+  "jar_sha256": "d0643d093a46337e265ef77e159c66c3adecac459efe17e2c4c4ba4d014d20a5",
+  "evaluator_sha256": "00b40d67785f681600f68f59c96d1eea0fa2e2cc998c273b3c18179272e1809d",
+  "validator_sha256": "9825997c8b6f85bb0a735d33b6d2f382cacf5ec1431dfba512d7a01f37ecfbb3",
+  "reported_code_revision": "2f133fc2e52799da717a70449b4a099aedbe30fc",
+  "reported_matcher_settings": {
+    "max_lcs_cells": 4000000
+  },
+  "java_version": "java version \"21.0.8\" 2025-07-15 LTS\nJava(TM) SE Runtime Environment (build 21.0.8+12-LTS-250)\nJava HotSpot(TM) 64-Bit Server VM (build 21.0.8+12-LTS-250, mixed mode, sharing)",
+  "python_version": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "command_template": [
+    "C:/Program Files/Java/jdk-21/bin/java.exe",
+    "-jar",
+    "C:\\Users\\vivvo\\Desktop\\comp 3110 project\\baseline\\target\\line-tracker.jar",
+    "map",
+    "OLD",
+    "NEW"
+  ],
+  "selected_split": "test",
+  "limitations": [
+    "Review status is recorded without granting approval.",
+    "Runtime includes JVM startup; one run per case.",
+    "Revision and settings are supplied by the caller; JAR checksum identifies the executed binary.",
+    "Text output supplies pairs only; split structure and unmatched lines are inferred. Match-kind labels are not scored.",
+    "Failed cases are excluded from pooled scores and make the run incomplete."
+  ],
+  "successful_cases": 5,
+  "failed_cases": 0,
+  "empty_expected_pair_cases": 0,
+  "micro_over_successful_cases": {
+    "true_positives": 57,
+    "expected_pairs": 82,
+    "predicted_pairs": 57,
+    "precision": 1.0,
+    "recall": 0.6951219512195121,
+    "f1": 0.8201438848920863
+  },
+  "expected_split_groups": 0,
+  "correct_split_groups": 0,
+  "split_group_exact_accuracy": null,
+  "unmatched_classification_accuracy": 0.7093023255813954,
+  "total_elapsed_ms_including_jvm_startup": 1045.5178999109194,
+  "cases": [
+    {
+      "case_id": "strip-bom",
+      "split": "test",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 14,
+      "new_line_count": 15,
+      "old_sha256": "0fde7fd5ccd93e8ab043ea2f9dca6ec52c6e15fa5d4c66ac135e32c82a64517f",
+      "new_sha256": "579b37538f5d25f6caa7f4c9755dabad2015665fda865a977432d319506408b7",
+      "expected_sha256": "c02c007535fcf2882b8d8225be71cff32e9cd59693915a2d70bee8ffe2e44f02",
+      "elapsed_ms_including_jvm_startup": 187.42940004449338,
+      "cli_stderr": "Unmatched old lines: [2, 3, 4, 9, 10, 13]\nUnmatched new lines: [2, 3, 4, 5, 10, 11, 14]\n",
+      "true_positives": 8,
+      "expected_pairs": 14,
+      "predicted_pairs": 8,
+      "precision": 1.0,
+      "recall": 0.5714285714285714,
+      "f1": 0.7272727272727273,
+      "missing_pairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          13,
+          14
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          1,
+          1
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "predicted_deleted": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        13
+      ],
+      "predicted_added": [
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        14
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 17,
+      "unmatched_classification_total": 29,
+      "unmatched_classification_accuracy": 0.5862068965517242
+    },
+    {
+      "case_id": "is-plain-obj",
+      "split": "test",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 10,
+      "new_line_count": 10,
+      "old_sha256": "33956f00aa90c4092fa66dd483ce864f7b8cbf3ac69da8ca653da994b56bb101",
+      "new_sha256": "d08af2c5c93d67eab4fa35666261d47a2e7b7786883afe6bf0b1a0e6403071fb",
+      "expected_sha256": "961d8be216d463dcad202e933e0d85f02b2c77f6227d2e80a6e06ee194c6d182",
+      "elapsed_ms_including_jvm_startup": 172.10909991990775,
+      "cli_stderr": "Unmatched old lines: [9]\nUnmatched new lines: [9]\n",
+      "true_positives": 9,
+      "expected_pairs": 10,
+      "predicted_pairs": 9,
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1": 0.9473684210526315,
+      "missing_pairs": [
+        [
+          9,
+          9
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "predicted_deleted": [
+        9
+      ],
+      "predicted_added": [
+        9
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 18,
+      "unmatched_classification_total": 20,
+      "unmatched_classification_accuracy": 0.9
+    },
+    {
+      "case_id": "is-unicode-supported",
+      "split": "test",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 11,
+      "new_line_count": 12,
+      "old_sha256": "9dc47d5771bd48268712e2d042a7c79bd744b3709342c29e42a258c2f81a7dbc",
+      "new_sha256": "e358656abeabf116431e181fbdc0da1c91aaf9c05e4b4b940ed95e9422128731",
+      "expected_sha256": "077b6ba923164c3e0168bca928b55e81b116eab8a3e3becd9fd0407924ffcd9b",
+      "elapsed_ms_including_jvm_startup": 165.11339996941388,
+      "cli_stderr": "Unmatched old lines: [3]\nUnmatched new lines: [3, 8]\n",
+      "true_positives": 10,
+      "expected_pairs": 11,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 0.9090909090909091,
+      "f1": 0.9523809523809523,
+      "missing_pairs": [
+        [
+          3,
+          3
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          11,
+          12
+        ]
+      ],
+      "predicted_deleted": [
+        3
+      ],
+      "predicted_added": [
+        3,
+        8
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 21,
+      "unmatched_classification_total": 23,
+      "unmatched_classification_accuracy": 0.9130434782608696
+    },
+    {
+      "case_id": "is-docker",
+      "split": "test",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 29,
+      "new_line_count": 29,
+      "old_sha256": "d739e3d2bc8d3fad2e185fadefe57b65a49f7a336846cd2498d164b142293ead",
+      "new_sha256": "c32307b9a081c55993f99175b82e30c7418e0d4e46b42131a01ea302ffbea9bd",
+      "expected_sha256": "f3e457ff9cb41fe677058595e9ae44c0fe92a588fb31cf3e31d2eaea5d875bd5",
+      "elapsed_ms_including_jvm_startup": 298.48280001897365,
+      "cli_stderr": "Unmatched old lines: [1, 2, 4, 10, 18, 23, 24, 25, 28, 29]\nUnmatched new lines: [1, 3, 9, 17, 22, 23, 24, 25, 28, 29]\n",
+      "true_positives": 19,
+      "expected_pairs": 28,
+      "predicted_pairs": 19,
+      "precision": 1.0,
+      "recall": 0.6785714285714286,
+      "f1": 0.8085106382978723,
+      "missing_pairs": [
+        [
+          2,
+          1
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          10,
+          9
+        ],
+        [
+          18,
+          17
+        ],
+        [
+          23,
+          22
+        ],
+        [
+          24,
+          24
+        ],
+        [
+          25,
+          25
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          12,
+          11
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          14,
+          13
+        ],
+        [
+          15,
+          14
+        ],
+        [
+          16,
+          15
+        ],
+        [
+          17,
+          16
+        ],
+        [
+          19,
+          18
+        ],
+        [
+          20,
+          19
+        ],
+        [
+          21,
+          20
+        ],
+        [
+          22,
+          21
+        ],
+        [
+          26,
+          26
+        ],
+        [
+          27,
+          27
+        ]
+      ],
+      "predicted_deleted": [
+        1,
+        2,
+        4,
+        10,
+        18,
+        23,
+        24,
+        25,
+        28,
+        29
+      ],
+      "predicted_added": [
+        1,
+        3,
+        9,
+        17,
+        22,
+        23,
+        24,
+        25,
+        28,
+        29
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 40,
+      "unmatched_classification_total": 58,
+      "unmatched_classification_accuracy": 0.6896551724137931
+    },
+    {
+      "case_id": "path-exists",
+      "split": "test",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 23,
+      "new_line_count": 19,
+      "old_sha256": "379a30047a60f8d7b3bbbc2fa1fa0362f53e11ab7e63859fedfa7f2e25a99601",
+      "new_sha256": "8c78dc9f3fa0ee26e03be54c33540829a60403bc0dd4022db8a1a7943be9556e",
+      "expected_sha256": "527142f6947349839be92cbf29079b19a5a56d8a0dbee908726e5303c2a4c65b",
+      "elapsed_ms_including_jvm_startup": 222.38319995813072,
+      "cli_stderr": "Unmatched old lines: [1, 2, 3, 4, 5, 7, 9, 11, 14, 16, 20, 23]\nUnmatched new lines: [1, 3, 5, 7, 10, 12, 16, 19]\n",
+      "true_positives": 11,
+      "expected_pairs": 19,
+      "predicted_pairs": 11,
+      "precision": 1.0,
+      "recall": 0.5789473684210527,
+      "f1": 0.7333333333333333,
+      "missing_pairs": [
+        [
+          2,
+          1
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          20,
+          16
+        ],
+        [
+          23,
+          19
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          6,
+          2
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          13,
+          9
+        ],
+        [
+          15,
+          11
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          18,
+          14
+        ],
+        [
+          19,
+          15
+        ],
+        [
+          21,
+          17
+        ],
+        [
+          22,
+          18
+        ]
+      ],
+      "predicted_deleted": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        14,
+        16,
+        20,
+        23
+      ],
+      "predicted_added": [
+        1,
+        3,
+        5,
+        7,
+        10,
+        12,
+        16,
+        19
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 26,
+      "unmatched_classification_total": 42,
+      "unmatched_classification_accuracy": 0.6190476190476191
+    }
+  ]
+}

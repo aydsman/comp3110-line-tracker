@@ -2,3 +2,5 @@
 datasets/**/old.txt -text
 datasets/**/new.txt -text
 datasets/**/LICENSE* -text
+datasets/**/expected.json text eol=lf
+datasets/**/manifest.json text eol=lf
