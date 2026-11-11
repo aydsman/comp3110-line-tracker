@@ -12,7 +12,7 @@ Options follow both paths and may appear in any order, once each. Quote paths co
 
 | Option | Default | Accepted value and effect |
 | --- | --- | --- |
-| `--advanced` | Off | Select Ayden's edited/moved matcher; otherwise use baseline LCS. |
+| `--advanced` | Off | Select Ayden's edited/moved/exact-split matcher; otherwise use baseline LCS. |
 | `--format` | `text` | `text` or `json`; both are produced by shared formatter APIs. |
 | `--output` | Standard output | Create a new UTF-8 file. Existing destinations are refused. |
 | `--max-lcs-cells` | `4000000` | Positive Java `long` within its representable range; LCS memory guard in both modes. |
@@ -69,7 +69,7 @@ The CLI prints unmatched old/new lists separately to standard error. Mujtaba's c
 }
 ```
 
-This illustrates the supported SPLIT model/export shape. Task 2's advanced backend produces unchanged, modified and moved results; automatic split detection belongs to Task 3.
+This illustrates the supported SPLIT model/export shape. The integrated Task 3 backend produces exact splits of 2–4 consecutive nonblank available new lines; see [architecture](ARCHITECTURE.md#split-detection-ayden-task-3) for reconstruction and priority rules.
 
 | Field | Meaning |
 | --- | --- |

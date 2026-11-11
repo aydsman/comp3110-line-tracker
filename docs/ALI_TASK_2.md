@@ -1,5 +1,7 @@
 # Ali Task 2 — advanced integration and exports
 
+This record describes Task 2 at `00550df219465dc69ea9c97bea50942bb9b4d9d6`. Later split integration and native packaging are recorded in [Task 3](ALI_TASK_3.md).
+
 Task: [Integrate advanced matching and implement CLI exports](https://trello.com/c/GGsWNjyQ). This branch combines Ali's [Task 1 PR #6](https://github.com/aydsman/comp3110-line-tracker/pull/6) with Ayden's [Task 2 PR #4](https://github.com/aydsman/comp3110-line-tracker/pull/4), retaining both histories. These dependencies still need teammate review and integration into `development`.
 
 ## Implemented handoff

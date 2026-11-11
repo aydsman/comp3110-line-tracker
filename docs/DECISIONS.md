@@ -6,7 +6,7 @@
 - Concrete shared records and LineMatcher interface in ARCHITECTURE.md; Ali coordinates subsequent contract changes.
 - Original one-based positions retained; comparison copies lowercase and collapse whitespace.
 - Deterministic LCS baseline with explicit unmatched lines and a 4-million-cell memory guard.
-- Normalized Levenshtein utility exposed for Task 2; no edited-line mappings claimed yet.
+- Normalized Levenshtein utility exposed for Task 2, whose advanced edited/moved matching is now integrated; Task 3 adds exact split reconstruction.
 - Ayden prepared initial infrastructure to unblock the team; ongoing ownership remains Ayden backend, Aadi frontend, Ali integration, Mujtaba QA.
 - Four per-person task sections due Nov 7, 12, 17 and final preparation Nov 19/submission Nov 20, 2026.
 - Two synthetic fixtures support development only and await independent review.
@@ -24,7 +24,7 @@ As of Nov 11, 2026, the rubric, existing benchmark source/access and whether bug
 
 ## Remaining team choices
 
-The Task 2 matcher uses the starting settings documented in ARCHITECTURE.md. Freeze the final threshold and split settings before held-out evaluation. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+Ayden's Task 3 source nominates the advanced defaults and exact reconstruction limit documented in ARCHITECTURE.md for evaluation. This branch preserves them without tuning on held-out answers. Independent review and agreement on the evaluation freeze remain outstanding. Select JavaFX dependencies when needed; current JSON exports have no runtime dependency. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
 
 ## Ali Task 1 integration decisions
 
@@ -45,6 +45,14 @@ These decisions describe this implementation for review. They do not assert unan
 - Parse all arguments before I/O. Exports create a new UTF-8 file; existing destinations, including aliases of inputs, are refused.
 - Keep prediction semantics separate from independently reviewed gold annotations. The current evaluator only consumes baseline text; advanced/JSON evaluation requires a separate QA update.
 - Keep actual JavaFX equivalence and optional bug-tracing acceptance open until the frontend and course requirements are available.
+
+## Ali Task 3 integration decisions
+
+- Integrate Ayden's exact 2–4-line split detector without changing its nominated defaults or claiming independent evaluation approval.
+- Build native CLI archives using `jlink` and only `java.base`, preserving runtime legal notices. Runtime architecture and OS are explicit; a package is tested on its own platform.
+- Pin Temurin 17.0.21+9 in CI, all build-lifecycle Maven plugin versions, and the JAR entry timestamp. The wrapper pins Maven 3.9.9 and its checksum. Native archives carry build time/platform metadata and are not claimed byte-identical across builds or operating systems.
+- Verify archives after extraction with no installed Java on `PATH`, including JSON, split groups, exports and error exits. Record the exact commit and JAR checksum in each bundle.
+- Keep frontend delivery, historical bug tracing if mandatory, independent teammate build/run evidence and peer approval open.
 
 ## Branch policy
 

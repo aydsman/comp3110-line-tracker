@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Install JDK 17 (newer JDKs may be used locally, but CI verifies JDK 17), Git, and an editor such as VS Code or IntelliJ. Set JAVA_HOME to the JDK directory if `java -version` does not work. The Maven wrapper downloads Maven 3.9.9 on first use; an internet connection is needed for the first build and dependency downloads. You do not need a separate Maven installation.
+Install Temurin JDK 17.0.21+9 (the CI version), Git, and an editor such as VS Code or IntelliJ. Set `JAVA_HOME` to the JDK directory. The Maven wrapper downloads Maven 3.9.9 and verifies its pinned checksum on first use; an internet connection is needed for the first build and dependency downloads. You do not need a separate Maven installation. Python 3.12 or newer is needed only to create/test native packages; the finished native packages need none of these development tools.
 
 ## Get the shared project
 
@@ -13,7 +13,7 @@ git switch development
 git pull --ff-only
 ```
 
-The initial foundation is delivered by PR #1. Until that PR is reviewed and merged into development, the runnable foundation is on `ayden/task-1-backend`. Do not assume main/development already contains unmerged files.
+The foundation and integration PRs remain subject to peer review. Until merged, use the relevant task branch explicitly: `ali/task-2-exports` for advanced matching/exports or `ali/task-3-package` for splits/native packaging. Do not assume main/development contains unmerged files. For a reproducible build, check out the exact reviewed commit as described in [PACKAGING.md](PACKAGING.md).
 
 ## Create your task branch
 
@@ -45,7 +45,7 @@ macOS/Linux:
 java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt datasets/development/insert-delete/new.txt
 ```
 
-`spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests and builds the runnable JAR. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error.
+`spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests, builds the runnable JAR and tests that executable through Failsafe. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error. Add `--advanced --format json` for advanced prediction groups, or `--output FILE` to create a new UTF-8 export. See [EXPORT_FORMAT.md](EXPORT_FORMAT.md).
 
 ## Submit work for review
 
@@ -57,12 +57,12 @@ git push -u origin yourname/task-1-description
 
 Open a GitHub pull request with development as the target. Fill in the PR template, link the Trello card, and wait for another teammate's approval and passing CI. Resolve feedback and merge only after those requirements are met. Do not request review from an account that cannot access the repository. If development advances, update your branch and recheck it before merging.
 
-Task branches flow into development. A separate reviewed release PR promotes development into main. Both branches require one approval and the `test` check, which depends on successful Windows and Linux builds. New commits dismiss stale approvals. Main is for reviewed stable releases; do not push directly to it.
+Task branches flow into development. A separate reviewed release PR promotes development into main. Follow the team's one-approval and `test`-check policy; the workflow's aggregate check now requires successful Windows, Linux and macOS builds including native-package tests. Main is for reviewed stable releases; do not push directly to it.
 
 ## CI downloads and dependencies
 
-Open the pull request's Checks tab or the repository Actions tab, select the Java build run, and download `line-tracker-ubuntu-latest` or `line-tracker-windows-latest` from Artifacts. Each contains the baseline JAR. Test reports are uploaded separately; artifacts expire after 14 days. The JAR still requires Java and currently provides CLI functionality only.
+Open the pull request's Checks tab or the repository Actions tab and select the Java build run for the desired commit. Artifacts named `line-tracker-native-<OS>-<ARCH>` contain the tested native archive with a bundled Java runtime. Choose your OS/CPU architecture and extract the archive before using its launcher; [PACKAGING.md](PACKAGING.md) gives build and run details. `line-tracker-<runner>` artifacts contain the standalone JAR, which still needs Java 17. Test reports are uploaded separately; artifacts expire after 14 days. The application currently provides CLI functionality only.
 
 Dependabot configuration proposes weekly Maven and GitHub Actions updates targeting development after the configuration exists on the default branch. Dependency updates require the same review and CI; they are not automatically merged. When the first reviewed release reaches main, verify Dependabot is active in the repository's dependency settings.
 
-The JavaFX UI, advanced matcher and final evaluation dataset remain separate tasks. See ARCHITECTURE.md for the shared interface before implementing them.
+The JavaFX UI and final evaluation dataset remain separate tasks. Baseline, advanced and split matching are integrated on the packaging branch. See ARCHITECTURE.md for the shared interface and current limitations.

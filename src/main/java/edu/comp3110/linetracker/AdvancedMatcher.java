@@ -10,7 +10,10 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-/** Retains the baseline anchors and recovers edited and moved lines from the unmatched lines. */
+/**
+ * Retains the baseline anchors and recovers edited, moved, and split lines from the unmatched
+ * lines.
+ */
 public final class AdvancedMatcher implements LineMatcher {
   private static final double CONTENT_WEIGHT = 0.6;
   private static final double CONTEXT_WEIGHT = 0.4;
@@ -75,17 +78,25 @@ public final class AdvancedMatcher implements LineMatcher {
     Set<Integer> usedOld = new HashSet<>();
     Set<Integer> usedNew = new HashSet<>();
     List<Match> matches = new ArrayList<>(baseline.matches());
-    for (Proposal proposal : proposals) {
-      if (usedOld.contains(proposal.oldNumber()) || usedNew.contains(proposal.newNumber()))
-        continue;
-      usedOld.add(proposal.oldNumber());
-      usedNew.add(proposal.newNumber());
-      matches.add(
-          new Match(
-              List.of(proposal.oldNumber()),
-              List.of(proposal.newNumber()),
-              proposal.exact() ? MatchKind.MOVED : MatchKind.MODIFIED,
-              proposal.score()));
+    int nextProposal = 0;
+    while (nextProposal < proposals.size() && proposals.get(nextProposal).exact()) {
+      accept(proposals.get(nextProposal++), usedOld, usedNew, matches);
+    }
+
+    List<Match> splits =
+        SplitDetector.find(
+            oldFile,
+            newFile,
+            baseline.deleted().stream().filter(number -> !usedOld.contains(number)).toList(),
+            baseline.added().stream().filter(number -> !usedNew.contains(number)).toList());
+    for (Match split : splits) {
+      usedOld.addAll(split.oldLines());
+      usedNew.addAll(split.newLines());
+      matches.add(split);
+    }
+
+    while (nextProposal < proposals.size()) {
+      accept(proposals.get(nextProposal++), usedOld, usedNew, matches);
     }
     matches.sort(Comparator.comparingInt(match -> match.oldLines().get(0)));
 
@@ -97,6 +108,19 @@ public final class AdvancedMatcher implements LineMatcher {
             config);
     result.validate(oldFile.lines().size(), newFile.lines().size());
     return result;
+  }
+
+  private static void accept(
+      Proposal proposal, Set<Integer> usedOld, Set<Integer> usedNew, List<Match> matches) {
+    if (usedOld.contains(proposal.oldNumber()) || usedNew.contains(proposal.newNumber())) return;
+    usedOld.add(proposal.oldNumber());
+    usedNew.add(proposal.newNumber());
+    matches.add(
+        new Match(
+            List.of(proposal.oldNumber()),
+            List.of(proposal.newNumber()),
+            proposal.exact() ? MatchKind.MOVED : MatchKind.MODIFIED,
+            proposal.score()));
   }
 
   private static PriorityQueue<Candidate> shortlist(

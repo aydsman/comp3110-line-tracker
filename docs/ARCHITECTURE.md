@@ -23,11 +23,13 @@ Package: `edu.comp3110.linetracker`. Production code is under `src/main/java`; J
 | LineMatcher | `match(SourceFile oldFile, SourceFile newFile, MatchConfig config)` | Ayden |
 | BaselineMatcher | Ordered normalized-equality LCS with stable old-first ties | Ayden |
 | AdvancedMatcher / SimHash | Recover edited/moved lines from unmatched candidates using content/context | Ayden |
+| SplitDetector | Exact reconstruction from two through four consecutive available nonblank new lines | Ayden |
 | ContentSimilarity | `score(String left, String right)`; 1 minus normalized Levenshtein distance | Ayden |
 | MappingPipeline | `compare(Path, Path, MatchConfig)` or `compare(SourceFile, SourceFile, MatchConfig)`; delegates and validates | Ali |
 | TextMappingFormatter | `format(MappingResult)` returns sorted `old-new` pairs separated by `\n` | Ali |
 | JsonMappingFormatter | `format(MappingResult)` returns versioned prediction JSON with groups, scores, unmatched lines and config | Ali |
 | Main | Selects mode/settings and exports text or JSON to stdout or a new file | Ali |
+| Native CLI packaging | Bundle the verified JAR, launcher and Java 17 runtime for the target system/architecture | Ali |
 | Future JavaFX UI | Calls same pipeline in a background task | Aadi |
 | Future evaluator | Compares predicted and manually verified mappings | Mujtaba |
 
@@ -37,12 +39,14 @@ Ali's Task 1 builds on that foundation with the loaded-source pipeline overload,
 
 Ali's Task 2 integrates Ayden's advanced matcher through the same interface and adds shared JSON serialization, explicit CLI settings and text/JSON file exports. Algorithm authorship remains Ayden's; integration and output are Ali's. JavaFX and QA dataset integration require separate handoffs.
 
+Ali's Task 3 integrates Ayden's exact split detector and adds native CLI packaging with runtime/build metadata and archive smoke checks. Existing pipeline and export contracts are retained. Building an archive is distinct from testing it on its target platform or completing the GUI/course-evidence handoffs.
+
 ## Records and invariants
 
 - `SourceLine(int number, String original, String normalized)` uses one-based original positions.
 - `SourceFile(String path, List<SourceLine> lines)` requires consecutive original line numbers, starting at 1. `fromLines` builds valid comparison copies.
 - `Match(List<Integer> oldLines, List<Integer> newLines, MatchKind kind, double score)` has one old line and one new line, or one old line and multiple consecutive new lines for SPLIT. Score is finite in [0,1], not a probability.
-- `MatchKind`: UNCHANGED, MODIFIED, MOVED, SPLIT. The baseline produces UNCHANGED; advanced Task 2 also produces MODIFIED and MOVED. JSON uses lowercase names. Both formatters preserve SPLIT groups supplied by a matcher; automatic split detection is Task 3 work.
+- `MatchKind`: UNCHANGED, MODIFIED, MOVED, SPLIT. The baseline produces UNCHANGED; advanced mode also produces MODIFIED, MOVED and SPLIT. JSON uses lowercase names and preserves complete groups; text expands a split into one pair per new line.
 - `MappingResult(List<Match> matches, List<Integer> deleted, List<Integer> added, MatchConfig config)` copies its lists. Call `validate(oldCount,newCount)` to enforce line bounds, complete coverage and exclusive ownership. MappingPipeline rejects null results or a result with a different config, then validates before returning.
 - `deleted` / `added` mean unmatched old/new lines at the current stage. Modified-line candidates remain in these lists until advanced matching resolves them. Match order from the baseline is increasing by original line number.
 - `MatchConfig(long maxLcsCells, int candidateLimit, int contextRadius, double minimumScore)` retains the one-argument constructor. Defaults are 4,000,000 cells, 15 candidates, context radius 4 and minimum score 0.65. The JSON config stores these actual requested values.
@@ -84,17 +88,31 @@ BaselineMatcher computes an LCS of normalized lines. On tied alternatives it adv
 
 ContentSimilarity accepts comparison strings and calculates `1 - distance/max(lengths)`. Empty/empty is 1, one empty is 0. Inputs are Java UTF-16 code units; memory is O(min(lengths)), time O(length1*length2). The baseline does not greedily map similar edited lines yet.
 
-## Advanced matching (Ayden Task 2)
+## Advanced matching (Ayden Tasks 2–3)
 
 AdvancedMatcher retains all LCS anchors and considers the remaining nonblank lines. It builds weighted 64-bit SimHash fingerprints over normalized character trigrams and context-token counts. Context uses up to four original lines on each side, including lines already matched by LCS, and excludes the current line. Context tokens are runs of Unicode letters, marks, digits and underscores, or individual non-whitespace punctuation characters.
 
-Each unmatched old line retains at most 15 candidates by default. Exact normalized matches rank first, then weighted Hamming distance and ascending new line number. Exact scoring uses 60% normalized Levenshtein content similarity and 40% cosine context similarity. A single empty context contributes zero similarity. If both contexts are empty, the score is content similarity. Edited proposals require content similarity of at least 0.5 and a combined score of at least 0.65 by default. These are starting values for development evaluation.
+Each unmatched old line retains at most 15 candidates by default. Exact normalized matches rank first, then weighted Hamming distance and ascending new line number. Exact scoring uses 60% normalized Levenshtein content similarity and 40% cosine context similarity. A single empty context contributes zero similarity. If both contexts are empty, the score is content similarity. Edited proposals require content similarity of at least 0.5 and a combined score of at least 0.65 by default. These retain the defaults Ayden nominated for Task 3 evaluation; independently approved evaluation-freeze evidence is still outstanding.
 
-Resolution takes exact proposals before edits, then descending score, ascending old line number and ascending new line number. Each accepted pair consumes its two lines. Exact pairs recovered outside LCS are labeled MOVED and fuzzy pairs MODIFIED. The result preserves original positions, is sorted by old line number, and accounts for every line exactly once. Candidate pruning and greedy resolution can miss a valid match. Both modes retain the baseline LCS memory guard.
+Resolution accepts exact moves first, then exact split reconstructions, then fuzzy edits. Within the one-to-one stages, proposals sort by descending score, ascending old line number, then ascending new line number. Each accepted pair consumes its two lines. Exact pairs recovered outside LCS are labeled MOVED and fuzzy pairs MODIFIED. The result preserves original positions, is sorted by old line number, and accounts for every line exactly once. Candidate pruning and greedy resolution can miss a valid match. Both modes retain the baseline LCS memory guard.
 
-Call the shared pipeline with AdvancedMatcher or run the CLI with --advanced. Existing calls and the one-argument MatchConfig constructor keep their behavior. Candidate limit, context radius and minimum combined score are configurable in MatchConfig. Split detection and evaluation-based settings freeze are Task 3.
+Call the shared pipeline with AdvancedMatcher or run the CLI with --advanced. Existing calls and the one-argument MatchConfig constructor keep their behavior. Candidate limit, context radius and minimum combined score are configurable in MatchConfig.
 
-Ayden's Task 2 implementation is now integrated through the existing `LineMatcher` interface and `MappingPipeline(LineMatcher)` constructor. Existing baseline calls and the one-argument `MatchConfig` constructor remain available. Backend results retain the requested config and pass the same coverage checks. [Ali's Task 1 verification record](ALI_TASK_1.md#verification-record) describes the earlier isolated API compatibility check; current Task 2 build results must be recorded for the submitted revision separately.
+## Split detection (Ayden Task 3)
+
+After retaining the LCS anchors and resolving exact moves, the matcher checks each remaining old line for two to four consecutive, nonblank, available new lines. The fragments must reconstruct the normalized old line exactly. A break can replace one normalized space or occur directly between characters. An anchor, a move, a previously consumed fragment, or a blank line ends the candidate range.
+
+Old lines are considered in ascending order. If multiple ranges reconstruct a line, choose the nearest starting line, then the earlier start on a tie. A successful reconstruction consumes its complete range before fuzzy proposals are accepted. The result uses SPLIT with score 1 and the CLI emits each original one-based pair. The shared result validator checks exclusive line ownership and complete coverage.
+
+The code fixes the split cap at four and retains Task 2 defaults: 15 candidates, four context lines per side, 0.65 minimum combined score, 0.5 minimum content score, and 60/40 content/context weights. Ayden's source documents call these settings frozen; that records the implementation choice, not independent team approval or completed evaluation. Regressions cover exact reconstruction, spaces at breakpoints, conflicts, anchors, exact moves, blanks, size limits, and CLI output. This implementation targets line wrapping without further edits; it does not provide fuzzy split reconstruction or many-to-one merging. The split cap is a code constant, not a `MatchConfig` or CLI field.
+
+Ayden's Task 2 and Task 3 implementations use the existing `LineMatcher` interface and `MappingPipeline(LineMatcher)` constructor. Existing baseline calls and the one-argument `MatchConfig` constructor remain available. Backend results retain the requested config and pass the same coverage checks. [Ali's Task 1 verification record](ALI_TASK_1.md#verification-record) describes the earlier isolated API compatibility check; current integration and package results must be recorded for their actual submitted revisions separately.
+
+## Native CLI packaging — Ali Task 3
+
+The packaging workflow starts from a clean-checkout Maven `verify` build and bundles its JAR with a native Java 17 `java.base` runtime created by `jlink`. It includes platform launchers, synthetic examples, usage instructions, runtime legal notices and build metadata identifying the commit, dirty state, JDK, target system/architecture and JAR checksum. macOS/Linux archives preserve executable permissions using tar.gz; Windows uses ZIP. Each bundle is built and tested on its own target platform.
+
+Archive smoke checks exercise the extracted launcher from a separate directory with no system Java available, including text/JSON, advanced split groups, exports and error codes. See [PACKAGING.md](PACKAGING.md) for the pinned build toolchain, clean-checkout commands and exact checks. The distribution supplies the CLI. A real JavaFX frontend, a reviewed release and confirmation of whether bug tracing is mandatory remain outstanding. No native-platform success follows merely from adding the packaging scripts.
 
 ## JavaFX — Aadi
 
@@ -108,6 +126,6 @@ The planned Nov 3 confirmation is still outstanding as of Nov 11, 2026. If manda
 
 ## Verification and handoffs
 
-Ayden's JUnit suites cover the baseline and advanced edited/moved recovery, candidate pruning, deterministic conflicts and compatibility. Ali's checks exercise pipeline boundaries, shared text/JSON formatting, locale independence, Unicode boundary whitespace and the actual packaged CLI. JSON tests include empty/unmatched results, all match kinds, split preservation, settings and deterministic sorting without mutating input. Maven Failsafe runs packaged-JAR integration tests during `verify`, after packaging; `package` alone is insufficient.
+Ayden's JUnit suites cover the baseline, advanced edited/moved recovery, exact splits, candidate pruning, deterministic conflicts and compatibility. Ali's checks exercise pipeline boundaries, shared text/JSON formatting, locale independence, Unicode boundary whitespace and the actual packaged CLI. JSON tests include empty/unmatched results, all match kinds, split preservation, settings and deterministic sorting without mutating input. Maven Failsafe runs packaged-JAR integration tests during `verify`, after packaging; `package` alone is insufficient. Native archive checks follow packaging and must be recorded separately.
 
-Record results for the actual reviewed Task 2 revision in its pull request; prior Task 1 evidence remains in [the Task 1 handoff](ALI_TASK_1.md). The GUI and real dataset evaluation are outside this branch's evidence. Development fixtures are synthetic and require teammate review; no benchmark accuracy claims are made. Mujtaba's existing evaluator reads default baseline text only and cannot select the advanced CLI flag without its own update.
+Record integration and native-package results for the actual reviewed Task 3 revision in its pull request; prior evidence remains in [the Task 1 handoff](ALI_TASK_1.md) and [Task 2 handoff](ALI_TASK_2.md). The GUI and real dataset evaluation are outside this branch's evidence. Development fixtures are synthetic and require teammate review; no benchmark accuracy claims are made. Mujtaba's existing evaluator reads default baseline text only and cannot select the advanced CLI flag without its own update.

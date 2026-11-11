@@ -10,7 +10,7 @@ public final class Main {
   private static final String USAGE =
       """
       Usage: line-tracker map OLD NEW [options]
-        --advanced                 Recover edited and moved lines
+        --advanced                 Recover edited, moved and split lines
         --format text|json         Output format (default: text)
         --output FILE              Create a new UTF-8 export file instead of stdout
         --max-lcs-cells N          LCS memory guard (default: 4000000)
