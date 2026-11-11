@@ -24,7 +24,7 @@ As of Nov 11, 2026, the rubric, existing benchmark source/access and whether bug
 
 ## Remaining team choices
 
-Before Task 2 integration freeze tokenization, SimHash details, context empty-vector handling, threshold, conflict tie rules and split limits. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+The Task 2 matcher uses the starting settings documented in ARCHITECTURE.md. Freeze the final threshold and split settings before held-out evaluation. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
 
 ## Ali Task 1 integration decisions
 
@@ -37,6 +37,14 @@ Before Task 2 integration freeze tokenization, SimHash details, context empty-ve
 - Keep foundation fixtures intact until QA integration deliberately resolves the different two-line/three-line `identical` cases. Draft annotation metadata remains pending teammate review.
 
 These decisions describe this implementation for review. They do not assert unanimous team agreement, instructor approval, reviewed gold labels or successful JavaFX integration.
+
+## Ali Task 2 integration decisions
+
+- Preserve `map OLD NEW` as baseline text for existing QA consumers; advanced matching and JSON are explicit options.
+- Serialize prediction groups using versioned snake_case JSON with finite numeric scores and all requested config fields. Retain groups in JSON and expand groups in text; use the same formatters for future GUI exports.
+- Parse all arguments before I/O. Exports create a new UTF-8 file; existing destinations, including aliases of inputs, are refused.
+- Keep prediction semantics separate from independently reviewed gold annotations. The current evaluator only consumes baseline text; advanced/JSON evaluation requires a separate QA update.
+- Keep actual JavaFX equivalence and optional bug-tracing acceptance open until the frontend and course requirements are available.
 
 ## Branch policy
 

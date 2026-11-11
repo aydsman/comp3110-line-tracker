@@ -23,6 +23,8 @@ The implementation can be assessed independently of the missing JavaFX frontend.
 
 ## Early handoffs
 
+Ali's Task 2 combines the Task 1 pipeline with Ayden's advanced matcher and adds shared JSON/text exports, CLI settings and safe file output. See [Task 2's handoff](ALI_TASK_2.md). Actual frontend integration, peer review and instructor confirmations remain outstanding.
+
 The original handoff targets were Nov 3 for shared-contract review and professor questions, Nov 4 for independently reviewed tiny fixtures, and Nov 7 for a real pipeline/frontend comparison. These are targets, not evidence that the handoffs happened. Ali coordinates contract changes. Aadi can use sample MappingResult records while developing the UI, then use the loaded-source pipeline overload and shared formatter for real results.
 
 During QA integration, reconcile the same-path `datasets/development/identical` conflict: Ayden's fixture has three lines and a dependent three-match assertion; Mujtaba's branch has a different two-line fixture. Preserve the fixture with its matching expected answers and tests, or keep both under distinct case IDs. Neither branch's draft labels establish independent teammate review.

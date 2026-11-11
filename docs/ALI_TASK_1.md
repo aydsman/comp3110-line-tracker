@@ -1,5 +1,7 @@
 # Ali Task 1 — baseline integration handoff
 
+This is the Task 1 record at revision `a2c5f16679cc5d5fea508fbcb42e9bee52837dff`. Later advanced integration and exports are recorded in [Task 2](ALI_TASK_2.md).
+
 Task: [Define shared contracts and integrate the baseline](https://trello.com/c/NY0coQuT). This work builds on Ayden's Java foundation in [pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1). That foundation is an unmerged dependency; its Maven setup, models, reader, baseline algorithm, original pipeline/CLI and tests remain Ayden's contribution. Ali owns the integration changes described below.
 
 ## Scope and public handoff

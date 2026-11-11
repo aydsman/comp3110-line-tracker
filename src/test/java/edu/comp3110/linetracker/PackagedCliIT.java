@@ -85,7 +85,8 @@ class PackagedCliIT {
 
     assertEquals(2, result.exitCode());
     assertEquals("", result.stdout());
-    assertEquals("Usage: java -jar target/line-tracker.jar map OLD NEW\n", result.stderr());
+    assertTrue(result.stderr().contains("Usage:"), result.stderr());
+    assertTrue(result.stderr().contains("--format"), result.stderr());
   }
 
   private static void assertComparisonFailure(CliResult result, String detailPrefix) {
