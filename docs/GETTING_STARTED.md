@@ -47,6 +47,12 @@ java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt
 
 `spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests and builds the runnable JAR. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error.
 
+## Run the JavaFX comparison shell
+
+On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files and click **Compare**. The side-by-side panes show the original lines with their 1-based numbers. Below them, the baseline pairs use the same old–new numbering as the CLI and the status shows unmatched counts.
+
+For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show pairs `1-2` and `3-3`, one unmatched old line, and two unmatched new lines.
+
 ## Submit work for review
 
 ```text
@@ -65,4 +71,4 @@ Open the pull request's Checks tab or the repository Actions tab, select the Jav
 
 Dependabot configuration proposes weekly Maven and GitHub Actions updates targeting development after the configuration exists on the default branch. Dependency updates require the same review and CI; they are not automatically merged. When the first reviewed release reaches main, verify Dependabot is active in the repository's dependency settings.
 
-The JavaFX UI, advanced matcher and final evaluation dataset remain separate tasks. See ARCHITECTURE.md for the shared interface before implementing them.
+The advanced matcher, further JavaFX work and final evaluation dataset remain separate tasks. See ARCHITECTURE.md for the shared interface before implementing them.
