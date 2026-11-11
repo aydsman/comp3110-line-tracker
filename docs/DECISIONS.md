@@ -22,7 +22,7 @@
 
 ## Remaining team choices
 
-The Task 2 matcher uses the starting settings documented in ARCHITECTURE.md. Freeze the final threshold and split settings before held-out evaluation. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+Task 3 freezes the advanced matching thresholds and exact reconstruction limit documented in ARCHITECTURE.md before running the reserved QA cases. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
 
 ## Branch policy
 

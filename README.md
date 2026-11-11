@@ -4,7 +4,7 @@ Track corresponding source-code lines between two versions of a file using a Jav
 
 ## Status
 
-The Java 17/Maven foundation and backend Task 1 are implemented: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, result validation, and a runnable baseline CLI. Task 2 adds opt-in matching for edited and moved lines. Split detection, the JavaFX frontend and JSON exports remain planned. No benchmark accuracy results have been produced.
+The Java 17/Maven foundation and backend Task 1 are implemented: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, result validation, and a runnable baseline CLI. Advanced mode recovers edited, moved, and split lines. The JavaFX frontend and JSON exports remain planned. No benchmark accuracy results have been produced.
 
 ## Team
 
@@ -42,7 +42,7 @@ Expected standard output:
 3-3
 ```
 
-Unmatched old/new lines are printed on standard error (for this fixture: old `[2]`, new `[1, 4]`). Exit codes: 0 success, 1 comparison/file error, 2 incorrect usage. Use `map OLD NEW --advanced` to recover edited and moved lines. Omitting the flag uses the baseline for repeatable comparisons.
+Unmatched old/new lines are printed on standard error (for this fixture: old `[2]`, new `[1, 4]`). Exit codes: 0 success, 1 comparison/file error, 2 incorrect usage. Use `map OLD NEW --advanced` to recover edited, moved, and split lines. A split prints one pair per target line, for example `4-8` and `4-9`. Omitting the flag uses the baseline for repeatable comparisons.
 
 ## Shared interface
 
