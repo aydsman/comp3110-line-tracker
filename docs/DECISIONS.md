@@ -22,7 +22,7 @@
 
 ## Remaining team choices
 
-Before Task 2 integration freeze tokenization, SimHash details, context empty-vector handling, threshold, conflict tie rules and split limits. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+The Task 2 matcher uses the starting settings documented in ARCHITECTURE.md. Freeze the final threshold and split settings before held-out evaluation. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
 
 ## Branch policy
 

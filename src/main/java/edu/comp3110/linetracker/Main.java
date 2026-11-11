@@ -12,13 +12,14 @@ public final class Main {
   }
 
   public static int run(String[] args, PrintStream out, PrintStream err) {
-    if (args.length != 3 || !args[0].equals("map")) {
-      err.println("Usage: java -jar target/line-tracker.jar map OLD NEW");
+    boolean advanced = args.length == 4 && args[3].equals("--advanced");
+    if ((args.length != 3 && !advanced) || !args[0].equals("map")) {
+      err.println("Usage: java -jar target/line-tracker.jar map OLD NEW [--advanced]");
       return 2;
     }
     try {
       var result =
-          new MappingPipeline(new BaselineMatcher())
+          new MappingPipeline(advanced ? new AdvancedMatcher() : new BaselineMatcher())
               .compare(Path.of(args[1]), Path.of(args[2]), MatchConfig.DEFAULT);
       for (Match match : result.matches())
         for (int oldLine : match.oldLines())
