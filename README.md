@@ -4,7 +4,9 @@ Track corresponding source-code lines between two versions of a file using a Jav
 
 ## Status
 
-The Java 17/Maven foundation and backend Task 1 are implemented: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, result validation, and a runnable baseline CLI. Advanced matching, the JavaFX frontend, JSON exports and dataset evaluation are still planned. No benchmark accuracy results have been produced.
+This branch integrates the Java 17/Maven foundation and Ayden's Task 1 baseline: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, and a runnable CLI. Ali's Task 1 adds a validated pipeline for paths or already loaded files, file errors that identify the affected input, and shared canonical text formatting. `verify` includes tests of the packaged JAR.
+
+The foundation depends on [Ayden's unmerged pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1). Advanced matching and QA evaluation exist on separate feature branches and are not integrated here. The JavaFX frontend and JSON exports are outside this branch. No benchmark accuracy is claimed. See [Ali's Task 1 handoff](docs/ALI_TASK_1.md) for acceptance evidence and outstanding reviews/course confirmations.
 
 ## Team
 
@@ -44,15 +46,18 @@ Expected standard output:
 
 Unmatched old/new lines are printed on standard error (for this fixture: old `[2]`, new `[1, 4]`). Exit codes: 0 success, 1 comparison/file error, 2 incorrect usage. The CLI currently supports only `map OLD NEW`; JSON and evaluate commands are not implemented.
 
+Use `./mvnw clean verify` (`.\mvnw.cmd clean verify` on Windows) for a clean build, unit tests, packaging, and integration tests that launch `target/line-tracker.jar`. The `package` phase alone does not run the packaged-JAR integration tests.
+
 ## Shared interface
 
 ```java
 LineMatcher matcher = new BaselineMatcher();
 MappingResult result = new MappingPipeline(matcher)
     .compare(oldPath, newPath, MatchConfig.DEFAULT);
+String pairs = TextMappingFormatter.format(result);
 ```
 
-All public core classes live in `edu.comp3110.linetracker`. Aadi should call the pipeline from a JavaFX background task; Ali can inject a future advanced matcher through LineMatcher without duplicating algorithms. See [architecture](docs/ARCHITECTURE.md) for data contracts.
+All public core classes live in `edu.comp3110.linetracker`. The pipeline also accepts `compare(SourceFile oldFile, SourceFile newFile, MatchConfig config)` so a frontend can display and compare the same loaded source records. Both overloads enforce the same result contract. Aadi should load and compare files in a JavaFX background task; Ali can inject an advanced matcher through the existing `LineMatcher` constructor without changing the UI. See [architecture](docs/ARCHITECTURE.md) for models, errors, and handoff examples.
 
 ## Project goals and limits
 
@@ -60,12 +65,13 @@ Produce original one-based line mappings, contribute a verified dataset of at le
 
 The baseline matches normalized equality in order. It does not yet identify modified/moved/split lines; its unmatched lines are candidates for later matching, not proof of semantic addition/deletion. Normalization lowercases and collapses whitespace even inside strings/comments, so an `UNCHANGED` result means normalized equality, not identical bytes or behavior. Original text is always retained. LCS uses O(n*m) time and memory with a configurable 4-million-cell default guard; oversized comparisons fail clearly. Content similarity uses Java UTF-16 code units and does not claim semantic equivalence.
 
-Two synthetic development fixture pairs are included. They are not the required evaluation dataset and await independent teammate review.
+Two synthetic development fixture pairs are included. They are not the required evaluation dataset and await independent teammate review. Mujtaba's QA branch uses the same `identical` fixture path for a different two-line example; this branch retains Ayden's three-line example. Reconcile that conflict explicitly during QA integration. Rubric, existing benchmark access, and mandatory bug-tracing scope remain unconfirmed.
 
 ## Project guide
 
 - [Getting started and CI downloads](docs/GETTING_STARTED.md)
 - [Architecture and interfaces](docs/ARCHITECTURE.md)
+- [Ali's Task 1 evidence and handoff](docs/ALI_TASK_1.md)
 - [Task 1–4 milestones and ownership](docs/PLAN.md)
 - [Dataset and evaluation protocol](docs/DATASET.md)
 - [Decisions and professor questions](docs/DECISIONS.md)
@@ -78,4 +84,4 @@ Use `development` for shared integration. Branch each task from development and 
 
 ## Continuous integration
 
-Pull requests targeting development/main and branch pushes run formatting checks, JUnit tests and JAR packaging on Windows and Linux. The required `test` check passes only after both platforms succeed. Download JARs and reports from the workflow run artifacts (14-day retention). Use `./mvnw spotless:apply` (`.\mvnw.cmd spotless:apply` on Windows) to fix formatting locally. Weekly Dependabot updates target development once its configuration is present on the default branch.
+The workflow defines `verify` on Windows and Linux for pull requests targeting development/main and branch pushes, covering formatting, unit tests, JAR packaging and integration tests. The aggregate `test` check depends on both platforms. Check the actual run for the submitted commit before claiming CI success. Download JARs and available reports from that run's artifacts (14-day retention). Use `./mvnw spotless:apply` (`.\mvnw.cmd spotless:apply` on Windows) to fix formatting locally. Weekly Dependabot updates target development once its configuration is present on the default branch.

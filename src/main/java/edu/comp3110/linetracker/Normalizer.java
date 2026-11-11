@@ -8,8 +8,8 @@ public final class Normalizer {
 
   public static String normalize(String text) {
     return Objects.requireNonNull(text)
-        .strip()
         .replaceAll("(?U)\\s+", " ")
+        .strip()
         .toLowerCase(Locale.ROOT);
   }
 }

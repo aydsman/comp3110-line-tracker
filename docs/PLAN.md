@@ -13,11 +13,19 @@ Every person has a Task 1, 2, 3 and 4. Trello deadlines are planning deadlines a
 
 The initial Maven project, shared records/interface, reader/normalizer, baseline pipeline and CLI, meaningful JUnit tests, CI definition and two synthetic development pairs are implemented on the foundation branch. This overlaps initial setup under Ali's Task 1 to unblock work; Ali remains the integration owner. The fixtures do not replace Mujtaba's independent annotation/review or the final dataset.
 
-Ayden's backend Task 1 implementation is ready for review. The team-level Nov 7 integration acceptance still requires Aadi's frontend and Ali's integration. Do not mark the complete end-to-end milestone Done before that handoff is verified.
+Ayden's backend Task 1 foundation is in [pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1), which remains an unmerged dependency of Ali's integration branch. Preserve its history and attribution; merge through the team's reviewed development workflow.
+
+## Ali's Task 1 integration
+
+Ali retains the foundation's public models and CLI syntax, adds a pipeline overload for already loaded sources, validates matcher output/config at the integration boundary, gives path-read failures old/new input context, and shares canonical text formatting with future UI callers. The normalization change removes Unicode whitespace at line boundaries consistently. Maven `verify` also launches the packaged JAR for integration checks. See [the Task 1 acceptance and handoff record](ALI_TASK_1.md).
+
+The implementation can be assessed independently of the missing JavaFX frontend. The team-level Nov 7 integration acceptance still requires Aadi's real frontend handoff and another teammate's review. Shared-model agreement, independently reviewed QA fixtures, rubric, existing benchmark and mandatory bug-tracing scope are still outstanding as of Nov 11, 2026. Do not mark the complete end-to-end milestone Done before these gaps are resolved.
 
 ## Early handoffs
 
-Nov 3: everyone reviews the concrete shared contracts in ARCHITECTURE.md; Ali coordinates any necessary changes. Confirm language/library/AI rules, the old dataset, deadline/rubric and bug-tracing scope with the professor. Nov 4: Mujtaba independently reviews or replaces the tiny fixtures and supplies expected mappings. Nov 7: demonstrate a real comparison through the shared pipeline and frontend. Aadi can use sample MappingResult records while developing the UI.
+The original handoff targets were Nov 3 for shared-contract review and professor questions, Nov 4 for independently reviewed tiny fixtures, and Nov 7 for a real pipeline/frontend comparison. These are targets, not evidence that the handoffs happened. Ali coordinates contract changes. Aadi can use sample MappingResult records while developing the UI, then use the loaded-source pipeline overload and shared formatter for real results.
+
+During QA integration, reconcile the same-path `datasets/development/identical` conflict: Ayden's fixture has three lines and a dependent three-match assertion; Mujtaba's branch has a different two-line fixture. Preserve the fixture with its matching expected answers and tests, or keep both under distinct case IDs. Neither branch's draft labels establish independent teammate review.
 
 Task 2 uses baseline outputs while advanced matching is developed, so frontend and evaluator work do not wait for the final matcher. If bug tracing is required, Ayden and Ali begin its design/example in Task 2. Task 3 evaluation uses frozen settings; every change afterward must trigger relevant reruns. Task 4 submission depends on Mujtaba's QA sign-off and the exact final release commit.
 

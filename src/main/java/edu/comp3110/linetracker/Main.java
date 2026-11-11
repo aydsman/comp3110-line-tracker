@@ -20,9 +20,7 @@ public final class Main {
       var result =
           new MappingPipeline(new BaselineMatcher())
               .compare(Path.of(args[1]), Path.of(args[2]), MatchConfig.DEFAULT);
-      for (Match match : result.matches())
-        for (int oldLine : match.oldLines())
-          for (int newLine : match.newLines()) out.println(oldLine + "-" + newLine);
+      out.print(TextMappingFormatter.format(result));
       err.println("Unmatched old lines: " + result.deleted());
       err.println("Unmatched new lines: " + result.added());
       return 0;

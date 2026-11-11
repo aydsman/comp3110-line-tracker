@@ -13,6 +13,8 @@
 
 ## Confirm with the professor
 
+As of Nov 11, 2026, the rubric, existing benchmark source/access and whether bug tracing is mandatory remain unconfirmed. The repository and Trello plan do not supply those answers. Keep the following questions open; implementation progress does not resolve them.
+
 1. Is bug tracing mandatory, and is exact LHDiff reproduction required?
 2. Where are the existing benchmark dataset and reference implementation/paper?
 3. Does the new dataset require 25 distinct old/new file pairs, and are synthetic mutations acceptable?
@@ -23,6 +25,18 @@
 ## Remaining team choices
 
 Before Task 2 integration freeze tokenization, SimHash details, context empty-vector handling, threshold, conflict tie rules and split limits. Tune only on development examples. Select JavaFX/JSON dependencies when needed. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
+
+## Ali Task 1 integration decisions
+
+- Reuse Ayden's foundation from unmerged [pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1), preserving authorship and existing public records/interface.
+- Keep the path pipeline API and add `compare(SourceFile, SourceFile, MatchConfig)` so GUI panels can display the exact source snapshots used by the matcher.
+- Reject null inputs/results, mismatched result config and incomplete/reused/out-of-range line coverage at the pipeline boundary. Include old/new input role and UTF-8 path context when a path read fails, retaining its original cause.
+- Use `TextMappingFormatter.format(MappingResult)` for sorted plain `old-new` pairs with `\n` separators. Preserve CLI stdout/stderr and exit-code conventions for QA; defer JSON to Task 2.
+- Collapse Unicode whitespace before trimming the comparison text, removing boundary non-breaking spaces while retaining original source text.
+- Run packaged-JAR integration checks in Maven `verify`. A successful unit test or `package` command alone does not prove the runnable CLI contract.
+- Keep foundation fixtures intact until QA integration deliberately resolves the different two-line/three-line `identical` cases. Draft annotation metadata remains pending teammate review.
+
+These decisions describe this implementation for review. They do not assert unanimous team agreement, instructor approval, reviewed gold labels or successful JavaFX integration.
 
 ## Branch policy
 
