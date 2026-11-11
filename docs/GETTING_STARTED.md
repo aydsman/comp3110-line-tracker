@@ -51,7 +51,7 @@ java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt
 
 On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files and click **Compare**. The side-by-side panes show the original lines with their 1-based numbers. Below them, the baseline pairs use the same old–new numbering as the CLI and the status shows unmatched counts.
 
-For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show pairs `1-2` and `3-3`, one unmatched old line, and two unmatched new lines.
+For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show mappings `1 → 2` and `3 → 3`, one unmatched old line, and two unmatched new lines. Select `1 → 2` to highlight `alpha` on old line 1 and new line 2. Select a different mapping to move both highlights. Choosing a different file clears the previous comparison.
 
 ## Submit work for review
 
