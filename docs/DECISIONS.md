@@ -1,27 +1,59 @@
 # Decisions and open questions
 
-## Proposed defaults
+## Adopted foundation
 
-- Name: comp3110-line-tracker; private GitHub repository.
-- Java core with command-line access and a JavaFX desktop frontend.
-- Implement an LHDiff-inspired pipeline; verify whether exact reproduction is required.
-- Keep original line numbers; use normalized copies only for comparison.
-- JSON for machine-readable mappings and evaluation; plain text for the required line-pair output.
-- No implementation or accuracy claims in the initial scaffold.
+- Java 17, Maven 3.9.9 wrapper and JUnit 5; plain Java core with a future JavaFX frontend.
+- Concrete shared records and LineMatcher interface in ARCHITECTURE.md; Ali coordinates subsequent contract changes.
+- Original one-based positions retained; comparison copies lowercase and collapse whitespace.
+- Deterministic LCS baseline with explicit unmatched lines and a 4-million-cell memory guard.
+- Normalized Levenshtein utility exposed for Task 2, whose advanced edited/moved matching is now integrated; Task 3 adds exact split reconstruction.
+- Ayden prepared initial infrastructure to unblock the team; ongoing ownership remains Ayden backend, Aadi frontend, Ali integration, Mujtaba QA.
+- Four per-person task sections due Nov 7, 12, 17 and final preparation Nov 19/submission Nov 20, 2026.
+- Two synthetic fixtures support development only and await independent review.
 
-## Ask the professor
+## Confirm with the professor
 
-1. Are bug-introducing change detection and exact LHDiff reproduction mandatory?
-2. Where are the existing dataset, reference paper/code, and expected output specification?
-3. Does the new dataset require 25 distinct old/new file pairs? Are synthetic mutations acceptable?
-4. Are there restrictions on language, libraries, use of existing diff/SimHash implementations, or AI assistance?
-5. Are line merges required alongside splits? What matching threshold and normalization details are expected?
-6. What are the deadline, grading rubric, team contribution requirements, and report/demo/submission formats?
+As of Nov 11, 2026, the rubric, existing benchmark source/access and whether bug tracing is mandatory remain unconfirmed. The repository and Trello plan do not supply those answers. Keep the following questions open; implementation progress does not resolve them.
 
-## Team decisions before advanced matching
+1. Is bug tracing mandatory, and is exact LHDiff reproduction required?
+2. Where are the existing benchmark dataset and reference implementation/paper?
+3. Does the new dataset require 25 distinct old/new file pairs, and are synthetic mutations acceptable?
+4. What language/library/AI-assistance restrictions apply?
+5. Are many-to-one merges required alongside one-to-many splits? Are exact normalization/threshold rules prescribed?
+6. What are the official cutoff time, grading rubric, report/demo requirements and contribution evidence expectations?
 
-Freeze tokenization, empty-context behavior, thresholds, tie handling, and split limits in a short decision entry after testing development fixtures. Do not tune final settings using held-out test results. Replace the project owner's label with their preferred name when available. GitHub collaborator invitations require members' GitHub usernames.
+## Remaining team choices
 
-## Accepted frontend scope
+Ayden's Task 3 source nominates the advanced defaults and exact reconstruction limit documented in ARCHITECTURE.md for evaluation. This branch preserves them without tuning on held-out answers. Independent review and agreement on the evaluation freeze remain outstanding. Select JavaFX dependencies when needed; current JSON exports have no runtime dependency. Do not make benchmark accuracy claims from synthetic fixtures or copy research-slide results as our own.
 
-The team chose a JavaFX desktop frontend, owned by the project owner alongside integration and bug tracing. This is additional demo scope, not an explicit requirement in the supplied slides. Build the core first, then a file-selection and side-by-side comparison interface with mapping export.
+## Ali Task 1 integration decisions
+
+- Reuse Ayden's foundation from unmerged [pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1), preserving authorship and existing public records/interface.
+- Keep the path pipeline API and add `compare(SourceFile, SourceFile, MatchConfig)` so GUI panels can display the exact source snapshots used by the matcher.
+- Reject null inputs/results, mismatched result config and incomplete/reused/out-of-range line coverage at the pipeline boundary. Include old/new input role and UTF-8 path context when a path read fails, retaining its original cause.
+- Use `TextMappingFormatter.format(MappingResult)` for sorted plain `old-new` pairs with `\n` separators. Preserve CLI stdout/stderr and exit-code conventions for QA; defer JSON to Task 2.
+- Collapse Unicode whitespace before trimming the comparison text, removing boundary non-breaking spaces while retaining original source text.
+- Run packaged-JAR integration checks in Maven `verify`. A successful unit test or `package` command alone does not prove the runnable CLI contract.
+- Keep foundation fixtures intact until QA integration deliberately resolves the different two-line/three-line `identical` cases. Draft annotation metadata remains pending teammate review.
+
+These decisions describe this implementation for review. They do not assert unanimous team agreement, instructor approval, reviewed gold labels or successful JavaFX integration.
+
+## Ali Task 2 integration decisions
+
+- Preserve `map OLD NEW` as baseline text for existing QA consumers; advanced matching and JSON are explicit options.
+- Serialize prediction groups using versioned snake_case JSON with finite numeric scores and all requested config fields. Retain groups in JSON and expand groups in text; use the same formatters for future GUI exports.
+- Parse all arguments before I/O. Exports create a new UTF-8 file; existing destinations, including aliases of inputs, are refused.
+- Keep prediction semantics separate from independently reviewed gold annotations. The current evaluator only consumes baseline text; advanced/JSON evaluation requires a separate QA update.
+- Keep actual JavaFX equivalence and optional bug-tracing acceptance open until the frontend and course requirements are available.
+
+## Ali Task 3 integration decisions
+
+- Integrate Ayden's exact 2–4-line split detector without changing its nominated defaults or claiming independent evaluation approval.
+- Build native CLI archives using `jlink` and only `java.base`, preserving runtime legal notices. Runtime architecture and OS are explicit; a package is tested on its own platform.
+- Pin Temurin 17.0.21+9 in CI, all build-lifecycle Maven plugin versions, and the JAR entry timestamp. The wrapper pins Maven 3.9.9 and its checksum. Native archives carry build time/platform metadata and are not claimed byte-identical across builds or operating systems.
+- Verify archives after extraction with no installed Java on `PATH`, including JSON, split groups, exports and error exits. Record the exact commit and JAR checksum in each bundle.
+- Keep frontend delivery, historical bug tracing if mandatory, independent teammate build/run evidence and peer approval open.
+
+## Branch policy
+
+`development` is the shared working/integration branch. Task pull requests target development. Reviewed and tested releases move from development to main through a separate pull request; direct main pushes are outside the team workflow.
