@@ -4,7 +4,7 @@ Track corresponding source-code lines between two versions of a file using a Jav
 
 ## Status
 
-The Java 17/Maven foundation and backend Task 1 are implemented: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, result validation, and a runnable baseline CLI. Advanced matching, the JavaFX frontend, JSON exports and dataset evaluation are still planned. No benchmark accuracy results have been produced.
+The Java 17/Maven foundation and backend Task 1 are implemented: UTF-8 file loading, normalization that preserves original text and line numbers, deterministic LCS unchanged-line matching, normalized Levenshtein content similarity, result validation, and a runnable baseline CLI. Task 2 adds opt-in matching for edited and moved lines. Split detection, the JavaFX frontend and JSON exports remain planned. No benchmark accuracy results have been produced.
 
 ## Team
 
@@ -42,7 +42,7 @@ Expected standard output:
 3-3
 ```
 
-Unmatched old/new lines are printed on standard error (for this fixture: old `[2]`, new `[1, 4]`). Exit codes: 0 success, 1 comparison/file error, 2 incorrect usage. The CLI currently supports only `map OLD NEW`; JSON and evaluate commands are not implemented.
+Unmatched old/new lines are printed on standard error (for this fixture: old `[2]`, new `[1, 4]`). Exit codes: 0 success, 1 comparison/file error, 2 incorrect usage. Use `map OLD NEW --advanced` to recover edited and moved lines. Omitting the flag uses the baseline for repeatable comparisons.
 
 ## Shared interface
 
@@ -52,7 +52,7 @@ MappingResult result = new MappingPipeline(matcher)
     .compare(oldPath, newPath, MatchConfig.DEFAULT);
 ```
 
-All public core classes live in `edu.comp3110.linetracker`. Aadi should call the pipeline from a JavaFX background task; Ali can inject a future advanced matcher through LineMatcher without duplicating algorithms. See [architecture](docs/ARCHITECTURE.md) for data contracts.
+All public core classes live in `edu.comp3110.linetracker`. Aadi should call the pipeline from a JavaFX background task; Ali can inject an `AdvancedMatcher` through LineMatcher without duplicating algorithms. See [architecture](docs/ARCHITECTURE.md) for data contracts.
 
 ## Project goals and limits
 

@@ -10,7 +10,7 @@ flowchart LR
     GUI[Future JavaFX UI] --> P
     P --> R[SourceReader and Normalizer]
     R --> M[LineMatcher]
-    M --> B[BaselineMatcher now; advanced matcher later]
+    M --> B[BaselineMatcher or AdvancedMatcher]
     B --> V[Validated MappingResult]
 ```
 
@@ -35,10 +35,10 @@ Ayden authored this initial foundation to unblock development. Ownership above d
 - `SourceLine(int number, String original, String normalized)` uses one-based original positions.
 - `SourceFile(String path, List<SourceLine> lines)` requires consecutive original line numbers, starting at 1. `fromLines` builds valid comparison copies.
 - `Match(List<Integer> oldLines, List<Integer> newLines, MatchKind kind, double score)` has one old line and one new line, or one old line and multiple consecutive new lines for SPLIT. Score is finite in [0,1], not a probability.
-- `MatchKind`: UNCHANGED, MODIFIED, MOVED, SPLIT. Only UNCHANGED is currently produced. Serialization should use lowercase names to match the dataset schema.
+- `MatchKind`: UNCHANGED, MODIFIED, MOVED, SPLIT. The baseline produces UNCHANGED. Advanced matching also produces MODIFIED and MOVED. Serialization should use lowercase names to match the dataset schema.
 - `MappingResult(List<Match> matches, List<Integer> deleted, List<Integer> added, MatchConfig config)` copies its lists. Call `validate(oldCount,newCount)` to enforce line bounds, complete coverage and exclusive ownership. MappingPipeline validates matcher results before returning.
 - `deleted` / `added` mean unmatched old/new lines at the current stage. Modified-line candidates remain in these lists until advanced matching resolves them. Match order from the baseline is increasing by original line number.
-- `MatchConfig(long maxLcsCells)` defaults to 4,000,000. Add advanced settings in a coordinated change rather than silently changing the interface.
+- `MatchConfig(long maxLcsCells)` defaults to 4,000,000 cells. The expanded constructor also accepts candidateLimit, contextRadius and minimumScore.
 
 ## Baseline and normalization
 
@@ -48,9 +48,15 @@ BaselineMatcher computes an LCS of normalized lines. On tied alternatives it adv
 
 ContentSimilarity accepts comparison strings and calculates `1 - distance/max(lengths)`. Empty/empty is 1, one empty is 0. Inputs are Java UTF-16 code units; memory is O(min(lengths)), time O(length1*length2). The baseline does not greedily map similar edited lines yet.
 
-## Next matching stages — Ayden Tasks 2–3
+## Advanced matching (Ayden Task 2)
 
-Use stable SimHash for content/context to rank up to 15 new candidates per unmatched old line. Context uses up to four original lines above/below, excluding the current line. Re-score with content Levenshtein and context token-frequency cosine, starting at 0.6/0.4 weights. Define tokenization, zero-vector behavior, threshold and deterministic ties before integration. Select nonconflicting mappings, then detect splits by concatenating consecutive new lines while normalized distance improves. Do not reuse lines consumed by other groups. Tune on development data only; freeze settings before final evaluation.
+AdvancedMatcher retains all LCS anchors and considers the remaining nonblank lines. It builds weighted 64-bit SimHash fingerprints over normalized character trigrams and context-token counts. Context uses up to four original lines on each side, including lines already matched by LCS, and excludes the current line. Context tokens are runs of Unicode letters, marks, digits and underscores, or individual non-whitespace punctuation characters.
+
+Each unmatched old line retains at most 15 candidates by default. Exact normalized matches rank first, then weighted Hamming distance and ascending new line number. Exact scoring uses 60% normalized Levenshtein content similarity and 40% cosine context similarity. A single empty context contributes zero similarity. If both contexts are empty, the score is content similarity. Edited proposals require content similarity of at least 0.5 and a combined score of at least 0.65 by default. These are starting values for development evaluation.
+
+Resolution takes exact proposals before edits, then descending score, ascending old line number and ascending new line number. Each accepted pair consumes its two lines. Exact pairs recovered outside LCS are labeled MOVED and fuzzy pairs MODIFIED. The result preserves original positions, is sorted by old line number, and accounts for every line exactly once. Candidate pruning and greedy resolution can miss a valid match. Both modes retain the baseline LCS memory guard.
+
+Call the shared pipeline with AdvancedMatcher or run the CLI with --advanced. Existing calls and the one-argument MatchConfig constructor keep their behavior. Candidate limit, context radius and minimum combined score are configurable in MatchConfig. Split detection and evaluation-based settings freeze are Task 3.
 
 ## JavaFX — Aadi
 
@@ -62,4 +68,4 @@ Confirm whether required on Nov 3. If mandatory, start a small verified history 
 
 ## Verification and handoffs
 
-JUnit covers identical/blank/empty files, insertions/deletions with original numbering, entirely edited unmatched lines, stable duplicates, locale-independent normalization, known similarity values, invalid mapping coverage, split-shaped contracts, memory guards, UTF-8/CRLF input and CLI errors. CI runs Maven verify. The GUI, advanced matching, JSON export and real dataset evaluation cannot be validated until implemented. Development fixtures are synthetic and require teammate review; no benchmark accuracy claims are made.
+JUnit covers identical/blank/empty files, insertions/deletions with original numbering, entirely edited unmatched lines, stable duplicates, locale-independent normalization, known similarity values, invalid mapping coverage, split-shaped contracts, memory guards, UTF-8/CRLF input and CLI errors. CI runs Maven verify. AdvancedMatcherTest verifies edited and moved recovery, candidate pruning, deterministic conflict resolution, and CLI compatibility. GUI and JSON integration remain future work. Development fixtures are synthetic and require teammate review; no benchmark accuracy claims are made.
