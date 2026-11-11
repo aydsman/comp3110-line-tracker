@@ -1,64 +1,34 @@
-# Team work plan
+# Task 1–4 work plan
 
-No course deadlines were provided. These are ordered milestones, not promised dates.
+Every person has a Task 1, 2, 3 and 4. Trello deadlines are planning deadlines at 23:59 America/Toronto, not evidence of an official course cutoff. Work starts Nov 3, 2026. Final preparation targets Nov 19; submission is Nov 20.
 
-## Milestone 0 — agree before implementation
+| Section | Window | Ayden — Backend | Aadi — Frontend | Ali — Integration | Mujtaba — QA |
+| --- | --- | --- | --- | --- | --- |
+| Task 1 | Nov 3–7, due Nov 7 | Baseline LCS matching and content similarity | JavaFX shell, file selection and original line display | Shared models, Maven, input processing and baseline integration | Two tiny fixtures by Nov 4; five reviewed pairs by Nov 7 |
+| Task 2 | Nov 8–12, due Nov 12 | SimHash, content/context scoring, conflict resolution | Live pipeline connection, highlights, progress/errors | Advanced pipeline integration, CLI and shared exports | Fifteen reviewed pairs, evaluator, development/test split |
+| Task 3 | Nov 13–17, due Nov 17 | Split detection, regressions and settings freeze | Split highlights, export controls and result states | Packaging, clean setup and required bug tracing | Twenty-five reviewed file pairs and existing/new dataset evaluation |
+| Task 4 | Nov 18–20 | Critical backend fixes and algorithm explanation, due Nov 19 | UI fixes and reliable demo, due Nov 19 | Release candidate Nov 19; QA-approved submission due Nov 20 | Final regression, results audit and sign-off, due Nov 19 |
 
-All: confirm language, goals, deadlines, and rubric; read the architecture and dataset contracts. Integration lead freezes the initial interface definitions. Mujtaba prepares two tiny annotated file pairs immediately so Ali and Aadi can share fixtures. Each member opens a branch for their first task.
+## Foundation prepared by Ayden
 
-## Milestone 1 — first end-to-end baseline
+The initial Maven project, shared records/interface, reader/normalizer, baseline pipeline and CLI, meaningful JUnit tests, CI definition and two synthetic development pairs are implemented on the foundation branch. This overlaps initial setup under Ali's Task 1 to unblock work; Ali remains the integration owner. The fixtures do not replace Mujtaba's independent annotation/review or the final dataset.
 
-- Ali: file reading, normalization, unchanged diff matches, text/JSON output.
-- Aadi: design candidate/scoring interfaces and implement similarity functions on the shared tiny fixtures.
-- Mujtaba: dataset manifest, annotation guide, first five distinct file pairs; locate the old benchmark dataset.
-- Integration lead: shared models, CLI entry point, pipeline, test setup and CI.
+Ayden's backend Task 1 foundation is in [pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1), which remains an unmerged dependency of Ali's integration branch. Preserve its history and attribution; merge through the team's reviewed development workflow.
 
-Exit: one command maps identical files and reports additions/deletions; shared formats are validated. No advanced accuracy claims yet.
+## Ali's Task 1 integration
 
-## Milestone 2 — advanced matching
+Ali retains the foundation's public models and CLI syntax, adds a pipeline overload for already loaded sources, validates matcher output/config at the integration boundary, gives path-read failures old/new input context, and shares canonical text formatting with future UI callers. The normalization change removes Unicode whitespace at line boundaries consistently. Maven `verify` also launches the packaged JAR for integration checks. See [the Task 1 acceptance and handoff record](ALI_TASK_1.md).
 
-- Aadi: deterministic SimHash shortlist, exact scoring, conflict resolution, then split detection.
-- Ali: integrate remaining-line handling and validate original line numbering/output.
-- Mujtaba: grow to 15 reviewed file pairs, establish baseline evaluation and development subset.
-- Integration lead: connect stages, help with split/conflict cases, add regression fixtures.
+The implementation can be assessed independently of the missing JavaFX frontend. The team-level Nov 7 integration acceptance still requires Aadi's real frontend handoff and another teammate's review. Shared-model agreement, independently reviewed QA fixtures, rubric, existing benchmark and mandatory bug-tracing scope are still outstanding as of Nov 11, 2026. Do not mark the complete end-to-end milestone Done before these gaps are resolved.
 
-Exit: edited, moved, and split-line examples pass; evaluation produces precision/recall/F1 and runtime with settings recorded.
+## Early handoffs
 
-## Milestone 2b — JavaFX frontend
+The original handoff targets were Nov 3 for shared-contract review and professor questions, Nov 4 for independently reviewed tiny fixtures, and Nov 7 for a real pipeline/frontend comparison. These are targets, not evidence that the handoffs happened. Ali coordinates contract changes. Aadi can use sample MappingResult records while developing the UI, then use the loaded-source pipeline overload and shared formatter for real results.
 
-Project owner: build file pickers, Compare action, side-by-side original files, mapping selection/highlights, and export. Call the existing pipeline in a background task. Ali supports output integration; Aadi supplies mapping examples; Mujtaba supplies reviewed demo fixtures.
+During QA integration, reconcile the same-path `datasets/development/identical` conflict: Ayden's fixture has three lines and a dependent three-match assertion; Mujtaba's branch has a different two-line fixture. Preserve the fixture with its matching expected answers and tests, or keep both under distinct case IDs. Neither branch's draft labels establish independent teammate review.
 
-Exit: the GUI produces the same mappings as the CLI on identical inputs/settings, handles split highlights and file errors, and stays responsive. Complete this before the final demo; keep evaluation runnable independently.
-
-## Milestone 3 — complete evaluation
-
-- Mujtaba: finish at least 25 distinct files, each with two versions and verified mappings; run new and existing datasets separately.
-- Aadi: freeze settings after development experiments; investigate failures without tuning against held-out answers.
-- Ali: harden file errors and output documentation.
-- Integration lead: reproduce evaluation from a clean checkout, organize final evidence, coordinate report/demo if required.
-
-Exit: reproducible results, dataset provenance, known limitations, and no invented benchmark claims.
-
-## Milestone 4 — bug tracing
-
-Integration lead owns a small verified historical example; others help validate mappings. Schedule this after the core pipeline unless the professor confirms it is required earlier.
-
-## Proposed initial GitHub issues
-
-1. Integration lead — agree models, settings and CLI contract (blocks integration).
-2. Ali — implement source loading and normalization (depends on 1).
-3. Ali — unchanged baseline and output formatting (depends on 2).
-4. Aadi — exact content/context similarity (depends on 1).
-5. Aadi — stable SimHash candidate shortlist (depends on 1).
-6. Aadi + integration lead — conflict resolution and split detection (depends on 4–5).
-7. Mujtaba — manifest and first five reviewed pairs (start immediately).
-8. Mujtaba — evaluation metrics and baseline comparison (depends on agreed mapping format).
-9. Integration lead — pipeline, CLI and regression checks (start with 1; integrate 3–6).
-10. Mujtaba — complete 25-file dataset and final evaluation (depends on 7–9).
-11. Integration lead — verified bug-fix tracing prototype (after core milestones).
-12. Integration lead — JavaFX frontend and GUI/CLI consistency checks (after baseline, using shared pipeline).
-13. All — final reproducibility review and submission checklist.
+Task 2 uses baseline outputs while advanced matching is developed, so frontend and evaluator work do not wait for the final matcher. If bug tracing is required, Ayden and Ali begin its design/example in Task 2. Task 3 evaluation uses frozen settings; every change afterward must trigger relevant reruns. Task 4 submission depends on Mujtaba's QA sign-off and the exact final release commit.
 
 ## Definition of done
 
-A task includes understandable code, meaningful verification, updated documentation, and a reviewed pull request. A working demonstration alone does not replace the required dataset and evaluation. Everyone can explain their own implementation and the overall pipeline.
+Working implementation, meaningful checks, clear documentation and another teammate's review. All members test their own components. Keep In progress and Review/testing honest; a passing backend test suite is not proof that an unimplemented GUI or research evaluation works.
