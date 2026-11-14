@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "matches": [
+    {
+      "old_lines": [
+        3
+      ],
+      "new_lines": [
+        1
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        4
+      ],
+      "new_lines": [
+        2
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        5
+      ],
+      "new_lines": [
+        3
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        6
+      ],
+      "new_lines": [
+        4
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        7
+      ],
+      "new_lines": [
+        6
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        8
+      ],
+      "new_lines": [
+        7
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        9
+      ],
+      "new_lines": [
+        8
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        10
+      ],
+      "new_lines": [
+        9
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        11
+      ],
+      "new_lines": [
+        10
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        12
+      ],
+      "new_lines": [
+        11
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        13
+      ],
+      "new_lines": [
+        13
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        14
+      ],
+      "new_lines": [
+        14
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        15
+      ],
+      "new_lines": [
+        15
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        16
+      ],
+      "new_lines": [
+        16
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        17
+      ],
+      "new_lines": [
+        17
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        18
+      ],
+      "new_lines": [
+        18
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        19
+      ],
+      "new_lines": [
+        20
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        20
+      ],
+      "new_lines": [
+        21
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        21
+      ],
+      "new_lines": [
+        22
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        22
+      ],
+      "new_lines": [
+        23
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        23
+      ],
+      "new_lines": [
+        25
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        24
+      ],
+      "new_lines": [
+        26
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        25
+      ],
+      "new_lines": [
+        27
+      ],
+      "kind": "modified"
+    },
+    {
+      "old_lines": [
+        26
+      ],
+      "new_lines": [
+        28
+      ],
+      "kind": "modified"
+    }
+  ],
+  "deleted": [
+    1,
+    2,
+    27,
+    28
+  ],
+  "added": [
+    5,
+    12,
+    19,
+    24,
+    29
+  ]
+}
