@@ -23,3 +23,7 @@ The [preliminary baseline results](../docs/qa/baseline-draft.json) record the ba
 This first batch is deliberately small and mostly Python metadata. Later batches need more varied edits, larger files, reordering, line splits, and other languages. Existing benchmark acquisition remains outstanding. All current cases are development data. Reserve separate held-out cases before tuning the matcher.
 
 After review, enter the actual reviewer's name and update the review status in the corresponding manifest. Retain the source attribution and licenses when moving these files into the team's repository.
+
+## Recorded source review — November 14
+
+Ayden Sendrea compared the first five real pairs with their source files and validated the five fixtures on November 11 ([review evidence](https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801)). The manifest records that actual review and its source revision; it does not imply GitHub approval. Flask uses the explicit earlier-blank tie-break: old 11 maps to new 11 and old 12 is deleted. Certifi uses exact-text modified labels, including indentation changes. Other real pairs remain pending independent source review. Earlier draft-status descriptions above describe the original submission.

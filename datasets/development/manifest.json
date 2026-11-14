@@ -7,8 +7,10 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review"
+    "reviewer": "Ayden Sendrea (aydsman)",
+    "review_status": "source review recorded; PR approval pending",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
+    "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9"
   },
   {
     "id": "insert-delete",
@@ -18,8 +20,10 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review"
+    "reviewer": "Ayden Sendrea (aydsman)",
+    "review_status": "source review recorded; PR approval pending",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
+    "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9"
   },
   {
     "id": "both-empty",
@@ -29,8 +33,10 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review"
+    "reviewer": "Ayden Sendrea (aydsman)",
+    "review_status": "source review recorded; PR approval pending",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
+    "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9"
   },
   {
     "id": "empty-to-content",
@@ -40,8 +46,10 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review"
+    "reviewer": "Ayden Sendrea (aydsman)",
+    "review_status": "source review recorded; PR approval pending",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
+    "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9"
   },
   {
     "id": "content-to-empty",
@@ -51,7 +59,9 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review"
+    "reviewer": "Ayden Sendrea (aydsman)",
+    "review_status": "source review recorded; PR approval pending",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
+    "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9"
   }
 ]
