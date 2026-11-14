@@ -1,5 +1,7 @@
 # Mujtaba's dataset review
 
+**Current Task 3 status (November 14):** 25 distinct real files, 20 development / five reserved test projects, six separate synthetic fixtures, and 15 draft real split groups. The sections below preserve the original 15-case handoff. See [Task 3 evidence and review scope](../docs/QA_TASK3.md) for current results and limitations. The ten additional Requests files include two byte-identical controls, larger behavior changes and real wraps; each manifest note records explicit source-inspected correspondences. Twenty real pairs and the new split fixture still need independent review.
+
 Fifteen distinct real source files are prepared under `new/`. Each case contains the original downloaded bytes, expected mappings, and upstream license copies for both revisions. `new/manifest.json` records source URLs, release tags, SHA-256 checksums, annotation rationale, and review status. Ten cases are development data and five whole projects are reserved test data. No matcher settings were tuned using these results.
 
 All cases are drafts. Codex prepared the annotations for Mujtaba. A teammate must independently inspect them and supply their own review before these are counted as reviewed pairs. No matching-program predictions were used as gold labels.

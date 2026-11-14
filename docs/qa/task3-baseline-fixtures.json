@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-14T19:46:33.876565+00:00",
+  "complete": true,
+  "manifest": "datasets\\development\\manifest.json",
+  "manifest_sha256": "50a2581f06c32def38e5ce68e872c6bdf89e45bc4e3f3fd5310a77745cfddbcb",
+  "jar_sha256": "7b965e22a493f43beb93489837ae771d61ed75ab090dfff51327a5f7a4ad512d",
+  "evaluator_sha256": "d0eab89c12a7e1bd8cf1afd619eb96842e483414b2303e676cbd1a95c70eebaa",
+  "validator_sha256": "9825997c8b6f85bb0a735d33b6d2f382cacf5ec1431dfba512d7a01f37ecfbb3",
+  "reported_code_revision": "211a804efea0f360be99148148ae963c4c5fbc5c",
+  "reported_matcher_settings": {
+    "max_lcs_cells": 4000000
+  },
+  "java_version": "java version \"21.0.8\" 2025-07-15 LTS\nJava(TM) SE Runtime Environment (build 21.0.8+12-LTS-250)\nJava HotSpot(TM) 64-Bit Server VM (build 21.0.8+12-LTS-250, mixed mode, sharing)",
+  "python_version": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "command_template": [
+    "C:/Program Files/Java/jdk-21/bin/java.exe",
+    "-jar",
+    "C:\\Users\\vivvo\\Desktop\\comp 3110 project\\backend-task3\\target\\line-tracker.jar",
+    "map",
+    "OLD",
+    "NEW"
+  ],
+  "matcher_mode": "baseline",
+  "selected_split": null,
+  "limitations": [
+    "Review status is recorded without granting approval.",
+    "Runtime includes JVM startup; one run per case.",
+    "Revision and settings are supplied by the caller; JAR checksum identifies the executed binary.",
+    "Text output supplies pairs only; split structure and unmatched lines are inferred. Match-kind labels are not scored.",
+    "Failed cases are excluded from pooled scores and make the run incomplete."
+  ],
+  "successful_cases": 6,
+  "failed_cases": 0,
+  "empty_expected_pair_cases": 3,
+  "micro_over_successful_cases": {
+    "true_positives": 5,
+    "expected_pairs": 7,
+    "predicted_pairs": 5,
+    "precision": 1.0,
+    "recall": 0.7142857142857143,
+    "f1": 0.8333333333333334
+  },
+  "expected_split_groups": 1,
+  "correct_split_groups": 0,
+  "split_group_exact_accuracy": 0.0,
+  "unmatched_classification_accuracy": 0.8333333333333334,
+  "total_elapsed_ms_including_jvm_startup": 1314.7728001931682,
+  "cases": [
+    {
+      "case_id": "identical",
+      "split": "development",
+      "reviewer": "Ayden Sendrea (aydsman)",
+      "review_status": "source review recorded; PR approval pending",
+      "status": "ok",
+      "old_line_count": 2,
+      "new_line_count": 2,
+      "old_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee",
+      "new_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee",
+      "expected_sha256": "8291370425b573b19e9345c5ce39375e2e3e35cc0cf3bbbb4f7eac5c9ad6e583",
+      "elapsed_ms_including_jvm_startup": 245.71040004957467,
+      "cli_stderr": "Unmatched old lines: []\nUnmatched new lines: []\n",
+      "true_positives": 2,
+      "expected_pairs": 2,
+      "predicted_pairs": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "predicted_deleted": [],
+      "predicted_added": [],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 4,
+      "unmatched_classification_total": 4,
+      "unmatched_classification_accuracy": 1.0
+    },
+    {
+      "case_id": "insert-delete",
+      "split": "development",
+      "reviewer": "Ayden Sendrea (aydsman)",
+      "review_status": "source review recorded; PR approval pending",
+      "status": "ok",
+      "old_line_count": 3,
+      "new_line_count": 4,
+      "old_sha256": "4fdbc441ea7b546100e086ac1e4fc5ae6749b7314311c99db05be450eca12996",
+      "new_sha256": "6fa3268107eda3bf6586add1fbf886e6488ba7b3fd674c30139bbc0d3372ca40",
+      "expected_sha256": "1c0b748b513cb48e15002c4e88545eb30de3f839d236eaf50c84569a82ade811",
+      "elapsed_ms_including_jvm_startup": 279.07200006302446,
+      "cli_stderr": "Unmatched old lines: [2]\nUnmatched new lines: [1, 4]\n",
+      "true_positives": 2,
+      "expected_pairs": 2,
+      "predicted_pairs": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "predicted_deleted": [
+        2
+      ],
+      "predicted_added": [
+        1,
+        4
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 7,
+      "unmatched_classification_total": 7,
+      "unmatched_classification_accuracy": 1.0
+    },
+    {
+      "case_id": "both-empty",
+      "split": "development",
+      "reviewer": "Ayden Sendrea (aydsman)",
+      "review_status": "source review recorded; PR approval pending",
+      "status": "ok",
+      "old_line_count": 0,
+      "new_line_count": 0,
+      "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "c607af0fc89ca6c11dc8806d0ac31a4c0c6029b1214055c4c307773ae4b3af59",
+      "elapsed_ms_including_jvm_startup": 202.24730006884784,
+      "cli_stderr": "Unmatched old lines: []\nUnmatched new lines: []\n",
+      "true_positives": 0,
+      "expected_pairs": 0,
+      "predicted_pairs": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [],
+      "predicted_deleted": [],
+      "predicted_added": [],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 0,
+      "unmatched_classification_total": 0,
+      "unmatched_classification_accuracy": 1.0
+    },
+    {
+      "case_id": "empty-to-content",
+      "split": "development",
+      "reviewer": "Ayden Sendrea (aydsman)",
+      "review_status": "source review recorded; PR approval pending",
+      "status": "ok",
+      "old_line_count": 0,
+      "new_line_count": 1,
+      "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_sha256": "b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060",
+      "expected_sha256": "3d70194ca7ba7923076b59200dab82de9c6f22b212241a347ed47ec0f9f0c468",
+      "elapsed_ms_including_jvm_startup": 211.40479994937778,
+      "cli_stderr": "Unmatched old lines: []\nUnmatched new lines: [1]\n",
+      "true_positives": 0,
+      "expected_pairs": 0,
+      "predicted_pairs": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [],
+      "predicted_deleted": [],
+      "predicted_added": [
+        1
+      ],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 1,
+      "unmatched_classification_total": 1,
+      "unmatched_classification_accuracy": 1.0
+    },
+    {
+      "case_id": "content-to-empty",
+      "split": "development",
+      "reviewer": "Ayden Sendrea (aydsman)",
+      "review_status": "source review recorded; PR approval pending",
+      "status": "ok",
+      "old_line_count": 1,
+      "new_line_count": 0,
+      "old_sha256": "b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060",
+      "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "28127c6b94c904300dc5645541ac771d1a679ad830d774bc729caddcbf88bf50",
+      "elapsed_ms_including_jvm_startup": 182.47650004923344,
+      "cli_stderr": "Unmatched old lines: [1]\nUnmatched new lines: []\n",
+      "true_positives": 0,
+      "expected_pairs": 0,
+      "predicted_pairs": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [],
+      "predicted_deleted": [
+        1
+      ],
+      "predicted_added": [],
+      "expected_split_groups": 0,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": null,
+      "unmatched_classification_correct": 1,
+      "unmatched_classification_total": 1,
+      "unmatched_classification_accuracy": 1.0
+    },
+    {
+      "case_id": "split-wrap",
+      "split": "development",
+      "reviewer": null,
+      "review_status": "pending teammate review",
+      "status": "ok",
+      "old_line_count": 2,
+      "new_line_count": 3,
+      "old_sha256": "bea62146a1f714d1bec136e3ada00cf23076a03e2e4b0d656ef6e34c4ea74dcb",
+      "new_sha256": "556744523643dc7ffb865912b5ea3916f76826692d6c02f8b19c27ef76bc2181",
+      "expected_sha256": "49c459fc013b409c38101381b97f0740654b2f25bde90ac78483e8b3e041eb56",
+      "elapsed_ms_including_jvm_startup": 193.86180001311004,
+      "cli_stderr": "Unmatched old lines: [1]\nUnmatched new lines: [1, 2]\n",
+      "true_positives": 1,
+      "expected_pairs": 3,
+      "predicted_pairs": 1,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "f1": 0.5,
+      "missing_pairs": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs_detail": [
+        [
+          2,
+          3
+        ]
+      ],
+      "predicted_deleted": [
+        1
+      ],
+      "predicted_added": [
+        1,
+        2
+      ],
+      "expected_split_groups": 1,
+      "correct_split_groups": 0,
+      "split_group_exact_accuracy": 0.0,
+      "unmatched_classification_correct": 2,
+      "unmatched_classification_total": 5,
+      "unmatched_classification_accuracy": 0.4
+    }
+  ]
+}

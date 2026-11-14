@@ -40,7 +40,7 @@ class EvaluationTests(unittest.TestCase):
             cases = []
             for split in ("development", "test"):
                 case = {"id": split, "split": split}
-                for field in ("old", "new", "expected", "license_file"):
+                for field in ("old", "new", "expected", "license_file", "new_license_file"):
                     path = root / f"{split}-{field}.txt"
                     path.write_bytes(b"keep this file unchanged\n")
                     case[field] = path.name
@@ -51,7 +51,7 @@ class EvaluationTests(unittest.TestCase):
             jar.write_bytes(b"mock jar")
             originals = {path: path.read_bytes() for path in root.iterdir()}
             for selected, other in (("development", "test"), ("test", "development")):
-                for field in ("old", "new", "expected", "license_file"):
+                for field in ("old", "new", "expected", "license_file", "new_license_file"):
                     target = root / next(case[field] for case in cases if case["id"] == other)
                     with self.subTest(selected=selected, field=field), patch("evaluate_dataset.subprocess.run") as runner, contextlib.redirect_stderr(io.StringIO()):
                         self.assertEqual(main([str(manifest), "--jar", str(jar),

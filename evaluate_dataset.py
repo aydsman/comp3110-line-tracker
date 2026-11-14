@@ -172,7 +172,7 @@ def main(argv=None):
         require(jar.is_file(), "JAR file does not exist")
         protected = {manifest_path, jar}
         for case in cases:
-            for field in ("old", "new", "expected", "license_file"):
+            for field in ("old", "new", "expected", "license_file", "new_license_file"):
                 if field in case:
                     protected.add((manifest_path.parent / case[field]).resolve())
         require(args.output.resolve() not in protected, "Output must not overwrite dataset inputs or the JAR")
