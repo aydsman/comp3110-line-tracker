@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "matches": [
+    {"old_lines": [1], "new_lines": [1, 2], "kind": "split"},
+    {"old_lines": [2], "new_lines": [3], "kind": "unchanged"}
+  ],
+  "deleted": [],
+  "added": []
+}

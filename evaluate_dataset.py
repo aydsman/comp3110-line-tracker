@@ -86,7 +86,7 @@ def score_case(expected, predicted, old_count, new_count):
     }
 
 
-def evaluate_case(manifest_path, case, command, timeout):
+def evaluate_case(manifest_path, case, command, timeout, advanced=False):
     old_count, new_count = validate_case(manifest_path, case, check_provenance=False)
     base = manifest_path.parent
     old_path, new_path = base / case["old"], base / case["new"]
@@ -96,7 +96,7 @@ def evaluate_case(manifest_path, case, command, timeout):
         if f"{side}_sha256" in case:
             require(sha256(path) == case[f"{side}_sha256"], f"{side}: manifest checksum differs")
     start = time.perf_counter()
-    completed = subprocess.run(command + ["map", str(old_path), str(new_path)],
+    completed = subprocess.run(command + ["map", str(old_path), str(new_path)] + (["--advanced"] if advanced else []),
                                capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
     elapsed = (time.perf_counter() - start) * 1000
     require(completed.returncode == 0, f"CLI exit {completed.returncode}: {completed.stderr[:4000]}")
@@ -153,6 +153,7 @@ def main(argv=None):
     parser.add_argument("--code-revision", required=True, help="Revision used to build the supplied JAR")
     parser.add_argument("--settings", required=True, help="JSON object describing effective matcher settings")
     parser.add_argument("--split", choices=("development", "test"))
+    parser.add_argument("--advanced", action="store_true", help="Run the CLI's advanced matcher with frozen default settings")
     parser.add_argument("--timeout", type=float, default=30)
     parser.add_argument("--output", type=Path, default=Path("results/evaluation.json"))
     args = parser.parse_args(argv)
@@ -167,9 +168,6 @@ def main(argv=None):
         ids = [case["id"] for case in cases]
         require(all(isinstance(case_id, str) and case_id for case_id in ids), "Each case needs a nonempty string ID")
         require(len(ids) == len(set(ids)), "Duplicate case IDs")
-        if args.split:
-            cases = [case for case in cases if case.get("split") == args.split]
-        require(bool(cases), "No cases match the requested split")
         jar = args.jar.resolve()
         require(jar.is_file(), "JAR file does not exist")
         protected = {manifest_path, jar}
@@ -178,13 +176,16 @@ def main(argv=None):
                 if field in case:
                     protected.add((manifest_path.parent / case[field]).resolve())
         require(args.output.resolve() not in protected, "Output must not overwrite dataset inputs or the JAR")
+        if args.split:
+            cases = [case for case in cases if case.get("split") == args.split]
+        require(bool(cases), "No cases match the requested split")
         version = subprocess.run([args.java, "-version"], capture_output=True, text=True, timeout=args.timeout, check=True)
         results = []
         for case in cases:
             entry = {"case_id": case["id"], "split": case.get("split"),
                      "reviewer": case.get("reviewer"), "review_status": case.get("review_status", "unspecified")}
             try:
-                entry.update(evaluate_case(manifest_path, case, [args.java, "-jar", str(jar)], args.timeout))
+                entry.update(evaluate_case(manifest_path, case, [args.java, "-jar", str(jar)], args.timeout, args.advanced))
             except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
                 entry.update(status="error", error=str(error))
             results.append(entry)
@@ -199,7 +200,8 @@ def main(argv=None):
             "reported_code_revision": args.code_revision, "reported_matcher_settings": settings,
             "java_version": (version.stderr + version.stdout).strip(),
             "python_version": platform.python_version(), "platform": platform.platform(),
-            "command_template": [args.java, "-jar", str(jar), "map", "OLD", "NEW"],
+            "command_template": [args.java, "-jar", str(jar), "map", "OLD", "NEW"] + (["--advanced"] if args.advanced else []),
+            "matcher_mode": "advanced" if args.advanced else "baseline",
             "selected_split": args.split,
             "limitations": ["Review status is recorded without granting approval.",
                             "Runtime includes JVM startup; one run per case.",

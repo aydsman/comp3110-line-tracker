@@ -3,6 +3,7 @@
 import contextlib
 import io
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -14,6 +15,51 @@ from validate_dataset import source_lines
 
 
 class EvaluationTests(unittest.TestCase):
+    @unittest.skipUnless(os.environ.get("LINE_TRACKER_TEST_JAR"), "Set LINE_TRACKER_TEST_JAR for real CLI integration")
+    def test_real_advanced_cli_recovers_entire_split_fixture(self):
+        root = Path(__file__).resolve().parent
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "split-report.json"
+            with contextlib.redirect_stdout(io.StringIO()):
+                result = main([str(root / "datasets/development/manifest.json"),
+                    "--jar", os.environ["LINE_TRACKER_TEST_JAR"],
+                    "--java", os.environ.get("LINE_TRACKER_TEST_JAVA", "java"),
+                    "--code-revision", "integration-test", "--settings", "{}",
+                    "--advanced", "--output", str(output)])
+            self.assertEqual(result, 0)
+            report = json.loads(output.read_text())
+            split = next(case for case in report["cases"] if case["case_id"] == "split-wrap")
+            self.assertEqual(split["predicted_pairs_detail"], [[1, 1], [1, 2], [2, 3]])
+            self.assertEqual(split["split_group_exact_accuracy"], 1)
+            self.assertEqual(report["matcher_mode"], "advanced")
+            self.assertEqual(report["command_template"][-1], "--advanced")
+
+    def test_output_cannot_overwrite_unselected_partition(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cases = []
+            for split in ("development", "test"):
+                case = {"id": split, "split": split}
+                for field in ("old", "new", "expected", "license_file"):
+                    path = root / f"{split}-{field}.txt"
+                    path.write_bytes(b"keep this file unchanged\n")
+                    case[field] = path.name
+                cases.append(case)
+            manifest = root / "manifest.json"
+            manifest.write_text(json.dumps(cases))
+            jar = root / "tool.jar"
+            jar.write_bytes(b"mock jar")
+            originals = {path: path.read_bytes() for path in root.iterdir()}
+            for selected, other in (("development", "test"), ("test", "development")):
+                for field in ("old", "new", "expected", "license_file"):
+                    target = root / next(case[field] for case in cases if case["id"] == other)
+                    with self.subTest(selected=selected, field=field), patch("evaluate_dataset.subprocess.run") as runner, contextlib.redirect_stderr(io.StringIO()):
+                        self.assertEqual(main([str(manifest), "--jar", str(jar),
+                            "--code-revision", "test", "--settings", "{}", "--split", selected,
+                            "--output", str(target)]), 1)
+                        runner.assert_not_called()
+                    self.assertEqual({path: path.read_bytes() for path in originals}, originals)
+
     def test_incorrect_and_missing_pairs(self):
         scores = pair_metrics({(1, 1), (2, 2), (3, 3)}, {(1, 1), (2, 2), (4, 4), (5, 5)})
         self.assertEqual(scores["true_positives"], 2)
