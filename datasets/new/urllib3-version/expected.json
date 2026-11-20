@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "matches": [
+    {
+      "old_lines": [
+        1
+      ],
+      "new_lines": [
+        1
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        2
+      ],
+      "new_lines": [
+        2
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        3
+      ],
+      "new_lines": [
+        3
+      ],
+      "kind": "unchanged"
+    },
+    {
+      "old_lines": [
+        4
+      ],
+      "new_lines": [
+        4
+      ],
+      "kind": "modified"
+    }
+  ],
+  "deleted": [],
+  "added": []
+}
