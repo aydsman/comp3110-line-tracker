@@ -1,4 +1,32 @@
-# Mujtaba regression audit — preliminary, November 14
+# Mujtaba regression audit — November 19 update
+
+## Current release decision — blocked pending team handoffs
+
+On November 19, Mujtaba's available QA work was rerun against the verified Windows CI package from [Ali's workflow run](https://github.com/aydsman/comp3110-line-tracker/actions/runs/43065413938). The downloaded Actions artifact SHA-256 matched GitHub's published digest. Package metadata identifies clean CI test-merge commit `8abe07f2b1759c585fe484b1277b87745aeabfe7`, whose parents are development `c8664a89cf378c01d0dadb3c33c711d9621e132f` and Ali's feature branch `2cab3a9ce64a02a1119653ba4c9aa6578d111222`. This is explicitly a feature-branch test package, not a nominated final integrated release.
+
+Fresh results, using the package's included Temurin Java 17.0.21+9 runtime:
+
+- All 9 packaged launcher checks passed with JAVA_HOME removed and no Java on PATH, including spaced extraction paths, baseline/advanced mappings, split groups, JSON parsing, exports and error exits.
+- All 13 evaluator tests passed, including the real Java split integration test.
+- All 25 real cases and six synthetic fixtures passed structural validation; source and reference answers were preserved.
+- All 69 integrated CLI text/JSON, coverage, input-preservation, export and error checks passed.
+- Both modes completed all 31 new/fixture comparisons. The unchanged reserved test set retained baseline pair F1 82.01% and advanced 94.87%. Advanced exact real split accuracy remains 5/15; the synthetic split passes.
+- Existing benchmark: both default-guard runs visibly retain the same two resource failures. Separately declared 8m resource profiles complete all 28 comparisons, with baseline pair F1 32.89% and advanced 87.63%. Similarity thresholds and all reference labels were unchanged.
+
+The full fresh evidence is in `docs/qa/nov19/`, including package provenance, CLI audit, test logs, all per-case numerical reports, JAR and source/annotation hashes. This closes the earlier local Windows CLI-package verification gap. It does not establish final GUI behavior or local Linux/macOS archive acceptance. Report timestamps are UTC; the QA run and Trello deadline record are dated November 19 in America/New_York.
+
+### Required handoffs before final sign-off
+
+1. Ali supplies the nominated integrated release-candidate commit and Windows package, with GUI/backend/export features and chosen resource profile identified. GitHub had no releases and development/main still pointed to the planning scaffold when checked today.
+2. Ayden independently reviews the remaining 20 real-file mappings and the new split fixture and confirms composite split/merge and duplicate-line conventions. The first five real source reviews remain credited to their actual reviewed revision. No approval is inferred from validation or test scores.
+3. The team completes required dependency integration, approvals and CI. QA PRs #2, #3 and #11 were still draft and blocked, with no check runs on their heads when checked. Adding a fake success status is outside this QA handoff.
+4. Mujtaba checks actual final GUI/CLI equivalence, final exports/file errors/splits, and reruns the matrix if the nominated release differs from the tested build. Historical bug-tracing acceptance, if required, also needs a testable team handoff.
+
+The required written blocker status was [posted to Mujtaba's Task 4 card](https://trello.com/c/V5fRlOGk/16-task-4-run-final-regression-and-audit-evaluation-results-mujtaba#comment-6affd31dca0805f5ceba1f8b) before its November 19 11:59 PM deadline. Ali and Ayden were tagged there for the release and review handoffs. Keep final release sign-off pending; no teammate implementation branch was changed. Recheck final fixes before submission.
+
+## Historical November 14 audit
+
+The following records describe the earlier test run. Today's package verification and handoff status above supersede the earlier package limitation.
 
 This is QA evidence for feature branches, not final release sign-off. No teammate implementation branch was changed.
 
