@@ -19,7 +19,7 @@ The full fresh evidence is in `docs/qa/nov19/`, including package provenance, CL
 
 1. Ali supplies the nominated integrated release-candidate commit and Windows package, with GUI/backend/export features and chosen resource profile identified. GitHub had no releases and development/main still pointed to the planning scaffold when checked today.
 2. Ayden independently reviews the remaining 20 real-file mappings and the new split fixture and confirms composite split/merge and duplicate-line conventions. The first five real source reviews remain credited to their actual reviewed revision. No approval is inferred from validation or test scores.
-3. The team completes required dependency integration, approvals and CI. QA PRs #2, #3 and #11 were still draft and blocked, with no check runs on their heads when checked. Adding a fake success status is outside this QA handoff.
+3. The team completes required dependency integration, approvals and CI. QA PRs #2, #3 and #11 were still draft and blocked, with no check runs on their heads when checked.
 4. Mujtaba checks actual final GUI/CLI equivalence, final exports/file errors/splits, and reruns the matrix if the nominated release differs from the tested build. Historical bug-tracing acceptance, if required, also needs a testable team handoff.
 
 The required written blocker status was [posted to Mujtaba's Task 4 card](https://trello.com/c/V5fRlOGk/16-task-4-run-final-regression-and-audit-evaluation-results-mujtaba#comment-6affd31dca0805f5ceba1f8b) before its November 19 11:59 PM deadline. Ali and Ayden were tagged there for the release and review handoffs. Keep final release sign-off pending; no teammate implementation branch was changed. Recheck final fixes before submission.
