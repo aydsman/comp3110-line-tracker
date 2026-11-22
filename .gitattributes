@@ -12,3 +12,10 @@ mvnw.cmd text eol=crlf
 *.jar binary
 *.png binary
 *.zip binary
+
+# Preserve downloaded source bytes so provenance checksums survive checkout.
+datasets/**/old.txt -text
+datasets/**/new.txt -text
+datasets/**/LICENSE* -text
+datasets/**/expected.json text eol=lf
+datasets/**/manifest.json text eol=lf
