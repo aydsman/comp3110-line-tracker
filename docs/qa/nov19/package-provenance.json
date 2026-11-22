@@ -1,0 +1,25 @@
+{
+  "artifact_id": 13874768580,
+  "artifact_name": "line-tracker-native-Windows-X64",
+  "artifact_digest": "sha256:dfef5510ef7adb6c50dd96888b596e5dd4a25413601de876972023e8495d2aab",
+  "workflow_run_url": "https://github.com/aydsman/comp3110-line-tracker/actions/runs/43065413938",
+  "package_path": "line-tracker-windows-x86_64-8abe07f2b175.zip",
+  "package_sha256": "4588df8c62cb45983f2ca640952453765c3f58a7cf29240c42410b37d6cb71f6",
+  "workflow_head_revision": "2cab3a9ce64a02a1119653ba4c9aa6578d111222",
+  "package_build_revision": "8abe07f2b1759c585fe484b1277b87745aeabfe7",
+  "build_info": {
+    "schema_version": 1,
+    "commit": "8abe07f2b1759c585fe484b1277b87745aeabfe7",
+    "dirty": false,
+    "jdk": "17.0.21+9",
+    "jdk_vendor": "Eclipse Adoptium",
+    "platform": "windows",
+    "architecture": "x86_64",
+    "modules": [
+      "java.base"
+    ],
+    "jar_sha256": "324a45f8c83c080bd178d90fa72213c061ba67d45e58288a8259bf24dfa52a63",
+    "packaged_at_utc": "2026-11-11T17:10:51.659534+00:00"
+  },
+  "smoke_test_result": "PASS: 9 packaged launcher checks; JSON parsed independently; no JAVA_HOME or Java on PATH; windows-x86_64"
+}

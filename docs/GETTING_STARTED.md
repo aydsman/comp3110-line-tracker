@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Install JDK 17 (newer JDKs may be used locally, but CI verifies JDK 17), Git, and an editor such as VS Code or IntelliJ. Set JAVA_HOME to the JDK directory if `java -version` does not work. The Maven wrapper downloads Maven 3.9.9 on first use; an internet connection is needed for the first build and dependency downloads. You do not need a separate Maven installation.
+Install Temurin JDK 17.0.21+9 (the CI version), Git, and an editor such as VS Code or IntelliJ. Set `JAVA_HOME` to the JDK directory. The Maven wrapper downloads Maven 3.9.9 and verifies its pinned checksum on first use; an internet connection is needed for the first build and dependency downloads. You do not need a separate Maven installation. Python 3.12 or newer is needed only to create/test native packages; the finished native packages need none of these development tools.
 
 ## Get the shared project
 
@@ -13,7 +13,7 @@ git switch development
 git pull --ff-only
 ```
 
-The initial foundation is delivered by PR #1. Until that PR is reviewed and merged into development, the runnable foundation is on `ayden/task-1-backend`. Do not assume main/development already contains unmerged files.
+For the integrated desktop/CLI candidate, use `git switch ali/task-4-release` after cloning, then check out its exact reviewed commit. Development contains only merged work. The original integration PRs and new candidate remain subject to peer review. See [PACKAGING.md](PACKAGING.md) for reproducible builds and [ALI_TASK_4.md](ALI_TASK_4.md) for acceptance status.
 
 ## Create your task branch
 
@@ -45,7 +45,13 @@ macOS/Linux:
 java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt datasets/development/insert-delete/new.txt
 ```
 
-`spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests and builds the runnable JAR. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error.
+`spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests, builds the runnable JAR and tests that executable through Failsafe. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error. Add `--advanced --format json` for advanced prediction groups, or `--output FILE` to create a new UTF-8 export. See [EXPORT_FORMAT.md](EXPORT_FORMAT.md).
+
+## Run the JavaFX comparison shell
+
+On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files, choose Baseline or Advanced mode, and click **Compare**. The side-by-side panes show original text with one-based line numbers. Select a mapping to highlight all of its old/new lines, including every split fragment. Text/JSON exports use the shared CLI format and refuse existing files. Changing inputs or settings clears stale output. The explicit benchmark profile raises the memory guard to eight million cells without changing similarity thresholds.
+
+For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show mappings `1 → 2` and `3 → 3`, one unmatched old line, and two unmatched new lines. Select `1 → 2` to highlight `alpha` on old line 1 and new line 2. Select a different mapping to move both highlights. Choosing a different file clears the previous comparison.
 
 ## Submit work for review
 
@@ -57,12 +63,12 @@ git push -u origin yourname/task-1-description
 
 Open a GitHub pull request with development as the target. Fill in the PR template, link the Trello card, and wait for another teammate's approval and passing CI. Resolve feedback and merge only after those requirements are met. Do not request review from an account that cannot access the repository. If development advances, update your branch and recheck it before merging.
 
-Task branches flow into development. A separate reviewed release PR promotes development into main. Both branches require one approval and the `test` check, which depends on successful Windows and Linux builds. New commits dismiss stale approvals. Main is for reviewed stable releases; do not push directly to it.
+Task branches flow into development. A separate reviewed release PR promotes development into main. Follow the team's one-approval and `test`-check policy; the workflow's aggregate check now requires successful Windows, Linux and macOS builds including native-package tests. Main is for reviewed stable releases; do not push directly to it.
 
 ## CI downloads and dependencies
 
-Open the pull request's Checks tab or the repository Actions tab, select the Java build run, and download `line-tracker-ubuntu-latest` or `line-tracker-windows-latest` from Artifacts. Each contains the baseline JAR. Test reports are uploaded separately; artifacts expire after 14 days. The JAR still requires Java and currently provides CLI functionality only.
+Open the pull request's Checks tab or Actions and select the Java build run for the desired commit. Artifacts named `line-tracker-native-<OS>-<ARCH>` contain the tested desktop/CLI archive with its bundled runtime. Choose your OS/CPU architecture and extract it before using its launcher; [PACKAGING.md](PACKAGING.md) gives details. The standalone JAR still needs Java 17 for CLI use; desktop use additionally needs the pinned JavaFX libraries. Test reports are uploaded separately and artifacts expire after 14 days.
 
 Dependabot configuration proposes weekly Maven and GitHub Actions updates targeting development after the configuration exists on the default branch. Dependency updates require the same review and CI; they are not automatically merged. When the first reviewed release reaches main, verify Dependabot is active in the repository's dependency settings.
 
-The JavaFX UI, advanced matcher and final evaluation dataset remain separate tasks. See ARCHITECTURE.md for the shared interface before implementing them.
+The release-candidate branch combines the JavaFX shell with baseline, advanced and split matching. Final desktop controls, packaging and release QA are being verified together. See ARCHITECTURE.md for the shared interface and current limitations.

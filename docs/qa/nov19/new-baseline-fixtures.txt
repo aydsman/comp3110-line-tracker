@@ -1,0 +1,7 @@
+identical: 2/2 correct, F1 1.000
+insert-delete: 2/2 correct, F1 1.000
+both-empty: 0/0 correct, F1 1.000
+empty-to-content: 0/0 correct, F1 1.000
+content-to-empty: 0/0 correct, F1 1.000
+split-wrap: 1/3 correct, F1 0.500
+Saved C:\Users\vivvo\Desktop\comp 3110 project\baseline\docs\qa\nov19\new-baseline-fixtures.json

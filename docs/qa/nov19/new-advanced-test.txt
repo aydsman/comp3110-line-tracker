@@ -1,0 +1,6 @@
+strip-bom: 14/14 correct, F1 1.000
+is-plain-obj: 10/10 correct, F1 1.000
+is-unicode-supported: 10/11 correct, F1 0.952
+is-docker: 25/28 correct, F1 0.943
+path-exists: 15/19 correct, F1 0.882
+Saved C:\Users\vivvo\Desktop\comp 3110 project\baseline\docs\qa\nov19\new-advanced-test.json

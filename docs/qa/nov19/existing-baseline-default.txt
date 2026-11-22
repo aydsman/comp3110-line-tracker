@@ -1,0 +1,31 @@
+ASTResolving-1-2 ok
+ArrayReference-1-2 ok
+BaseTypes-1-2 ok
+BaseTypes-1-3 ok
+BaseTypes-1-4 ok
+BaseTypes-1-5 ok
+BaseTypes-1-6 ok
+BaseTypes-1-7 ok
+BuildPathsPropertyPage-1-2 ok
+CPListLabelProvider-1-2 ok
+CompilationUnitDocumentProvider-1-2 ok
+DeltaProcessor-1-2 error CLI exit 1: Comparison failed: Files exceed baseline LCS memory limit (4279920 cells)
+
+DialogCustomize-1-2 ok
+DirectoryDialog-1-2 ok
+DoubleCache-1-2 ok
+FontData-1-2 ok
+GC-1-2 error CLI exit 1: Comparison failed: Files exceed baseline LCS memory limit (4797910 cells)
+
+GC2-1-2 ok
+JavaCodeScanner-1-2 ok
+JavaModelManager-1-2 ok
+JavaPerspectiveFactory-1-2 ok
+PluginSearchScope-1-2 ok
+RefreshLocal-1-2 ok
+ResourceCompareInput-1-2 ok
+ResourceInfo-1-2 ok
+SaveManager-1-2 ok
+TabFolder-1-2 ok
+asdf-1-2 ok
+Saved C:\Users\vivvo\Desktop\comp 3110 project\baseline\docs\qa\nov19\existing-baseline-default.json
