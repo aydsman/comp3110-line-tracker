@@ -47,6 +47,12 @@ java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt
 
 `spotless:apply` fixes Java formatting. `verify` checks formatting first, runs JUnit tests, builds the runnable JAR and tests that executable through Failsafe. It fails rather than silently reformatting files. The example prints `1-2` and `3-3`; unmatched old/new line numbers go to standard error. Add `--advanced --format json` for advanced prediction groups, or `--output FILE` to create a new UTF-8 export. See [EXPORT_FORMAT.md](EXPORT_FORMAT.md).
 
+## Run the JavaFX comparison shell
+
+On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files and click **Compare**. The side-by-side panes show the original lines with their 1-based numbers. Below them, the baseline pairs use the same old–new numbering as the CLI and the status shows unmatched counts.
+
+For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show mappings `1 → 2` and `3 → 3`, one unmatched old line, and two unmatched new lines. Select `1 → 2` to highlight `alpha` on old line 1 and new line 2. Select a different mapping to move both highlights. Choosing a different file clears the previous comparison.
+
 ## Submit work for review
 
 ```text
@@ -65,4 +71,4 @@ Open the pull request's Checks tab or the repository Actions tab and select the 
 
 Dependabot configuration proposes weekly Maven and GitHub Actions updates targeting development after the configuration exists on the default branch. Dependency updates require the same review and CI; they are not automatically merged. When the first reviewed release reaches main, verify Dependabot is active in the repository's dependency settings.
 
-The JavaFX UI and final evaluation dataset remain separate tasks. Baseline, advanced and split matching are integrated on the packaging branch. See ARCHITECTURE.md for the shared interface and current limitations.
+The release-candidate branch combines the JavaFX shell with baseline, advanced and split matching. Final desktop controls, packaging and release QA are being verified together. See ARCHITECTURE.md for the shared interface and current limitations.
