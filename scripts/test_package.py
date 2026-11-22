@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract and exercise a native CLI archive without relying on an installed Java."""
+"""Exercise the extracted native CLI and real JavaFX GUI without installed Java."""
 
 import argparse
 import hashlib
@@ -56,10 +56,16 @@ def launcher_command(launcher, arguments):
     return f'"{command_processor}" /d /s /c "{batch_command}"'
 
 
+def checksum(path):
+    with path.open("rb") as source:
+        return hashlib.file_digest(source, "sha256").hexdigest()
+
+
 def main():
     require(sys.version_info >= (3, 12), "Package verification requires Python 3.12 or newer")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("archive", type=Path)
+    parser.add_argument("--report", type=Path, help="Create a new JSON acceptance report at this path")
     args = parser.parse_args()
     archive = args.archive.resolve(strict=True)
     with tempfile.TemporaryDirectory(prefix="line tracker package test ") as temporary:
@@ -70,15 +76,43 @@ def main():
         information = json.loads((bundle / "build-info.json").read_text(encoding="utf-8"))
         host = {"Darwin": "macos", "Linux": "linux", "Windows": "windows"}[platform.system()]
         require(information["platform"] == host, "Package must be tested on its target operating system")
+        require(information["schema_version"] == 2, "Expected desktop-package metadata schema 2")
         require(information["jdk"].startswith("17."), "Bundled Java must be Java 17")
-        require(information["modules"] == ["java.base"], "Unexpected bundled runtime modules")
+        require(information["capabilities"] == ["cli", "gui"], "Package must include CLI and GUI")
+        require(
+            {"java.base", "java.desktop", "java.xml", "jdk.unsupported"} <= set(information["modules"]),
+            "Missing JavaFX runtime modules",
+        )
         jar = bundle / "app/line-tracker.jar"
-        with jar.open("rb") as source:
+        require(checksum(jar) == information["jar_sha256"], "JAR checksum differs from build-info.json")
+        for module in information["modules"]:
+            require((bundle / "runtime/legal" / module).is_dir(), f"Missing {module} legal notices")
+        javafx = information["javafx"]
+        require(javafx["version"] == "17.0.21", "Unexpected JavaFX version")
+        require(
+            {library["module"] for library in javafx["libraries"]}
+            == {"javafx.base", "javafx.graphics", "javafx.controls"},
+            "Missing JavaFX modules",
+        )
+        for library in javafx["libraries"]:
+            dependency = bundle / library["file"]
+            require(dependency.parent == bundle / "app/lib", "Invalid dependency path in metadata")
+            require(checksum(dependency) == library["sha256"], f"Changed dependency: {dependency.name}")
             require(
-                hashlib.file_digest(source, "sha256").hexdigest() == information["jar_sha256"],
-                "JAR checksum differs from build-info.json",
+                dependency.name.endswith(f"-{javafx['version']}-{javafx['classifier']}.jar"),
+                "JavaFX version/classifier differs from dependency filename",
             )
-        require((bundle / "runtime/legal/java.base").is_dir(), "Missing runtime legal notices")
+            with zipfile.ZipFile(dependency) as packed:
+                require("module-info.class" in packed.namelist(), "Missing JavaFX module descriptor")
+                for native in library["native_libraries"]:
+                    require(native in packed.namelist(), f"Missing native library: {native}")
+        legal = bundle / "legal/openjfx"
+        provenance = json.loads((legal / "provenance.json").read_text(encoding="utf-8"))
+        require(provenance["javafx_version"] == javafx["version"], "Wrong OpenJFX legal version")
+        require(provenance["source_commit"] == javafx["legal_source_commit"], "Wrong OpenJFX legal source")
+        require(len(provenance["files"]) == 5, "Missing OpenJFX license files")
+        for entry in provenance["files"]:
+            require(checksum(legal / entry["file"]) == entry["sha256"], "Changed OpenJFX legal notice")
         launcher = bundle / ("line-tracker.cmd" if os.name == "nt" else "line-tracker")
         caller = scratch / "different working directory"
         caller.mkdir()
@@ -88,6 +122,19 @@ def main():
         for name in ("JAVA_HOME", "JRE_HOME", "JAVA_TOOL_OPTIONS", "JDK_JAVA_OPTIONS", "_JAVA_OPTIONS"):
             environment.pop(name, None)
         environment["PATH"] = str(empty_path)
+        # Do not let a previously extracted JavaFX native cache mask missing bundled libraries.
+        java_cache = scratch / "fresh JavaFX native cache"
+        java_cache.mkdir()
+        java = bundle / "runtime/bin" / ("java.exe" if os.name == "nt" else "java")
+        module_check = subprocess.run(
+            [str(java), "--list-modules"], cwd=caller, env=environment,
+            capture_output=True, text=True, timeout=30,
+        )
+        require(module_check.returncode == 0, module_check.stderr)
+        require(
+            sorted(line.split("@")[0] for line in module_check.stdout.splitlines()) == information["modules"],
+            "Runtime module inventory differs from metadata",
+        )
         launches = 0
 
         def run(*arguments):
@@ -183,8 +230,30 @@ def main():
         usage = run("map")
         require(usage.returncode == 2 and usage.stdout == b"", "Usage error has wrong exit or stdout")
         require(b"Usage:" in usage.stderr and b"--format" in usage.stderr, "Missing usage guidance")
+        gui_launcher = bundle / ("line-tracker-gui.cmd" if os.name == "nt" else "line-tracker-gui")
+        gui_report = caller / "GUI acceptance result.json"
+        gui_environment = environment.copy()
+        gui_environment["JAVA_TOOL_OPTIONS"] = f'"-Djavafx.cachedir={java_cache}"'
+        gui = subprocess.run(
+            launcher_command(gui_launcher, ["--smoke-test", str(gui_report)]),
+            cwd=caller, env=gui_environment, capture_output=True, timeout=60,
+        )
+        require(gui.returncode == 0, f"Packaged GUI failed: {gui.stdout!r}\n{gui.stderr!r}")
+        require(gui_report.is_file(), "GUI did not produce its real-control acceptance report")
+        gui_evidence = json.loads(gui_report.read_text(encoding="utf-8"))
+        require(gui_evidence.get("success") is True, f"GUI acceptance failed: {gui_evidence}")
+        require(gui_evidence.get("checks", 0) >= 83, "GUI acceptance did not run its complete checks")
+        if args.report:
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            with args.report.open("x", encoding="utf-8") as report:
+                json.dump({"success": True, "archive_sha256": checksum(archive),
+                           "build": information, "cli_launches": launches,
+                           "gui": gui_evidence, "java_home_unset": True,
+                           "java_on_path": False}, report, indent=2)
+                report.write("\n")
         print(
-            f"PASS: {launches} packaged launcher checks; JSON parsed independently; "
+            f"PASS: {launches} CLI launcher checks and {gui_evidence['checks']} real GUI checks; "
+            "JSON parsed independently; "
             f"no JAVA_HOME or Java on PATH; {information['platform']}-{information['architecture']}"
         )
 

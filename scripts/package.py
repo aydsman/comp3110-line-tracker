@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Package a verified JAR with a native Java 17 runtime using only Python's stdlib."""
+"""Package the verified CLI and JavaFX GUI with their native Java 17 runtime."""
 
 import hashlib
 import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -31,21 +32,43 @@ WINDOWS_LAUNCHER = '''@echo off
 exit /b %errorlevel%
 '''
 
-PACKAGE_README = '''# Line Tracker CLI package
+POSIX_GUI_LAUNCHER = POSIX_LAUNCHER.replace(
+    '-jar "$app_dir/app/line-tracker.jar"',
+    '--module-path "$app_dir/app/lib" --add-modules javafx.controls '
+    '-cp "$app_dir/app/line-tracker.jar" edu.comp3110.linetracker.ComparisonApp',
+)
+
+WINDOWS_GUI_LAUNCHER = WINDOWS_LAUNCHER.replace(
+    '-jar "%~dp0app\\line-tracker.jar"',
+    '--module-path "%~dp0app\\lib" --add-modules javafx.controls '
+    '-cp "%~dp0app\\line-tracker.jar" edu.comp3110.linetracker.ComparisonApp',
+)
+
+JAVAFX_MODULES = ("javafx.base", "javafx.graphics", "javafx.controls")
+JAVAFX_CLASSIFIERS = {
+    ("macos", "arm64"): "mac-aarch64", ("macos", "x86_64"): "mac",
+    ("linux", "arm64"): "linux-aarch64", ("linux", "x86_64"): "linux",
+    ("windows", "x86_64"): "win",
+}
+
+PACKAGE_README = '''# Line Tracker desktop and CLI package
 
 This archive includes its own Java 17 runtime. It runs only on the operating
 system and CPU architecture named in the archive and build-info.json.
-No separate Java installation is needed. This package does not contain a GUI.
+No separate Java installation is needed. The GUI includes JavaFX and its native
+libraries. A normal desktop session is required for the GUI (GTK 3 on Linux).
 
 Extract the complete archive before running it. From the extracted directory:
 
 macOS/Linux:
 
+    ./line-tracker-gui
     ./line-tracker map examples/insert-delete/old.txt examples/insert-delete/new.txt
     ./line-tracker map OLD NEW --advanced --format json --output results.json
 
 Windows PowerShell:
 
+    .\\line-tracker-gui.cmd
     .\\line-tracker.cmd map examples\\insert-delete\\old.txt examples\\insert-delete\\new.txt
     .\\line-tracker.cmd map OLD NEW --advanced --format json --output results.json
 
@@ -54,10 +77,15 @@ Unmatched-line diagnostics go to stderr. Exit codes are 0 success, 1 comparison
 or output failure, and 2 invalid usage. Advanced mode includes exact split
 reconstruction; the default mode is the unchanged-line baseline.
 
-build-info.json records the source commit, dirty state, Java runtime, platform,
-architecture and JAR checksum. Dirty means the build included uncommitted work.
+Use the GUI to choose old/new UTF-8 files, compare with baseline or advanced
+matching, select mappings to highlight the corresponding lines, and export
+text or JSON. Both interfaces use the same validated comparison pipeline.
+
+build-info.json records the source commit, dirty state, Java runtime modules,
+platform, architecture, application/dependency checksums and JavaFX version.
+Dirty means the build included uncommitted work.
 The examples are synthetic development fixtures, not benchmark evidence.
-Keep runtime/legal with the runtime when redistributing the archive.
+Keep runtime/legal and legal/openjfx when redistributing the archive.
 macOS packages are unsigned; managed-computer policy may restrict downloaded code.
 '''
 
@@ -126,6 +154,103 @@ def read_jdk(root):
     return home, tools, properties, host, architecture
 
 
+def native_architecture(data, system):
+    """Inspect the native object header, rather than trusting a classifier name."""
+    if system == "macos" and data[:4] == b"\xcf\xfa\xed\xfe":
+        return {0x01000007: "x86_64", 0x0100000C: "arm64"}.get(
+            int.from_bytes(data[4:8], "little")
+        )
+    if system == "linux" and len(data) >= 20 and data[:4] == b"\x7fELF" and data[4] == 2:
+        order = "little" if data[5] == 1 else "big"
+        return {62: "x86_64", 183: "arm64"}.get(int.from_bytes(data[18:20], order))
+    if system == "windows" and data[:2] == b"MZ":
+        offset = int.from_bytes(data[60:64], "little")
+        if data[offset:offset + 4] == b"PE\0\0":
+            return {0x8664: "x86_64", 0xAA64: "arm64"}.get(
+                int.from_bytes(data[offset + 4:offset + 6], "little")
+            )
+    return None
+
+
+def javafx_dependencies(root, system, architecture):
+    namespace = {"m": "http://maven.apache.org/POM/4.0.0"}
+    version = ET.parse(root / "pom.xml").findtext("m:properties/m:javafx.version", namespaces=namespace)
+    if version != "17.0.21":
+        raise RuntimeError("Review native libraries and legal notices before changing JavaFX 17.0.21.")
+    classifier = JAVAFX_CLASSIFIERS.get((system, architecture))
+    if classifier is None:
+        raise RuntimeError(f"No supported JavaFX native classifier for {system}-{architecture}.")
+    directory = root / "target/dependency"
+    expected = {
+        f"{module.replace('.', '-')}-{version}{suffix}.jar"
+        for module in JAVAFX_MODULES for suffix in ("", "-" + classifier)
+    }
+    found = {path.name for path in directory.glob("*.jar")}
+    if found != expected:
+        raise RuntimeError(
+            f"Runtime libraries differ from the pinned host JavaFX dependencies: {sorted(found)}. "
+            "Run clean verify; review any added dependency before packaging."
+        )
+    libraries = []
+    native_suffix = {"macos": ".dylib", "linux": ".so", "windows": ".dll"}[system]
+    for module in JAVAFX_MODULES:
+        path = directory / f"{module.replace('.', '-')}-{version}-{classifier}.jar"
+        with zipfile.ZipFile(path) as packed:
+            if "module-info.class" not in packed.namelist():
+                raise RuntimeError(f"JavaFX dependency is not modular: {path.name}")
+            natives = [name for name in packed.namelist() if name.endswith(native_suffix)]
+            for name in natives:
+                if native_architecture(packed.read(name), system) != architecture:
+                    raise RuntimeError(f"Wrong native CPU architecture in {path.name}: {name}")
+            if module == "javafx.graphics" and not any("glass" in name for name in natives):
+                raise RuntimeError("JavaFX graphics is missing its native windowing library.")
+        libraries.append((path, {"file": "app/lib/" + path.name, "module": module,
+                                 "sha256": sha256(path), "native_libraries": sorted(natives)}))
+    return version, classifier, libraries
+
+
+def runtime_modules(root, tools, jar, libraries):
+    module_path = os.pathsep.join(str(path) for path, _ in libraries)
+    required = {"java.base"}
+    for _, library in libraries:
+        description = checked(
+            [tools["java"], "--module-path", module_path, "--describe-module", library["module"]], root
+        )
+        if description.split()[0] != library["module"] + "@17.0.21":
+            raise RuntimeError(f"Wrong JavaFX module/version in {library['file']}")
+        for dependency in re.findall(r"^requires ([\w.]+)", description, flags=re.MULTILINE):
+            if dependency.startswith(("java.", "jdk.")):
+                required.add(dependency)
+            elif dependency not in JAVAFX_MODULES:
+                raise RuntimeError(f"Unreviewed JavaFX module dependency: {dependency}")
+    # Resolve every application reference with the exact copied platform libraries.
+    application = checked(
+        [tools["jdeps"], "--multi-release", "17", "--module-path", module_path,
+         "--add-modules", "javafx.controls", "--print-module-deps", jar], root
+    )
+    for dependency in application.split(","):
+        if dependency.startswith(("java.", "jdk.")):
+            required.add(dependency)
+        elif dependency not in JAVAFX_MODULES:
+            raise RuntimeError(f"Unreviewed application module dependency: {dependency}")
+    return sorted(required)
+
+
+def copy_javafx_legal(root, bundle, version):
+    source = root / "scripts/legal/openjfx"
+    provenance = json.loads((source / "provenance.json").read_text(encoding="utf-8"))
+    if provenance["javafx_version"] != version:
+        raise RuntimeError("OpenJFX legal files do not match the dependency version.")
+    required = {"LICENSE", "ADDITIONAL_LICENSE_INFO", "ASSEMBLY_EXCEPTION", "jpeg_fx.md", "mesa3d.md"}
+    if {entry["file"] for entry in provenance["files"]} != required:
+        raise RuntimeError("OpenJFX legal-file inventory is incomplete.")
+    for entry in provenance["files"]:
+        if sha256(source / entry["file"]) != entry["sha256"]:
+            raise RuntimeError(f"OpenJFX license checksum mismatch: {entry['file']}")
+    shutil.copytree(source, bundle / "legal/openjfx")
+    return provenance
+
+
 def write_archive(bundle, archive, windows):
     # Exclusive creation preserves any prior deliverable, even in a concurrent build.
     created = False
@@ -151,9 +276,8 @@ def main():
     root = Path(__file__).resolve().parents[1]
     jar = verified_jar(root)
     home, tools, properties, system, architecture = read_jdk(root)
-    modules = checked([tools["jdeps"], "--multi-release", "17", "--print-module-deps", jar], root)
-    if modules != "java.base":
-        raise RuntimeError(f"Runtime dependencies changed ({modules}); review the package modules.")
+    fx_version, classifier, libraries = javafx_dependencies(root, system, architecture)
+    modules = runtime_modules(root, tools, jar, libraries)
     commit = checked(["git", "rev-parse", "HEAD"], root)
     dirty = bool(checked(["git", "status", "--porcelain"], root))
     name = f"line-tracker-{system}-{architecture}-{commit[:12]}" + ("-dirty" if dirty else "")
@@ -169,35 +293,50 @@ def main():
         bundle = Path(temporary) / name
         (bundle / "app").mkdir(parents=True)
         shutil.copy2(jar, bundle / "app/line-tracker.jar")
+        (bundle / "app/lib").mkdir()
+        for path, library in libraries:
+            shutil.copy2(path, bundle / library["file"])
+        legal = copy_javafx_legal(root, bundle, fx_version)
         checked(
-            [tools["jlink"], "--module-path", home / "jmods", "--add-modules", "java.base",
+            [tools["jlink"], "--module-path", home / "jmods", "--add-modules", ",".join(modules),
              "--strip-debug", "--no-header-files", "--no-man-pages", "--compress=2",
              "--output", bundle / "runtime"],
             root,
         )
-        if not (bundle / "runtime/legal/java.base").is_dir():
-            raise RuntimeError("Generated runtime is missing its java.base legal notices.")
-        launcher = bundle / "line-tracker"
-        launcher.write_text(POSIX_LAUNCHER, encoding="utf-8", newline="\n")
-        launcher.chmod(0o755)
-        (bundle / "line-tracker.cmd").write_text(
-            WINDOWS_LAUNCHER, encoding="utf-8", newline="\r\n"
+        bundled_java = bundle / "runtime/bin" / ("java.exe" if system == "windows" else "java")
+        included_modules = sorted(
+            line.split("@")[0] for line in checked([bundled_java, "--list-modules"], root).splitlines()
         )
+        for module in included_modules:
+            if not (bundle / "runtime/legal" / module).is_dir():
+                raise RuntimeError(f"Generated runtime is missing legal notices for {module}.")
+        checked([bundled_java, "--module-path", bundle / "app/lib", "--add-modules",
+                 "javafx.controls", "--validate-modules"], root)
+        for name, posix, windows in (("line-tracker", POSIX_LAUNCHER, WINDOWS_LAUNCHER),
+                                     ("line-tracker-gui", POSIX_GUI_LAUNCHER, WINDOWS_GUI_LAUNCHER)):
+            launcher = bundle / name
+            launcher.write_text(posix, encoding="utf-8", newline="\n")
+            launcher.chmod(0o755)
+            (bundle / (name + ".cmd")).write_text(windows, encoding="utf-8", newline="\r\n")
         (bundle / "PACKAGE_README.md").write_text(PACKAGE_README, encoding="utf-8")
-        for fixture in ("identical", "insert-delete"):
+        for fixture in ("identical", "insert-delete", "split-wrap", "both-empty"):
             target = bundle / "examples" / fixture
             target.mkdir(parents=True)
             for filename in ("old.txt", "new.txt"):
                 shutil.copy2(root / "datasets/development" / fixture / filename, target / filename)
         information = {
-            "schema_version": 1,
+            "schema_version": 2,
             "commit": commit,
             "dirty": dirty,
             "jdk": properties.get("JAVA_RUNTIME_VERSION", properties["JAVA_VERSION"]),
             "jdk_vendor": properties.get("IMPLEMENTOR", "unknown"),
             "platform": system,
             "architecture": architecture,
-            "modules": ["java.base"],
+            "capabilities": ["cli", "gui"],
+            "modules": included_modules,
+            "javafx": {"version": fx_version, "classifier": classifier,
+                       "libraries": [library for _, library in libraries],
+                       "legal_source_commit": legal["source_commit"]},
             "jar_sha256": sha256(jar),
             "packaged_at_utc": datetime.now(timezone.utc).isoformat(),
         }

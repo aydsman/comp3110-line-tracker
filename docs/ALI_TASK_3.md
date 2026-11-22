@@ -1,5 +1,7 @@
 # Ali Task 3 — split integration and native CLI packages
 
+The sections below preserve the November 11 CLI feature-branch record. The integrated desktop/CLI package, preserved QA fixtures, reproducible historical example and current acceptance evidence are in [Ali Task 4](ALI_TASK_4.md) and [PACKAGING.md](PACKAGING.md). Mujtaba's November 19 Windows CLI-package audit supplies separate teammate run evidence. Course-scope confirmation, current peer approval and final release sign-off remain explicit gates.
+
 Task: [Package the application and complete required bug tracing](https://trello.com/c/ctTqMFgf). This work builds on [Ali's Task 2 PR #7](https://github.com/aydsman/comp3110-line-tracker/pull/7) and integrates [Ayden's split-detection PR #5](https://github.com/aydsman/comp3110-line-tracker/pull/5), preserving both histories. These dependencies require review before integration into `development`.
 
 ## Delivered implementation

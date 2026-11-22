@@ -128,12 +128,19 @@ class EvaluationTests(unittest.TestCase):
             command = [str(manifest), "--jar", str(jar), "--code-revision", "test", "--settings", "{}", "--output", str(output)]
             responses = [subprocess.CompletedProcess([], 0, "", "Java test"),
                          subprocess.TimeoutExpired("java", 30), subprocess.CompletedProcess([], 0, "1-1\n", "")]
-            with patch("evaluate_dataset.subprocess.run", side_effect=responses), contextlib.redirect_stdout(io.StringIO()):
-                self.assertEqual(main(command), 1)
+            # platform.platform() may lazily run uname through the same subprocess module.
+            # Keep that unrelated metadata lookup outside the three simulated Java calls.
+            with patch("evaluate_dataset.platform.platform", return_value="test-platform"):
+                with patch("evaluate_dataset.subprocess.run", side_effect=responses) as runner, contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(main(command), 1)
+                self.assertEqual(runner.call_count, 3)
             report = json.loads(output.read_text())
+            self.assertEqual(report["platform"], "test-platform")
             self.assertFalse(report["complete"])
             self.assertEqual(report["failed_cases"], 1)
             self.assertEqual(report["successful_cases"], 1)
+            self.assertEqual(report["cases"][0]["status"], "error")
+            self.assertIn("timed out", report["cases"][0]["error"])
             self.assertEqual(report["cases"][1]["f1"], 1)
             original_gold = (root / "expected.json").read_bytes()
             with patch("evaluate_dataset.subprocess.run") as runner, contextlib.redirect_stderr(io.StringIO()):

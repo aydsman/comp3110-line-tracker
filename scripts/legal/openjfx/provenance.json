@@ -1,0 +1,32 @@
+{
+  "javafx_version": "17.0.21",
+  "tag": "17.0.21+1",
+  "source_commit": "611a2b89281a81ff3ff534650244cba2162df1ed",
+  "files": [
+    {
+      "file": "LICENSE",
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "source_url": "https://github.com/openjdk/jfx17u/blob/611a2b89281a81ff3ff534650244cba2162df1ed/LICENSE"
+    },
+    {
+      "file": "ADDITIONAL_LICENSE_INFO",
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "source_url": "https://github.com/openjdk/jfx17u/blob/611a2b89281a81ff3ff534650244cba2162df1ed/ADDITIONAL_LICENSE_INFO"
+    },
+    {
+      "file": "ASSEMBLY_EXCEPTION",
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "source_url": "https://github.com/openjdk/jfx17u/blob/611a2b89281a81ff3ff534650244cba2162df1ed/ASSEMBLY_EXCEPTION"
+    },
+    {
+      "file": "jpeg_fx.md",
+      "sha256": "4d8164326adbb7c6a3dbb65b1979962915e4b6f67eb5885409c80a3f350b322a",
+      "source_url": "https://github.com/openjdk/jfx17u/blob/611a2b89281a81ff3ff534650244cba2162df1ed/modules/javafx.graphics/src/main/legal/jpeg_fx.md"
+    },
+    {
+      "file": "mesa3d.md",
+      "sha256": "63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152",
+      "source_url": "https://github.com/openjdk/jfx17u/blob/611a2b89281a81ff3ff534650244cba2162df1ed/modules/javafx.graphics/src/main/legal/mesa3d.md"
+    }
+  ]
+}

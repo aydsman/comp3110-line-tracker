@@ -1,12 +1,12 @@
 # COMP 3110 — Source Code Line Tracker
 
-Track corresponding source-code lines between two versions of a file using a Java core shared by a CLI and a planned JavaFX interface.
+Track corresponding source-code lines between two UTF-8 file versions through a command line or JavaFX desktop application.
 
 ## Status
 
-This branch integrates Ayden's baseline, advanced matcher and exact split detection with Ali's shared pipeline, CLI, text/JSON exports and native CLI packaging. The Java 17/Maven core reads UTF-8 inputs while preserving original text and line numbers, validates complete/exclusive mappings, and reports file errors with input context. The baseline matches normalized equality; `--advanced` additionally recovers edited, moved and split lines. Both modes use the same loaded-source or path pipeline. `verify` includes tests of the packaged JAR.
+The `ali/task-4-release` candidate integrates the backend, desktop interface, shared text/JSON exports, native packaging and QA dataset. Baseline mode matches normalized equality; advanced mode also recovers edits, moves and exact 2–4-line splits. The Java 17 core preserves original text and line numbers and validates complete, exclusive mappings. The desktop offers both modes, an explicit benchmark resource profile, group highlights and exports using the same pipeline and formatters as the CLI.
 
-Ayden authored the foundation and matching algorithms, including Task 3 splits; Ali authored the integration boundary, shared formatters, export controls and packaging. The branch preserves work from [Ayden's foundation pull request #1](https://github.com/aydsman/comp3110-line-tracker/pull/1) and his later backend branches. These dependencies and Ali's changes require review through `development`. The actual JavaFX frontend and QA dataset integration remain separate handoffs. No benchmark accuracy is claimed. See [export usage and schema](docs/EXPORT_FORMAT.md), [packaging](docs/PACKAGING.md) and the task handoffs for revision-specific evidence.
+Git history preserves Ayden's backend, Aadi's original JavaFX shell and Mujtaba's QA work. Ali's release integration connects the remaining desktop features and extends the runtime package. This is a candidate for reviewed integration into `development`; final QA approval and submission are separate. See [the release handoff](docs/ALI_TASK_4.md), [report](docs/PROJECT_REPORT.md), [demo](docs/DEMO.md) and [packaging](docs/PACKAGING.md).
 
 ## Team
 
@@ -57,9 +57,11 @@ An advanced split maps one old line to two through four consecutive new lines. T
 
 Use `./mvnw clean verify` (`.\mvnw.cmd clean verify` on Windows) for a clean build, unit tests, packaging, and integration tests that launch `target/line-tracker.jar`. The `package` phase alone does not run the packaged-JAR integration tests.
 
-## Native CLI bundles
+For the desktop, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new files, select Baseline or Advanced, and compare. Select a result to highlight every mapped fragment; unmatched rows identify additions/deletions. Choose Text or JSON and export to a new filename. Changing files or settings clears stale results.
 
-The Task 3 packaging scripts create a native archive containing the JAR, launcher, examples and a Java 17 runtime, so users do not need a separate Java installation. Build each bundle on its target operating system/architecture using the pinned toolchain, then test the extracted archive. See [PACKAGING.md](docs/PACKAGING.md) for clean-checkout commands, requirements, build metadata and smoke checks. Bundles contain the CLI; an actual JavaFX frontend has not been integrated. Package scripts and local tests do not establish that another platform's archive has passed.
+## Native desktop and CLI bundles
+
+The package contains a Java 17 runtime, pinned JavaFX libraries, launchers and examples. After extracting the appropriate OS/CPU archive, run `line-tracker-gui` or `line-tracker-gui.cmd` for the desktop, and `line-tracker` or `line-tracker.cmd` for CLI commands. No separate Java installation is required. Keep all extracted folders together. See [PACKAGING.md](docs/PACKAGING.md) for clean-checkout commands, legal notices, provenance and real GUI/CLI smoke checks. Each archive must be tested on its target operating system.
 
 ## Shared interface
 
@@ -71,7 +73,7 @@ String pairs = TextMappingFormatter.format(result);
 String json = JsonMappingFormatter.format(result);
 ```
 
-All public core classes live in `edu.comp3110.linetracker`. The pipeline also accepts `compare(SourceFile oldFile, SourceFile newFile, MatchConfig config)` so a frontend can display and compare the same loaded source records. Both overloads enforce the same result contract. Aadi should load and compare files in a JavaFX background task; select `new AdvancedMatcher()` through the existing `LineMatcher` constructor for advanced results. Use the same text/JSON formatters for GUI exports. The real GUI handoff remains unverified. See [architecture](docs/ARCHITECTURE.md) for models, errors, and examples.
+All public core classes live in `edu.comp3110.linetracker`. The pipeline also accepts `compare(SourceFile oldFile, SourceFile newFile, MatchConfig config)` so the desktop displays the exact snapshots used for matching. Both overloads enforce the same result contract. Desktop work runs in a JavaFX background task and exports use the shared formatters. See [architecture](docs/ARCHITECTURE.md) for models, errors and examples.
 
 ## Project goals and limits
 
@@ -81,7 +83,7 @@ The baseline matches normalized equality in order. It does not yet identify modi
 
 The advanced matcher preserves baseline anchors, uses SimHash to shortlist remaining lines, and combines content/context similarity before deterministic conflict resolution. It accepts exact moves, then exact splits of two through four available nonblank lines, then fuzzy edits. Candidate pruning and greedy selection can miss valid mappings; MOVED is the classification of a recovered exact match outside the LCS, not independently established edit history. Ayden's proposed evaluation settings are retained, but no independent teammate approval of an evaluation freeze is recorded.
 
-Two synthetic development fixture pairs are included. They are not the required evaluation dataset and await independent teammate review. Mujtaba's QA branch uses the same `identical` fixture path for a different two-line example; this branch retains Ayden's three-line example. Reconcile that conflict explicitly during QA integration. Rubric, existing benchmark access, and mandatory bug-tracing scope remain unconfirmed.
+The integrated dataset contains 25 real source-file pairs and seven separate synthetic fixtures. The three-line foundation `identical` fixture and the two-line QA `identical-qa` fixture both retain their original inputs and answers. Recorded reviews are linked in the manifests; source review is distinct from release approval. Run `python scripts/verify_release.py --help` for reproducible candidate QA. The private existing-benchmark archive must be supplied for a fresh existing-data matrix. The course rubric and mandatory tracing scope remain unconfirmed; a [verified project-history example](docs/BUG_TRACING_EXAMPLE.md) is provided for review.
 
 ## Project guide
 
@@ -92,6 +94,9 @@ Two synthetic development fixture pairs are included. They are not the required 
 - [Ali's Task 1 evidence and handoff](docs/ALI_TASK_1.md)
 - [Ali's Task 2 integration and evidence](docs/ALI_TASK_2.md)
 - [Ali's Task 3 packaging and acceptance](docs/ALI_TASK_3.md)
+- [Ali's Task 4 release candidate](docs/ALI_TASK_4.md)
+- [Project report](docs/PROJECT_REPORT.md) and [demo script](docs/DEMO.md)
+- [Historical bug example](docs/BUG_TRACING_EXAMPLE.md)
 - [Task 1–4 milestones and ownership](docs/PLAN.md)
 - [Dataset and evaluation protocol](docs/DATASET.md)
 - [Decisions and professor questions](docs/DECISIONS.md)
@@ -104,4 +109,4 @@ Use `development` for shared integration. Branch each task from development and 
 
 ## Continuous integration
 
-The workflow defines builds on Ubuntu, Windows and macOS using pinned Temurin 17.0.21+9 and Python 3.12. Each runner performs Maven `verify`, builds a native Java-runtime bundle, tests its extracted archive and uploads the result. The aggregate `test` check requires all three platforms. Check the actual run for the submitted commit before claiming CI or package success. Download native archives, JARs and available reports from that run's artifacts (14-day retention). Use `./mvnw spotless:apply` (`.\mvnw.cmd spotless:apply` on Windows) to fix formatting locally. Weekly Dependabot updates target development once its configuration is present on the default branch.
+The workflow builds on Ubuntu, Windows and macOS using pinned Temurin 17.0.21+9 and Python 3.12. Each runner performs Maven verification, builds a native runtime bundle, tests its extracted CLI and actual JavaFX workflow, and uploads artifacts. The aggregate `test` check requires all three platforms. Use the run for the exact candidate commit when assessing a package. Artifacts have 14-day retention. `./mvnw spotless:apply` (`.\mvnw.cmd spotless:apply` on Windows) fixes Java formatting.

@@ -1,5 +1,9 @@
 # Decisions and open questions
 
+## November 21 candidate update
+
+The release candidate integrates the real JavaFX shell, advanced/split controls, shared exports, QA collection/evaluators and native desktop runtime packaging. Both conflicting identity fixtures are preserved under separate paths. Existing source reviews are recorded with their actual revisions and AI-assistance attribution. The default resource guard remains four million cells; the eight-million benchmark profile is explicit. A reproducible local history example is provided without claiming a general tracing implementation or instructor acceptance. See [ALI_TASK_4.md](ALI_TASK_4.md) for current evidence and acceptance gaps. The dated decisions below describe earlier branch states.
+
 ## Adopted foundation
 
 - Java 17, Maven 3.9.9 wrapper and JUnit 5; plain Java core with a future JavaFX frontend.

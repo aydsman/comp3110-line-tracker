@@ -1,6 +1,23 @@
 [
   {
-    "id": "identical",
+    "id": "identical-foundation",
+    "old": "identical/old.txt",
+    "new": "identical/new.txt",
+    "expected": "identical/expected.json",
+    "synthetic": true,
+    "split": "development",
+    "annotator": "Ayden Sendrea (foundation fixture commit)",
+    "reviewer": null,
+    "review_status": "Original foundation fixture preserved; no separate annotation-review evidence recorded",
+    "source_revision": "933763e319f6ba8b9d90defc04ab7f49d5d92cfd",
+    "source_evidence": "https://github.com/aydsman/comp3110-line-tracker/commit/933763e319f6ba8b9d90defc04ab7f49d5d92cfd",
+    "annotation_note": "Three original lines, including the blank line, map to the same three new lines. The existing Java baseline test uses this path. This additional synthetic control is separate from the 25 real source files.",
+    "old_sha256": "593f2f700bd3aec52f42bfe2ebfcc7c7593b8bddb3cd3efdb1ccf8b155a6d662",
+    "new_sha256": "593f2f700bd3aec52f42bfe2ebfcc7c7593b8bddb3cd3efdb1ccf8b155a6d662",
+    "expected_sha256": "843bf4bb99e57220a31b01c95533f5ece9da9a0e09119e51b2fc1bd17e363d98"
+  },
+  {
+    "id": "identical-qa",
     "old": "identical-qa/old.txt",
     "new": "identical-qa/new.txt",
     "expected": "identical-qa/expected.json",
@@ -11,7 +28,16 @@
     "review_status": "source review recorded; PR approval pending",
     "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/pull/2#pullrequestreview-5861569801",
     "reviewed_revision": "0d28b349f3d243a4fa5aed32ab951d78f300b2f9",
-    "integration_note": "Original QA two-line fixture preserved byte-for-byte in identical-qa; the foundation three-line identical fixture retains its existing Java test path."
+    "integration_note": "Original QA two-line fixture preserved byte-for-byte in identical-qa; the foundation three-line identical fixture retains its existing Java test path.",
+    "reviewed_case_id": "identical",
+    "reviewed_paths": {
+      "old": "datasets/development/identical/old.txt",
+      "new": "datasets/development/identical/new.txt",
+      "expected": "datasets/development/identical/expected.json"
+    },
+    "old_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee",
+    "new_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee",
+    "expected_sha256": "8291370425b573b19e9345c5ce39375e2e3e35cc0cf3bbbb4f7eac5c9ad6e583"
   },
   {
     "id": "insert-delete",
@@ -73,8 +99,13 @@
     "synthetic": true,
     "split": "development",
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
-    "annotation_note": "One return statement wraps into two consecutive fragments; done() anchors the next line. Separate synthetic end-to-end split fixture, not part of the 25 real source files."
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
+    "annotation_note": "One return statement wraps into two consecutive fragments; done() anchors the next line. Separate synthetic end-to-end split fixture, not part of the 25 real source files.",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   }
 ]

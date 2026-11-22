@@ -1,5 +1,7 @@
 # Task 1–4 work plan
 
+The schedule below is the original team plan. Current Week 3/4 integration and release evidence is recorded in [ALI_TASK_4.md](ALI_TASK_4.md); the original feature-branch limitations below are historical where superseded there. Dates alone do not establish submission or completion.
+
 Every person has a Task 1, 2, 3 and 4. Trello deadlines are planning deadlines at 23:59 America/Toronto, not evidence of an official course cutoff. Work starts Nov 3, 2026. Final preparation targets Nov 19; submission is Nov 20.
 
 | Section | Window | Ayden — Backend | Aadi — Frontend | Ali — Integration | Mujtaba — QA |

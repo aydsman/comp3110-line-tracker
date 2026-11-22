@@ -13,7 +13,7 @@ git switch development
 git pull --ff-only
 ```
 
-The foundation and integration PRs remain subject to peer review. Until merged, use the relevant task branch explicitly: `ali/task-2-exports` for advanced matching/exports or `ali/task-3-package` for splits/native packaging. Do not assume main/development contains unmerged files. For a reproducible build, check out the exact reviewed commit as described in [PACKAGING.md](PACKAGING.md).
+For the integrated desktop/CLI candidate, use `git switch ali/task-4-release` after cloning, then check out its exact reviewed commit. Development contains only merged work. The original integration PRs and new candidate remain subject to peer review. See [PACKAGING.md](PACKAGING.md) for reproducible builds and [ALI_TASK_4.md](ALI_TASK_4.md) for acceptance status.
 
 ## Create your task branch
 
@@ -49,7 +49,7 @@ java -jar target/line-tracker.jar map datasets/development/insert-delete/old.txt
 
 ## Run the JavaFX comparison shell
 
-On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files and click **Compare**. The side-by-side panes show the original lines with their 1-based numbers. Below them, the baseline pairs use the same old–new numbering as the CLI and the status shows unmatched counts.
+On a desktop with JDK 17, run `./mvnw javafx:run` (`.\mvnw.cmd javafx:run` on Windows). Choose the old and new UTF-8 files, choose Baseline or Advanced mode, and click **Compare**. The side-by-side panes show original text with one-based line numbers. Select a mapping to highlight all of its old/new lines, including every split fragment. Text/JSON exports use the shared CLI format and refuse existing files. Changing inputs or settings clears stale output. The explicit benchmark profile raises the memory guard to eight million cells without changing similarity thresholds.
 
 For a quick check, choose `datasets/development/insert-delete/old.txt` and `datasets/development/insert-delete/new.txt`. Compare should show mappings `1 → 2` and `3 → 3`, one unmatched old line, and two unmatched new lines. Select `1 → 2` to highlight `alpha` on old line 1 and new line 2. Select a different mapping to move both highlights. Choosing a different file clears the previous comparison.
 
@@ -67,7 +67,7 @@ Task branches flow into development. A separate reviewed release PR promotes dev
 
 ## CI downloads and dependencies
 
-Open the pull request's Checks tab or the repository Actions tab and select the Java build run for the desired commit. Artifacts named `line-tracker-native-<OS>-<ARCH>` contain the tested native archive with a bundled Java runtime. Choose your OS/CPU architecture and extract the archive before using its launcher; [PACKAGING.md](PACKAGING.md) gives build and run details. `line-tracker-<runner>` artifacts contain the standalone JAR, which still needs Java 17. Test reports are uploaded separately; artifacts expire after 14 days. The application currently provides CLI functionality only.
+Open the pull request's Checks tab or Actions and select the Java build run for the desired commit. Artifacts named `line-tracker-native-<OS>-<ARCH>` contain the tested desktop/CLI archive with its bundled runtime. Choose your OS/CPU architecture and extract it before using its launcher; [PACKAGING.md](PACKAGING.md) gives details. The standalone JAR still needs Java 17 for CLI use; desktop use additionally needs the pinned JavaFX libraries. Test reports are uploaded separately and artifacts expire after 14 days.
 
 Dependabot configuration proposes weekly Maven and GitHub Actions updates targeting development after the configuration exists on the default branch. Dependency updates require the same review and CI; they are not automatically merged. When the first reviewed release reaches main, verify Dependabot is active in the repository's dependency settings.
 

@@ -161,12 +161,17 @@
       "line deletion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Pair corresponding function declarations and condition statements in order. Function properties writable/readable/duplex/transform become named exported functions. Returning conditions gain return and move && from line endings to following line beginnings. Added closing braces are new lines 5,12,19,24,29. Removed strict-mode directive and final CommonJS export are old lines 1 and 28. Delete leading/trailing separator blanks 2 and 27; retain inter-function separator blanks as 7->6,13->13,19->20,23->25. Duplicate blank identities are context-based and require peer review. No gold labels were generated from matcher predictions.",
     "old_sha256": "14cddb2ce9959337b9f9f018ee57171ec8c4eacf1b27de9d5b5c268a2167288c",
-    "new_sha256": "a2910432ecbdd6ab7ae54aebeecc965ba39677275e59f563a73a885ca58d155d"
+    "new_sha256": "a2910432ecbdd6ab7ae54aebeecc965ba39677275e59f563a73a885ca58d155d",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "escape-string-regexp",
@@ -188,12 +193,17 @@
       "comment edit"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Old 3 maps to new 1 as the function declaration. Old 9 maps to new 7 as the edited escape explanation. Old 13 maps to new 11 as the changed function terminator. Delete the strict directive and its following separator. Keep old blank 7 as new blank 5. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "d7170b45e3faf26da2fcb2b4a2fac19af142b44d2ec5ae7760700896749a5886",
-    "new_sha256": "af2065ad2f2d2b91946c2121e21618daa3f4b18787af9226f8c953ca54cca2f5"
+    "new_sha256": "af2065ad2f2d2b91946c2121e21618daa3f4b18787af9226f8c953ca54cca2f5",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "strip-bom",
@@ -215,12 +225,17 @@
       "line insertion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "test",
     "annotation_note": "All original lines retain one-to-one identities. Rename parameter x to string in the declaration, type check, BOM check, slice and return. The error string becomes a template literal. New blank line 2 is inserted after the strict directive. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "0fde7fd5ccd93e8ab043ea2f9dca6ec52c6e15fa5d4c66ac135e32c82a64517f",
-    "new_sha256": "579b37538f5d25f6caa7f4c9755dabad2015665fda865a977432d319506408b7"
+    "new_sha256": "579b37538f5d25f6caa7f4c9755dabad2015665fda865a977432d319506408b7",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-plain-obj",
@@ -240,12 +255,17 @@
       "expression simplification"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "test",
     "annotation_note": "Every line maps to the same number. Only old/new 9 changes, replacing Object.getPrototypeOf({}) with Object.prototype. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "33956f00aa90c4092fa66dd483ce864f7b8cbf3ac69da8ca653da994b56bb101",
-    "new_sha256": "d08af2c5c93d67eab4fa35666261d47a2e7b7786883afe6bf0b1a0e6403071fb"
+    "new_sha256": "d08af2c5c93d67eab4fa35666261d47a2e7b7786883afe6bf0b1a0e6403071fb",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-unicode-supported",
@@ -266,12 +286,17 @@
       "line insertion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "test",
     "annotation_note": "Old return true at line 3 becomes the Linux-console exclusion at new 3. New 8 adds a ConEmu/cmder alternative. Old terminal alternatives 8-10 shift to 9-11. Closing brace 11 shifts to 12. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "9dc47d5771bd48268712e2d042a7c79bd744b3709342c29e42a258c2f81a7dbc",
-    "new_sha256": "e358656abeabf116431e181fbdc0da1c91aaf9c05e4b4b940ed95e9422128731"
+    "new_sha256": "e358656abeabf116431e181fbdc0da1c91aaf9c05e4b4b940ed95e9422128731",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-path-inside",
@@ -294,12 +319,17 @@
       "line deletion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Delete strict directive 1. Map require import 2 to ES module import 1, declaration 4 to 3 and relation assignment 5 to 4. Old separator 3 maps to new 2. New blank 5 separates the assignment and return. The return block retains lines 6-11; terminator 12 loses its semicolon. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "c9a6405598cd76831faf2d5e258bd53750bd0d375d6336fede7d927ee28db156",
-    "new_sha256": "90507e5cb39e14d2311487f3a9eca022b4b3f5326122cf61b01a0137b35307d7"
+    "new_sha256": "90507e5cb39e14d2311487f3a9eca022b4b3f5326122cf61b01a0137b35307d7",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-fullwidth-code-point",
@@ -323,12 +353,17 @@
       "line insertion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "The strict directive and eslint comment swap positions (old 1->2 and 2->1, marked moved). Old function body 3-46 maps to new 4-47. Parameter x becomes codePoint, hex digits change case, and comment capitalization/spacing changes. New 3 and 48 are separator blanks. New 49-50 are explicit export assignments extracted from the original exported declaration. The declaration maps to new 4; export extraction is represented as added statements. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "bc9e2fb309b067655b6abbb764941ac48014366a3662db209cf0e9d0a4db54dd",
-    "new_sha256": "7db24c9c5d58273ba32eee1bec3dfebd393fdeddd0b5879ef01dc595476e6979"
+    "new_sha256": "7db24c9c5d58273ba32eee1bec3dfebd393fdeddd0b5879ef01dc595476e6979",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-docker",
@@ -352,12 +387,17 @@
       "comment insertion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "test",
     "annotation_note": "Delete strict directive 1. Old fs import 2->1, cached value declaration 4->3. Helper function lines 6-22 shift up one; catch parameters at 10 and 18 disappear. Old anonymous export 23 becomes named declaration 22. New 23 is an added TODO comment. Remaining lines 24-29 retain positions, with cache renaming and changed final terminator. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "d739e3d2bc8d3fad2e185fadefe57b65a49f7a336846cd2498d164b142293ead",
-    "new_sha256": "c32307b9a081c55993f99175b82e30c7418e0d4e46b42131a01ea302ffbea9bd"
+    "new_sha256": "c32307b9a081c55993f99175b82e30c7418e0d4e46b42131a01ea302ffbea9bd",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "path-exists",
@@ -381,12 +421,17 @@
       "catch syntax edit"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "test",
     "annotation_note": "Map fs import 2 to new combined import 1. Delete strict directive, promisify import, following blank 4 and pAccess initializer 5. Keep separator old 6 as new 2. Old async function 7-14 maps to 3-10, including replacement of pAccess with fsPromises.access. Old separator 15->11 and sync function 16-23->12-19. Catch bindings and function terminators are edited. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "379a30047a60f8d7b3bbbc2fa1fa0362f53e11ab7e63859fedfa7f2e25a99601",
-    "new_sha256": "8c78dc9f3fa0ee26e03be54c33540829a60403bc0dd4022db8a1a7943be9556e"
+    "new_sha256": "8c78dc9f3fa0ee26e03be54c33540829a60403bc0dd4022db8a1a7943be9556e",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "is-obj",
@@ -408,12 +453,17 @@
       "line deletion"
     ],
     "annotator": "Codex draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Delete strict directive and its separator. Anonymous exported declaration 3 becomes named ES module declaration 1. The type assignment and return retain identities 4->2 and 5->3. Function terminator 6->4 loses its semicolon. These draft correspondences were selected independently of matcher predictions. A teammate must review them.",
     "old_sha256": "0833a3eed3b0075f23e58f0107bebdedec6db53b4e7b1034d7ea7c9cfb932b0b",
-    "new_sha256": "60ba05619aa3b81623f2afecfbf3f06dcf9282e13e37dd0a24698ade6b71acc4"
+    "new_sha256": "60ba05619aa3b81623f2afecfbf3f06dcf9282e13e37dd0a24698ade6b71acc4",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-api",
@@ -435,12 +485,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Delete obsolete encoding header and its separator; all remaining lines retain order. Seven verb helpers and the redirect option change quote style. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "863ba83fbf48004997e83cacaf0f2dd37d9c2dfc0b1f16c8ff0338802e46f6dd",
-    "new_sha256": "772be40dde62b42f73da0d301e5fd87c3d727fa630a4658b3bbffff1edb59e4b"
+    "new_sha256": "772be40dde62b42f73da0d301e5fd87c3d727fa630a4658b3bbffff1edb59e4b",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-hooks",
@@ -462,12 +517,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Delete encoding header and separator; insert a blank after default_hooks; HOOKS and hasattr strings change quote style. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "411786cb2d1b45caf9ae4c02b8e6cd6a46d8b1cec492229e0701b8a877a4af64",
-    "new_sha256": "0a2bb2b221c0dfd57951f702057148c7cdc8ac3a6ec1f37d45c4d482fdbc7ed4"
+    "new_sha256": "0a2bb2b221c0dfd57951f702057148c7cdc8ac3a6ec1f37d45c4d482fdbc7ed4",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-sessions",
@@ -489,12 +549,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Insert two proxy-security comments before old 327; change that condition to exclude HTTPS tunneled proxy authorization. All subsequent lines shift by two. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "294a8971144ba2f35e7d4b3b49c39749454271f49ac93156b5b889ee03929532",
-    "new_sha256": "f8bbd3ceb3ed7ad493ad1ddbbb1bb85e176032b2452c1d6ae43ecffbe2f65e1c"
+    "new_sha256": "f8bbd3ceb3ed7ad493ad1ddbbb1bb85e176032b2452c1d6ae43ecffbe2f65e1c",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-models",
@@ -516,12 +581,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Missing-schema hint changes http to https on line 441. Old 816-817 for/yield becomes yield-from at new 816: retain the loop line as modified and delete old yield 817; subsequent lines shift by one. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "82c4593092e8c52c86e46fd7f1ed04e051bc72c2cf856ce7b4a8705fe99c7032",
-    "new_sha256": "f8394a8b4a2bf2014033a573bada1b5efbc15bfdb0ac9b8e17935f9dd4c875d0"
+    "new_sha256": "f8394a8b4a2bf2014033a573bada1b5efbc15bfdb0ac9b8e17935f9dd4c875d0",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-auth",
@@ -543,12 +613,17 @@
       "unchanged control"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Byte-identical source across two actual release tags. Explicit unchanged control; not evidence for recovery of edits. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "87e1cb955c7d8fcaca57985f480c9c3f60293928254f3efb474b73eea09b6c41",
-    "new_sha256": "87e1cb955c7d8fcaca57985f480c9c3f60293928254f3efb474b73eea09b6c41"
+    "new_sha256": "87e1cb955c7d8fcaca57985f480c9c3f60293928254f3efb474b73eea09b6c41",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-structures",
@@ -570,12 +645,17 @@
       "unchanged control"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Byte-identical source across two actual release tags. Explicit unchanged control; not evidence for recovery of edits. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "f886e6855cf4e92fb968f499b94b6167afba0fd5ce8d1b935c739a6d8d38d573",
-    "new_sha256": "f886e6855cf4e92fb968f499b94b6167afba0fd5ce8d1b935c739a6d8d38d573"
+    "new_sha256": "f886e6855cf4e92fb968f499b94b6167afba0fd5ce8d1b935c739a6d8d38d573",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-adapters",
@@ -597,12 +677,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Delete unused HTTPResponse import 25 and strict argument 197. Retain the conn.urlopen call from old 489-500 (dedented), add chunked argument new 497. Delete old branch guard 488 and obsolete manual chunk transport 501-544; preserve boundary blank old 545 as new 499. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "b049c71a5e26273e101c14fc8c6e9b53968f8a752d7681f7048b802334fe5fbe",
-    "new_sha256": "bff1668d4e4a67bea4f98b6d4a1658079469ac8ce184bf18df3816f69e1e050f"
+    "new_sha256": "bff1668d4e4a67bea4f98b6d4a1658079469ac8ce184bf18df3816f69e1e050f",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-utils",
@@ -624,12 +709,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Import 28 expands to six lines and adds validators. Header validation moves from caller loop to helper; old 1035-1036 are superseded by new type branches 1044-1048. Map old 1037-1040 exception block to new 1049-1052, old 1042-1043 calls to new 1039-1040, and old 1046 helper declaration to 1043. New 1055 computes header_kind. Blank old 1041 follows the relocated exception block as new 1053; old blank 1034 is deleted. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "e7fc2cf9bb0a23d10797b8f6ef28bee871733c12ae96d3e077b1df3eb513a162",
-    "new_sha256": "eacc765f7708540f018163a0f28771172fbf95b5831444d4f072387d4e119aac"
+    "new_sha256": "eacc765f7708540f018163a0f28771172fbf95b5831444d4f072387d4e119aac",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-status_codes",
@@ -651,12 +741,17 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Quote formatting throughout the status table. Delete inter-section blanks 26/43/55/90. Status 308 spans old 53-54 and new 49-53: declaration/permanent_redirect old 53 splits to 49-50, resume entries/comment old 54 split to 51-53. These include quote and comment edits. Old 73 status 416 tuple splits to five lines. Old 121 conditional suffix splits to new 123-125. Old 119/120 retain doc assignment/expression at 121/122. New 108/127 are added blanks. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "813efd3dbb3f7108c1829f9fbeb520835767d8340edf66c38f84c89e39cc3d27",
-    "new_sha256": "16f1e64f9b87fbfba29ad473e611fd5426eded557e35e8b627dba96de8fa8fc8"
+    "new_sha256": "16f1e64f9b87fbfba29ad473e611fd5426eded557e35e8b627dba96de8fa8fc8",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   },
   {
     "id": "requests-cookies",
@@ -678,11 +773,16 @@
       "formatting / behavior changes"
     ],
     "annotator": "Codex source-inspected draft for Mujtaba",
-    "reviewer": null,
-    "review_status": "pending teammate review",
+    "reviewer": "Codex for Ayden Sendrea (AI-assisted source review)",
+    "review_status": "AI-assisted source review recorded; release approval separate",
     "split": "development",
     "annotation_note": "Move calendar import 14 to new 10. Remove encoding header/separator. Reformat URL list, exceptions, cookie removal and conditions; preserve corresponding statement identities. Split 76->80-82 is a pure real three-fragment wrap. Other split groups include quote edits, trailing commas or comment extraction and may exceed the detector four-fragment limit. Inline-comment extraction old 395->408-409 reorders comment before assignment and needs peer confirmation. For collapsing expressions retain old 125->131 (delete 126), old 488->503 (delete 489-490), old 540->553 (delete 541). Delete obsolete syntax old 308 and err initializer old 465; preserve following exception old 466 as split 479-481. Draft ranges were selected from upstream source diffs before executing the project matcher. Two-to-one merges are outside the schema: retain the principal old line as modified and delete superseded syntax lines. All new Requests files stay in development because Requests already belongs to development; the original five test projects stay reserved. No parameter tuning.",
     "old_sha256": "63e6ca5fa4ef5b716762513a02ed125ed55559c68d745bee030431c3e1b48932",
-    "new_sha256": "903de43447028fe9b16ed7f97c9b12693f3a786a046290f75f4092829ce5ec13"
+    "new_sha256": "903de43447028fe9b16ed7f97c9b12693f3a786a046290f75f4092829ce5ec13",
+    "review_evidence": "https://github.com/aydsman/comp3110-line-tracker/blob/68d1626c5fa849ece980fa9aa87238f4347ae7cc/docs/AYDEN_TASK_4.md",
+    "review_evidence_revision": "68d1626c5fa849ece980fa9aa87238f4347ae7cc",
+    "reviewed_revision": "a4a04a5287f3c87e785c8109cebe9547aa078939",
+    "review_date": "2026-11-20",
+    "review_scope": "Source correspondence and annotation conventions; does not assert personal line-by-line review by Ayden or release approval."
   }
 ]
