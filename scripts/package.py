@@ -192,12 +192,24 @@ def javafx_dependencies(root, system, architecture):
             "Run clean verify; review any added dependency before packaging."
         )
     libraries = []
+    runtime_version = None
     native_suffix = {"macos": ".dylib", "linux": ".so", "windows": ".dll"}[system]
     for module in JAVAFX_MODULES:
         path = directory / f"{module.replace('.', '-')}-{version}-{classifier}.jar"
         with zipfile.ZipFile(path) as packed:
             if "module-info.class" not in packed.namelist():
                 raise RuntimeError(f"JavaFX dependency is not modular: {path.name}")
+            if module == "javafx.base":
+                properties = dict(
+                    line.split("=", 1)
+                    for line in packed.read("javafx.properties").decode("utf-8").splitlines()
+                    if "=" in line and not line.startswith(("#", "!"))
+                )
+                runtime_version = properties.get("javafx.runtime.version", "")
+                if properties.get("javafx.version") != version or not re.fullmatch(
+                    re.escape(version) + r"\+\d+", runtime_version
+                ):
+                    raise RuntimeError("Embedded OpenJFX release/runtime version does not match the POM.")
             natives = [name for name in packed.namelist() if name.endswith(native_suffix)]
             for name in natives:
                 if native_architecture(packed.read(name), system) != architecture:
@@ -206,7 +218,7 @@ def javafx_dependencies(root, system, architecture):
                 raise RuntimeError("JavaFX graphics is missing its native windowing library.")
         libraries.append((path, {"file": "app/lib/" + path.name, "module": module,
                                  "sha256": sha256(path), "native_libraries": sorted(natives)}))
-    return version, classifier, libraries
+    return version, runtime_version, classifier, libraries
 
 
 def runtime_modules(root, tools, jar, libraries):
@@ -216,7 +228,10 @@ def runtime_modules(root, tools, jar, libraries):
         description = checked(
             [tools["java"], "--module-path", module_path, "--describe-module", library["module"]], root
         )
-        if description.split()[0] != library["module"] + "@17.0.21":
+        # OpenJFX's Maven module descriptors omit @version; the base JAR's
+        # javafx.properties is the authoritative embedded release/build record.
+        identity = description.split()[0].split("@", 1)
+        if identity[0] != library["module"] or (len(identity) == 2 and identity[1] != "17.0.21"):
             raise RuntimeError(f"Wrong JavaFX module/version in {library['file']}")
         for dependency in re.findall(r"^requires ([\w.]+)", description, flags=re.MULTILINE):
             if dependency.startswith(("java.", "jdk.")):
@@ -276,7 +291,7 @@ def main():
     root = Path(__file__).resolve().parents[1]
     jar = verified_jar(root)
     home, tools, properties, system, architecture = read_jdk(root)
-    fx_version, classifier, libraries = javafx_dependencies(root, system, architecture)
+    fx_version, fx_runtime_version, classifier, libraries = javafx_dependencies(root, system, architecture)
     modules = runtime_modules(root, tools, jar, libraries)
     commit = checked(["git", "rev-parse", "HEAD"], root)
     dirty = bool(checked(["git", "status", "--porcelain"], root))
@@ -334,7 +349,8 @@ def main():
             "architecture": architecture,
             "capabilities": ["cli", "gui"],
             "modules": included_modules,
-            "javafx": {"version": fx_version, "classifier": classifier,
+            "javafx": {"version": fx_version, "runtime_version": fx_runtime_version,
+                       "classifier": classifier,
                        "libraries": [library for _, library in libraries],
                        "legal_source_commit": legal["source_commit"]},
             "jar_sha256": sha256(jar),
