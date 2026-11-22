@@ -168,6 +168,13 @@ class ComparisonServiceTest {
         if (bad.equals(invalid)) assertTrue(failure.getMessage().contains("not valid UTF-8"));
         if (bad.equals(temp.resolve("missing.txt")))
           assertTrue(failure.getMessage().contains("missing"));
+        if (bad.equals(temp) || bad.equals(temp.getRoot())) {
+          assertTrue(
+              failure.getMessage().startsWith("Cannot read the " + side + " file"),
+              failure.getMessage());
+          assertTrue(failure.getMessage().contains("directory"), failure.getMessage());
+          assertFalse(failure.getMessage().contains("missing"), failure.getMessage());
+        }
       }
     }
   }

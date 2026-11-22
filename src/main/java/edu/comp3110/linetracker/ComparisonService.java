@@ -117,14 +117,19 @@ final class ComparisonService {
 
   private static SourceFile read(Path path, String side) throws IOException {
     Objects.requireNonNull(path);
+    Path source = path.toAbsolutePath().normalize();
     try {
-      return SourceReader.read(path.toAbsolutePath().normalize());
+      if (Files.isDirectory(source)) {
+        throw new IOException("The selected path is a directory. Choose a UTF-8 file.");
+      }
+      return SourceReader.read(source);
     } catch (NoSuchFileException e) {
       throw new IOException("The " + side + " file is missing. Choose it again.", e);
     } catch (CharacterCodingException e) {
       throw new IOException("The " + side + " file is not valid UTF-8.", e);
     } catch (IOException e) {
-      String name = path.getFileName() == null ? path.toString() : path.getFileName().toString();
+      String name =
+          source.getFileName() == null ? source.toString() : source.getFileName().toString();
       throw new IOException(
           "Cannot read the " + side + " file (" + name + "). " + e.getMessage(), e);
     }

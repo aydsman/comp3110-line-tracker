@@ -261,9 +261,12 @@ final class GuiSmokeRunner {
     compare();
     fx(
         () -> {
+          String actualStatus = status();
           check(
-              status().startsWith("Comparison failed. Cannot read the old file"),
-              "A filesystem root input must produce a readable directory error");
+              actualStatus.startsWith("Comparison failed. Cannot read the old file")
+                  && actualStatus.contains("directory"),
+              "A filesystem root input must produce a readable directory error. Observed: "
+                  + actualStatus);
           return null;
         });
   }
