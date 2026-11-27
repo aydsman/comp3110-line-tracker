@@ -22,6 +22,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -72,11 +73,14 @@ public final class ComparisonApp extends Application {
 
     compare = new Button("Compare");
     compare.setId("compare-files");
+    compare.setMinWidth(Region.USE_PREF_SIZE);
     compare.setDefaultButton(true);
     compare.setOnAction(event -> compareFiles());
     status = new Label("Choose the old and new UTF-8 files.");
     status.setId("comparison-status");
     status.setWrapText(true);
+    status.setMinWidth(0);
+    status.setMaxWidth(Double.MAX_VALUE);
     progress = new ProgressIndicator();
     progress.setAccessibleText("Working");
     progress.setPrefSize(20, 20);
