@@ -1,0 +1,21 @@
+requests-version: 14/14 correct, F1 1.000
+flask-main: 14/14 correct, F1 1.000
+urllib3-version: 4/4 correct, F1 1.000
+certifi-main: 1/2 correct, F1 0.667
+idna-version: 2/2 correct, F1 1.000
+is-stream-functions: 12/24 correct, F1 0.600
+escape-string-regexp: 10/11 correct, F1 0.952
+is-path-inside: 9/11 correct, F1 0.900
+is-fullwidth-code-point: 45/46 correct, F1 0.989
+is-obj: 3/4 correct, F1 0.857
+requests-api: 157/157 correct, F1 1.000
+requests-hooks: 32/32 correct, F1 1.000
+requests-sessions: 830/831 correct, F1 0.999
+requests-models: 1034/1034 correct, F1 1.000
+requests-auth: 315/315 correct, F1 1.000
+requests-structures: 99/99 correct, F1 1.000
+requests-adapters: 536/537 correct, F1 0.998
+requests-utils: 1078/1088 correct, F1 0.995
+requests-status_codes: 115/126 correct, F1 0.954
+requests-cookies: 529/561 correct, F1 0.967
+Saved C:\Users\vivvo\Desktop\comp 3110 project\baseline\docs\qa\nov19\new-advanced-development.json

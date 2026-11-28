@@ -1,0 +1,122 @@
+name: Java build
+
+on:
+  push:
+  pull_request:
+    branches: [development, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: java-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Java (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            maven: ./mvnw
+          - os: windows-latest
+            maven: .\mvnw.cmd
+          - os: macos-latest
+            maven: ./mvnw
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17.0.21+9'
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Linux desktop test prerequisites
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          if apt-cache show libgtk-3-0t64 >/dev/null 2>&1; then
+            sudo apt-get install -y xvfb libgtk-3-0t64
+          else
+            sudo apt-get install -y xvfb libgtk-3-0
+          fi
+      - name: Check formatting, test, and package
+        run: ${{ matrix.maven }} --batch-mode --no-transfer-progress clean verify
+      - name: Check release evidence contracts
+        run: python -m unittest -v scripts/test_verify_release.py
+      - name: Verify public datasets and CLI contract
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          status=0
+          python scripts/verify_release.py --jar target/line-tracker.jar --java "$JAVA_HOME/bin/java" --code-revision "$(git rev-parse HEAD)" || status=$?
+          # Exit 3 means all available checks passed but the private benchmark is absent.
+          if [ "$status" -ne 3 ]; then
+            echo "Expected the explicitly incomplete private-benchmark status; received $status"
+            exit 1
+          fi
+      - name: Reproduce historical whitespace fix
+        if: runner.os == 'Linux'
+        run: python scripts/verify_bug_history.py
+      - name: Build native desktop and CLI package
+        shell: bash
+        run: |
+          package_path="$(python scripts/package.py)"
+          printf 'LINE_TRACKER_PACKAGE=%s\n' "$package_path" >> "$GITHUB_ENV"
+      - name: Test extracted native CLI and GUI without installed Java
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            xvfb-run -a python scripts/test_package.py "$LINE_TRACKER_PACKAGE" --report target/package-smoke.json
+          else
+            python scripts/test_package.py "$LINE_TRACKER_PACKAGE" --report target/package-smoke.json
+          fi
+      - name: Upload verified native desktop and CLI package
+        uses: actions/upload-artifact@v4
+        with:
+          name: line-tracker-native-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            target/dist/*.tar.gz
+            target/dist/*.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Upload standalone CLI JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: line-tracker-${{ matrix.os }}
+          path: target/line-tracker.jar
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-${{ matrix.os }}
+          path: |
+            target/surefire-reports/
+            target/failsafe-reports/
+            target/package-smoke.json
+            target/release-qa/
+            target/bug-history.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+  test:
+    name: test
+    if: always()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all platform builds to pass
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: test "$BUILD_RESULT" = "success"

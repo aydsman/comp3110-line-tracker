@@ -1,0 +1,26 @@
+* text=auto
+*.java text eol=lf
+*.md text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.properties text eol=lf
+*.txt text eol=lf
+mvnw text eol=lf
+mvnw.cmd text eol=crlf
+*.jar binary
+*.png binary
+*.zip binary
+
+# Preserve downloaded source bytes so provenance checksums survive checkout.
+datasets/**/old.txt -text
+datasets/**/new.txt -text
+datasets/**/LICENSE* -text
+datasets/**/expected.json text eol=lf
+datasets/**/manifest.json text eol=lf
+
+# Keep upstream OpenJFX notices byte-identical to their recorded source hashes.
+scripts/legal/openjfx/* -text
+scripts/legal/openjfx/ADDITIONAL_LICENSE_INFO whitespace=-blank-at-eol
+scripts/legal/openjfx/provenance.json text eol=lf

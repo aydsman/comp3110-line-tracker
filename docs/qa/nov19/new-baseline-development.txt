@@ -1,0 +1,21 @@
+requests-version: 12/14 correct, F1 0.923
+flask-main: 13/14 correct, F1 0.963
+urllib3-version: 3/4 correct, F1 0.857
+certifi-main: 1/2 correct, F1 0.667
+idna-version: 1/2 correct, F1 0.667
+is-stream-functions: 0/24 correct, F1 0.000
+escape-string-regexp: 8/11 correct, F1 0.842
+is-path-inside: 8/11 correct, F1 0.842
+is-fullwidth-code-point: 26/46 correct, F1 0.722
+is-obj: 2/4 correct, F1 0.667
+requests-api: 149/157 correct, F1 0.974
+requests-hooks: 30/32 correct, F1 0.968
+requests-sessions: 830/831 correct, F1 0.999
+requests-models: 1032/1034 correct, F1 0.999
+requests-auth: 315/315 correct, F1 1.000
+requests-structures: 99/99 correct, F1 1.000
+requests-adapters: 536/537 correct, F1 0.998
+requests-utils: 1075/1088 correct, F1 0.994
+requests-status_codes: 41/126 correct, F1 0.491
+requests-cookies: 479/561 correct, F1 0.921
+Saved C:\Users\vivvo\Desktop\comp 3110 project\baseline\docs\qa\nov19\new-baseline-development.json

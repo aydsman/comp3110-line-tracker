@@ -1,0 +1,273 @@
+{
+  "status": "Preliminary development evaluation against unreviewed draft annotations",
+  "created_utc": "2026-11-08T00:33:28.716351+00:00",
+  "code_revision": "2f133fc2e52799da717a70449b4a099aedbe30fc",
+  "jar_sha256": "d0643d093a46337e265ef77e159c66c3adecac459efe17e2c4c4ba4d014d20a5",
+  "manifest_sha256": "aadf13c1639b8639b3172bd6fe757c1d8abcdad6f45e707b0fb755800da3e6d7",
+  "java_version": "java version \"21.0.8\" 2025-07-15 LTS\nJava(TM) SE Runtime Environment (build 21.0.8+12-LTS-250)\nJava HotSpot(TM) 64-Bit Server VM (build 21.0.8+12-LTS-250, mixed mode, sharing)",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "matcher": "BaselineMatcher",
+  "max_lcs_cells": 4000000,
+  "command_template": "java -jar baseline/target/line-tracker.jar map OLD NEW",
+  "metric": "Exact old/new pair sets; match-kind labels are not scored by this text CLI",
+  "limitations": [
+    "All five cases are development data and await teammate review.",
+    "Small Python files, mostly metadata, do not represent final project accuracy.",
+    "Single-run elapsed times include JVM startup and are not isolated matcher timings.",
+    "Duplicate blank-line convention requires peer review."
+  ],
+  "micro": {
+    "true_positives": 30,
+    "expected_pairs": 36,
+    "predicted_pairs": 30,
+    "precision": 1.0,
+    "recall": 0.8333333333333334,
+    "f1": 0.9090909090909091
+  },
+  "cases": [
+    {
+      "case_id": "requests-version",
+      "review_status": "pending teammate review",
+      "expected_pair_count": 14,
+      "predicted_pair_count": 12,
+      "true_positives": 12,
+      "precision": 1.0,
+      "recall": 0.8571428571428571,
+      "f1": 0.9230769230769231,
+      "missing_pairs": [
+        [
+          8,
+          8
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          14,
+          14
+        ]
+      ],
+      "cli_stderr": "Unmatched old lines: [8, 9]\nUnmatched new lines: [8, 9]",
+      "elapsed_ms_including_jvm_startup": 283.644,
+      "expected_sha256": "8056344eb38c3cefa855305f1a66b036368ac8c418b9e25e00e43025acfa06b3",
+      "old_sha256": "1557e09606663509e660f5e93a8843539f05e4451bffe5674936807ac4b5f3b8",
+      "new_sha256": "143abaf3563712f063743a7952aa65319dbcb934d894cfc989bd2c015f8da577"
+    },
+    {
+      "case_id": "flask-main",
+      "review_status": "pending teammate review",
+      "expected_pair_count": 14,
+      "predicted_pair_count": 13,
+      "true_positives": 13,
+      "precision": 1.0,
+      "recall": 0.9285714285714286,
+      "f1": 0.9629629629629629,
+      "missing_pairs": [
+        [
+          8,
+          8
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          14,
+          13
+        ],
+        [
+          15,
+          14
+        ]
+      ],
+      "cli_stderr": "Unmatched old lines: [8, 12]\nUnmatched new lines: [8]",
+      "elapsed_ms_including_jvm_startup": 274.875,
+      "expected_sha256": "f1fb42d55f289a6aa6178a0362cd60a02646ecba935308f4ee48d033a5f7ca13",
+      "old_sha256": "72575b362e73a6313af17cc8588f2e607356c011c75499b0b655d693a3f808ee",
+      "new_sha256": "a60217ac787133930032f83302a5a9c3fb7a017675cc6dfcbace0946024ab719"
+    },
+    {
+      "case_id": "urllib3-version",
+      "review_status": "pending teammate review",
+      "expected_pair_count": 4,
+      "predicted_pair_count": 3,
+      "true_positives": 3,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571,
+      "missing_pairs": [
+        [
+          4,
+          4
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "cli_stderr": "Unmatched old lines: [4]\nUnmatched new lines: [4]",
+      "elapsed_ms_including_jvm_startup": 275.323,
+      "expected_sha256": "322d547d1c6f81d595d460f75c862e64d58e22fc5ea9542d11253c16470d583f",
+      "old_sha256": "d7689d2c07069ab01444f5f9dab1a2a01a37de843fffe10d24475ea87bd45198",
+      "new_sha256": "35c4bdd2f544ae2457a86df281787b6e3b144d9ad368b383401ddc8c1b71900c"
+    },
+    {
+      "case_id": "certifi-main",
+      "review_status": "pending teammate review",
+      "expected_pair_count": 2,
+      "predicted_pair_count": 1,
+      "true_positives": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "missing_pairs": [
+        [
+          1,
+          3
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs": [
+        [
+          2,
+          12
+        ]
+      ],
+      "cli_stderr": "Unmatched old lines: [1]\nUnmatched new lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+      "elapsed_ms_including_jvm_startup": 262.604,
+      "expected_sha256": "313605d03f6db788805e76a94508b2711f93a1c3fa9fd85232a917c34ff2ad72",
+      "old_sha256": "162398b75165b6cb7bc24f4345ae860a806bf2a054c65350bbf30a25fd3813ab",
+      "new_sha256": "c410688fdd394d45812d118034e71fee88ba7beddd30fe1c1281bd3b232cd758"
+    },
+    {
+      "case_id": "idna-version",
+      "review_status": "pending teammate review",
+      "expected_pair_count": 2,
+      "predicted_pair_count": 1,
+      "true_positives": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "missing_pairs": [
+        [
+          1,
+          1
+        ]
+      ],
+      "unexpected_pairs": [],
+      "predicted_pairs": [
+        [
+          2,
+          2
+        ]
+      ],
+      "cli_stderr": "Unmatched old lines: [1]\nUnmatched new lines: [1]",
+      "elapsed_ms_including_jvm_startup": 264.115,
+      "expected_sha256": "469a070737ca98d714f373a4cb4ec65ad0a5c686397f9d25ffcea8f624859718",
+      "old_sha256": "cbe8affaa25d987b16551e45b33630b0ca3501083caa9754d9a5399d3f92da84",
+      "new_sha256": "4e4b742a721ec889671dd74e6b3f564a4922b25360a24240b84fa9e46a2b32aa"
+    }
+  ]
+}
