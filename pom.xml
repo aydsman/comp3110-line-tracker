@@ -11,7 +11,7 @@
     <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>3.2.0</version></plugin>
     <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version></plugin>
     <plugin>
-      <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId><version>3.8.1</version>
+      <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId><version>3.11.0</version>
       <executions><execution><id>copy-runtime-libraries</id><phase>package</phase><goals><goal>copy-dependencies</goal></goals>
         <configuration><includeScope>runtime</includeScope><outputDirectory>${project.build.directory}/dependency</outputDirectory></configuration>
       </execution></executions>
