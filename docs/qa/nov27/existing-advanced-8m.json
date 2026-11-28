@@ -1,0 +1,1080 @@
+{
+  "created_utc": "2026-11-28T01:08:33.731555+00:00",
+  "archive_sha256": "d29b174a6b381ebf0a86ecd44981224d0da8c57259e7279270132f1cb945e604",
+  "archive_name": "EvaluationDataset.zip",
+  "jar_sha256": "202b9d256b194b33fe1a15b9e350e37337a4933d5a3d4d951f826a4958a5926f",
+  "evaluator_sha256": "d9d32985bd4cdeb38cbf5c5d94c4f24bd69261c737973d4aedcffe0c65ceb436",
+  "code_revision": "be967fbde5962df005ef728d4e81eefadef732dd",
+  "mode": "advanced",
+  "java_version": "openjdk version \"17.0.21\" 2026-10-20\nOpenJDK Runtime Environment Temurin-17.0.21+9 (build 17.0.21+9)\nOpenJDK 64-Bit Server VM Temurin-17.0.21+9 (build 17.0.21+9, mixed mode)",
+  "python_version": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "settings": {
+    "max_lcs_cells": 8000000,
+    "candidate_limit": 15,
+    "context_radius": 4,
+    "minimum_score": 0.65,
+    "max_split_fragments": 4
+  },
+  "reference_scope": "Only labeled old lines in XML VERSION >= 2; version 1 is common original. NEW=-1 denotes deletion.",
+  "limitations": [
+    "Archive and original sources remain local; redistribution permission unconfirmed.",
+    "DoubleCache references are marked CHECKED=FALSE in the supplied archive; reported separately.",
+    "Historical slide percentages use other tools/protocols and are not reproduced by these pair metrics.",
+    "Memory guard is recorded in settings; failures stay visible and are excluded from successful-case scores. An increased guard changes resource allowance only, not similarity thresholds.",
+    "No tuning on this benchmark; no labels inferred for unannotated lines."
+  ],
+  "complete": true,
+  "successful_cases": 28,
+  "failed_cases": 0,
+  "empty_expected_pair_cases": 0,
+  "micro_over_successful_cases": {
+    "true_positives": 216,
+    "expected_pairs": 253,
+    "predicted_pairs": 240,
+    "precision": 0.9,
+    "recall": 0.8537549407114624,
+    "f1": 0.8762677484787018
+  },
+  "total_elapsed_ms_including_jvm_startup": 14016.537800664082,
+  "labeled_old_lines": 298,
+  "correct_labeled_old_lines": 248,
+  "change": 13,
+  "spurious": 11,
+  "eliminate": 26,
+  "labeled_line_accuracy": 0.8322147651006712,
+  "checked_reference_micro": {
+    "true_positives": 216,
+    "expected_pairs": 241,
+    "predicted_pairs": 240,
+    "precision": 0.9,
+    "recall": 0.8962655601659751,
+    "f1": 0.8981288981288982
+  },
+  "cases": [
+    {
+      "case_id": "ASTResolving-1-2",
+      "old_member": "eclipseTest/ASTResolving_1.java",
+      "new_member": "eclipseTest/ASTResolving_2.java",
+      "reference_member": "eclipseTest/ASTResolving.xml",
+      "reference_checked": true,
+      "old_line_count": 219,
+      "new_line_count": 244,
+      "old_sha256": "539071a3aed1c4277150fcc66c5e9a56074da6e1be6e8ce2869455f09520227d",
+      "new_sha256": "54590db8c011735caa62056743acff487451320687ea6c3f680fd09a5db567cb",
+      "elapsed_ms_including_jvm_startup": 797.7408000733703,
+      "status": "ok",
+      "true_positives": 14,
+      "expected_pairs": 18,
+      "predicted_pairs": 15,
+      "precision": 0.9333333333333333,
+      "recall": 0.7777777777777778,
+      "f1": 0.8484848484848485,
+      "labeled_old_lines": 18,
+      "correct_labeled_old_lines": 14,
+      "change": 1,
+      "spurious": 0,
+      "eliminate": 3,
+      "labeled_line_accuracy": 0.7777777777777778,
+      "missing_pairs": [
+        [
+          114,
+          112
+        ],
+        [
+          115,
+          112
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          130,
+          133
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          115,
+          114
+        ]
+      ]
+    },
+    {
+      "case_id": "ArrayReference-1-2",
+      "old_member": "eclipseTest/ArrayReference_1.java",
+      "new_member": "eclipseTest/ArrayReference_2.java",
+      "reference_member": "eclipseTest/ArrayReference.xml",
+      "reference_checked": true,
+      "old_line_count": 194,
+      "new_line_count": 193,
+      "old_sha256": "c1bfe5b25d6108b10b50f4984c417c06c2056337ee8c4daee638a93e3d96271e",
+      "new_sha256": "0d23d87771e684d0eb50d4452d5d67cac911f779ee00787c1dad1377c702cd8a",
+      "elapsed_ms_including_jvm_startup": 597.2054000012577,
+      "status": "ok",
+      "true_positives": 8,
+      "expected_pairs": 9,
+      "predicted_pairs": 8,
+      "precision": 1.0,
+      "recall": 0.8888888888888888,
+      "f1": 0.9411764705882353,
+      "labeled_old_lines": 12,
+      "correct_labeled_old_lines": 11,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 1,
+      "labeled_line_accuracy": 0.9166666666666666,
+      "missing_pairs": [
+        [
+          177,
+          167
+        ]
+      ],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-2",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_2.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 14,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "3d26ec92c908a97d0292c7832d247fa5697cad8daa48c26ba6f25f358a54e925",
+      "elapsed_ms_including_jvm_startup": 598.5024999827147,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-3",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_3.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 19,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "985b009ad5670ed0da6c782ff777f4c589bd11e1e5a92753da92c5f195e6b75a",
+      "elapsed_ms_including_jvm_startup": 482.641400070861,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-4",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_4.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 19,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "c62fae397e18c4a6e9297786128e3ac053e29e7508269e03336f40b70f39fae9",
+      "elapsed_ms_including_jvm_startup": 491.6058999951929,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-5",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_5.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 19,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "985b009ad5670ed0da6c782ff777f4c589bd11e1e5a92753da92c5f195e6b75a",
+      "elapsed_ms_including_jvm_startup": 382.95100000686944,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-6",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_6.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 19,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "c62fae397e18c4a6e9297786128e3ac053e29e7508269e03336f40b70f39fae9",
+      "elapsed_ms_including_jvm_startup": 408.4189001005143,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BaseTypes-1-7",
+      "old_member": "eclipseTest/BaseTypes_1.java",
+      "new_member": "eclipseTest/BaseTypes_7.java",
+      "reference_member": "eclipseTest/BaseTypes.xml",
+      "reference_checked": true,
+      "old_line_count": 14,
+      "new_line_count": 19,
+      "old_sha256": "8080f6434247951677e228b7077f95f673a819a4f6fee1e86214381ba9c081cf",
+      "new_sha256": "985b009ad5670ed0da6c782ff777f4c589bd11e1e5a92753da92c5f195e6b75a",
+      "elapsed_ms_including_jvm_startup": 391.3825999479741,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 10,
+      "predicted_pairs": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 10,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "BuildPathsPropertyPage-1-2",
+      "old_member": "eclipseTest/BuildPathsPropertyPage_1.java",
+      "new_member": "eclipseTest/BuildPathsPropertyPage_2.java",
+      "reference_member": "eclipseTest/BuildPathsPropertyPage.xml",
+      "reference_checked": true,
+      "old_line_count": 144,
+      "new_line_count": 158,
+      "old_sha256": "74a1d30a86c00ccced9120991ba35ad2057331b864bfa58c279fb035636c86e0",
+      "new_sha256": "6f32490f041e091985f87963bf92855b030750717ad17ddcaa0f6bb872f62a89",
+      "elapsed_ms_including_jvm_startup": 456.2950001563877,
+      "status": "ok",
+      "true_positives": 7,
+      "expected_pairs": 8,
+      "predicted_pairs": 8,
+      "precision": 0.875,
+      "recall": 0.875,
+      "f1": 0.875,
+      "labeled_old_lines": 13,
+      "correct_labeled_old_lines": 11,
+      "change": 0,
+      "spurious": 1,
+      "eliminate": 1,
+      "labeled_line_accuracy": 0.8461538461538461,
+      "missing_pairs": [
+        [
+          59,
+          64
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          63,
+          53
+        ]
+      ]
+    },
+    {
+      "case_id": "CPListLabelProvider-1-2",
+      "old_member": "eclipseTest/CPListLabelProvider_1.java",
+      "new_member": "eclipseTest/CPListLabelProvider_2.java",
+      "reference_member": "eclipseTest/CPListLabelProvider.xml",
+      "reference_checked": true,
+      "old_line_count": 201,
+      "new_line_count": 184,
+      "old_sha256": "a47395e812d499c380fa854cd0d769bd768df2d7d71fe704267b3330bdc8b7c0",
+      "new_sha256": "960f3c931f7d516459566dd7034ec5254a627cdca7354025fc1135051ca56d33",
+      "elapsed_ms_including_jvm_startup": 529.5679999981076,
+      "status": "ok",
+      "true_positives": 7,
+      "expected_pairs": 7,
+      "predicted_pairs": 9,
+      "precision": 0.7777777777777778,
+      "recall": 1.0,
+      "f1": 0.875,
+      "labeled_old_lines": 12,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 2,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.8333333333333334,
+      "missing_pairs": [],
+      "unexpected_pairs": [
+        [
+          149,
+          174
+        ],
+        [
+          153,
+          176
+        ]
+      ]
+    },
+    {
+      "case_id": "CompilationUnitDocumentProvider-1-2",
+      "old_member": "eclipseTest/CompilationUnitDocumentProvider_1.java",
+      "new_member": "eclipseTest/CompilationUnitDocumentProvider_2.java",
+      "reference_member": "eclipseTest/CompilationUnitDocumentProvider.xml",
+      "reference_checked": true,
+      "old_line_count": 412,
+      "new_line_count": 421,
+      "old_sha256": "015222f9a3e5f490946dd78bbf682c5d10354cf48ded1937b4bdc0dcec36ad9c",
+      "new_sha256": "f26addd26610cc1f53e17ac8317eabeb27c14d5ae2966d5943e86ef3dd63c979",
+      "elapsed_ms_including_jvm_startup": 631.630799965933,
+      "status": "ok",
+      "true_positives": 13,
+      "expected_pairs": 14,
+      "predicted_pairs": 14,
+      "precision": 0.9285714285714286,
+      "recall": 0.9285714285714286,
+      "f1": 0.9285714285714286,
+      "labeled_old_lines": 17,
+      "correct_labeled_old_lines": 16,
+      "change": 1,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.9411764705882353,
+      "missing_pairs": [
+        [
+          199,
+          192
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          199,
+          188
+        ]
+      ]
+    },
+    {
+      "case_id": "DeltaProcessor-1-2",
+      "old_member": "eclipseTest/DeltaProcessor_1.java",
+      "new_member": "eclipseTest/DeltaProcessor_2.java",
+      "reference_member": "eclipseTest/DeltaProcessor.xml",
+      "reference_checked": true,
+      "old_line_count": 2039,
+      "new_line_count": 2097,
+      "old_sha256": "16ade8a1f51ef3fa857c5ef73380582b544ae8cea23af9a7fa37e3eff8eeec8f",
+      "new_sha256": "2d3526dd7f40a90b9f2f3692ee72b55971776c9788a77b7f4ba425b7b56186e1",
+      "elapsed_ms_including_jvm_startup": 752.4264000821859,
+      "status": "ok",
+      "true_positives": 8,
+      "expected_pairs": 8,
+      "predicted_pairs": 11,
+      "precision": 0.7272727272727273,
+      "recall": 1.0,
+      "f1": 0.8421052631578947,
+      "labeled_old_lines": 12,
+      "correct_labeled_old_lines": 9,
+      "change": 0,
+      "spurious": 3,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.75,
+      "missing_pairs": [],
+      "unexpected_pairs": [
+        [
+          2019,
+          2083
+        ],
+        [
+          2023,
+          976
+        ],
+        [
+          2028,
+          2089
+        ]
+      ]
+    },
+    {
+      "case_id": "DialogCustomize-1-2",
+      "old_member": "eclipseTest/DialogCustomize_1.java",
+      "new_member": "eclipseTest/DialogCustomize_2.java",
+      "reference_member": "eclipseTest/DialogCustomize.xml",
+      "reference_checked": true,
+      "old_line_count": 882,
+      "new_line_count": 1419,
+      "old_sha256": "986ed8f5e3250f580df9ec462d43bfe62fb7008b1bb7a96bb3d6bcedc3b55136",
+      "new_sha256": "154bf5a3cd4b19be968879174dc9789cc82aecd0e5d9e59165323d36f7a4ad86",
+      "elapsed_ms_including_jvm_startup": 1014.0131001826376,
+      "status": "ok",
+      "true_positives": 8,
+      "expected_pairs": 8,
+      "predicted_pairs": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 8,
+      "correct_labeled_old_lines": 8,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "DirectoryDialog-1-2",
+      "old_member": "eclipseTest/DirectoryDialog_1.java",
+      "new_member": "eclipseTest/DirectoryDialog_2.java",
+      "reference_member": "eclipseTest/DirectoryDialog.xml",
+      "reference_checked": true,
+      "old_line_count": 239,
+      "new_line_count": 237,
+      "old_sha256": "e0cc938556864cf1c5be5b332cfaced72628497ec935eb0e25bce898bdac0df8",
+      "new_sha256": "89f900645d7cbd998dd196d531630f2229df683097f359f98eb9c9c34e41e8b0",
+      "elapsed_ms_including_jvm_startup": 408.5260999854654,
+      "status": "ok",
+      "true_positives": 3,
+      "expected_pairs": 3,
+      "predicted_pairs": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 3,
+      "correct_labeled_old_lines": 3,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "DoubleCache-1-2",
+      "old_member": "eclipseTest/DoubleCache_1.java",
+      "new_member": "eclipseTest/DoubleCache_2.java",
+      "reference_member": "eclipseTest/DoubleCache.xml",
+      "reference_checked": false,
+      "old_line_count": 147,
+      "new_line_count": 130,
+      "old_sha256": "a392420475765e19a607dfdf77cf94683c16ec5318c1a95d02f1ae1667afd8fe",
+      "new_sha256": "753b3977cdadd6b5f16f4269d317286758fc608506d2f2ee9b25fecae9e2d7d4",
+      "elapsed_ms_including_jvm_startup": 369.5694000925869,
+      "status": "ok",
+      "true_positives": 0,
+      "expected_pairs": 12,
+      "predicted_pairs": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "labeled_old_lines": 12,
+      "correct_labeled_old_lines": 0,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 12,
+      "labeled_line_accuracy": 0.0,
+      "missing_pairs": [
+        [
+          107,
+          102
+        ],
+        [
+          108,
+          102
+        ],
+        [
+          109,
+          102
+        ],
+        [
+          110,
+          102
+        ],
+        [
+          111,
+          102
+        ],
+        [
+          112,
+          102
+        ],
+        [
+          113,
+          103
+        ],
+        [
+          114,
+          103
+        ],
+        [
+          115,
+          103
+        ],
+        [
+          116,
+          103
+        ],
+        [
+          117,
+          103
+        ],
+        [
+          118,
+          103
+        ]
+      ],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "FontData-1-2",
+      "old_member": "eclipseTest/FontData_1.java",
+      "new_member": "eclipseTest/FontData_2.java",
+      "reference_member": "eclipseTest/FontData.xml",
+      "reference_checked": true,
+      "old_line_count": 302,
+      "new_line_count": 346,
+      "old_sha256": "ce10a2d05cb0f8974e72be8ea60bc0720c7675bbb044dd01b0f17b6446dd353b",
+      "new_sha256": "97a98689d2aeb1fcdb67ae55c3326d26a9cfd75cc8526fb84ffb6e8a78e9b322",
+      "elapsed_ms_including_jvm_startup": 519.5928998291492,
+      "status": "ok",
+      "true_positives": 10,
+      "expected_pairs": 14,
+      "predicted_pairs": 14,
+      "precision": 0.7142857142857143,
+      "recall": 0.7142857142857143,
+      "f1": 0.7142857142857143,
+      "labeled_old_lines": 14,
+      "correct_labeled_old_lines": 10,
+      "change": 4,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.7142857142857143,
+      "missing_pairs": [
+        [
+          96,
+          93
+        ],
+        [
+          97,
+          95
+        ],
+        [
+          98,
+          96
+        ],
+        [
+          104,
+          110
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          96,
+          98
+        ],
+        [
+          97,
+          100
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          104,
+          120
+        ]
+      ]
+    },
+    {
+      "case_id": "GC-1-2",
+      "old_member": "eclipseTest/GC_1.java",
+      "new_member": "eclipseTest/GC_2.java",
+      "reference_member": "eclipseTest/GC.xml",
+      "reference_checked": true,
+      "old_line_count": 2209,
+      "new_line_count": 2170,
+      "old_sha256": "2975e81e230301c9a6e97b3cf5ba12446cf395b93ace20e3466b47be90a77982",
+      "new_sha256": "d2bc1616823aadd76db07732d90951eee8b512020d386f019a32e150841a28be",
+      "elapsed_ms_including_jvm_startup": 691.0870999563485,
+      "status": "ok",
+      "true_positives": 11,
+      "expected_pairs": 11,
+      "predicted_pairs": 11,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 13,
+      "correct_labeled_old_lines": 13,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "GC2-1-2",
+      "old_member": "eclipseTest/GC2_1.java",
+      "new_member": "eclipseTest/GC2_2.java",
+      "reference_member": "eclipseTest/GC2.xml",
+      "reference_checked": true,
+      "old_line_count": 1828,
+      "new_line_count": 1838,
+      "old_sha256": "fdbdabd6d467eedce312b5925af2e7b84ce0c7e24fbeefdbbf1355db77609f8b",
+      "new_sha256": "84a894b4b107080923d0bb303611782c9602df7ff05b57f676bf016cf13940a3",
+      "elapsed_ms_including_jvm_startup": 468.8499001786113,
+      "status": "ok",
+      "true_positives": 9,
+      "expected_pairs": 10,
+      "predicted_pairs": 9,
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1": 0.9473684210526315,
+      "labeled_old_lines": 11,
+      "correct_labeled_old_lines": 10,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 1,
+      "labeled_line_accuracy": 0.9090909090909091,
+      "missing_pairs": [
+        [
+          1750,
+          1760
+        ]
+      ],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "JavaCodeScanner-1-2",
+      "old_member": "eclipseTest/JavaCodeScanner_1.java",
+      "new_member": "eclipseTest/JavaCodeScanner_2.java",
+      "reference_member": "eclipseTest/JavaCodeScanner.xml",
+      "reference_checked": true,
+      "old_line_count": 123,
+      "new_line_count": 114,
+      "old_sha256": "a219a7800c6bdea12be0e5ca7f7413752be3594a26f4cc948befd8303a914231",
+      "new_sha256": "e2b19ffe23a2b4aa9eec3eb8ff5d79105b26d2b997bef826f90e04ba057f76ee",
+      "elapsed_ms_including_jvm_startup": 406.29340009763837,
+      "status": "ok",
+      "true_positives": 12,
+      "expected_pairs": 12,
+      "predicted_pairs": 12,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 13,
+      "correct_labeled_old_lines": 13,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "JavaModelManager-1-2",
+      "old_member": "eclipseTest/JavaModelManager_1.java",
+      "new_member": "eclipseTest/JavaModelManager_2.java",
+      "reference_member": "eclipseTest/JavaModelManager.xml",
+      "reference_checked": true,
+      "old_line_count": 1440,
+      "new_line_count": 1440,
+      "old_sha256": "ddada0099d080d593bd748f118d59fe9d0ed5c2d4196ebeb2459b258c7022072",
+      "new_sha256": "0bc5cfaa5b076a12db00fe4dcdd8be9e1d0e9b71ceefd9c77fc51f09c0fa7e4a",
+      "elapsed_ms_including_jvm_startup": 423.02540014497936,
+      "status": "ok",
+      "true_positives": 6,
+      "expected_pairs": 6,
+      "predicted_pairs": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 6,
+      "correct_labeled_old_lines": 6,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "JavaPerspectiveFactory-1-2",
+      "old_member": "eclipseTest/JavaPerspectiveFactory_1.java",
+      "new_member": "eclipseTest/JavaPerspectiveFactory_2.java",
+      "reference_member": "eclipseTest/JavaPerspectiveFactory.xml",
+      "reference_checked": true,
+      "old_line_count": 58,
+      "new_line_count": 60,
+      "old_sha256": "4442b9b94a2b14273a8fd4d6aa0fe3607b095403b49d681895465e976979ac39",
+      "new_sha256": "e00d105534b9d80f3592581859f81c40cda31c3050a0fe5f7a138c0ba9424bca",
+      "elapsed_ms_including_jvm_startup": 300.3168001305312,
+      "status": "ok",
+      "true_positives": 8,
+      "expected_pairs": 8,
+      "predicted_pairs": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 8,
+      "correct_labeled_old_lines": 8,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "PluginSearchScope-1-2",
+      "old_member": "eclipseTest/PluginSearchScope_1.java",
+      "new_member": "eclipseTest/PluginSearchScope_2.java",
+      "reference_member": "eclipseTest/PluginSearchScope.xml",
+      "reference_checked": true,
+      "old_line_count": 108,
+      "new_line_count": 93,
+      "old_sha256": "1c638afdf8a8bb2f3527344d7a9325bc14527963071e2094bdd981341032ae5c",
+      "new_sha256": "da747a803900839fc5645156e4e69562e4a47e5da92404b6b759111ffe19763f",
+      "elapsed_ms_including_jvm_startup": 367.27820010855794,
+      "status": "ok",
+      "true_positives": 0,
+      "expected_pairs": 4,
+      "predicted_pairs": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "labeled_old_lines": 8,
+      "correct_labeled_old_lines": 3,
+      "change": 1,
+      "spurious": 1,
+      "eliminate": 3,
+      "labeled_line_accuracy": 0.375,
+      "missing_pairs": [
+        [
+          69,
+          63
+        ],
+        [
+          73,
+          65
+        ],
+        [
+          74,
+          65
+        ],
+        [
+          76,
+          66
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          72,
+          82
+        ],
+        [
+          73,
+          63
+        ]
+      ]
+    },
+    {
+      "case_id": "RefreshLocal-1-2",
+      "old_member": "eclipseTest/RefreshLocal_1.java",
+      "new_member": "eclipseTest/RefreshLocal_2.java",
+      "reference_member": "eclipseTest/RefreshLocal.xml",
+      "reference_checked": true,
+      "old_line_count": 102,
+      "new_line_count": 81,
+      "old_sha256": "9e4425d5a07b5286b23307470ff0a825dbcda4c4fc347709bf2c5e71b5189c05",
+      "new_sha256": "721ed297e8843c43c76b485b95584c3e3e6dc182f3cd4c81838621a298e5565b",
+      "elapsed_ms_including_jvm_startup": 354.69149984419346,
+      "status": "ok",
+      "true_positives": 6,
+      "expected_pairs": 6,
+      "predicted_pairs": 8,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571428571428571,
+      "labeled_old_lines": 6,
+      "correct_labeled_old_lines": 4,
+      "change": 2,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.6666666666666666,
+      "missing_pairs": [],
+      "unexpected_pairs": [
+        [
+          92,
+          65
+        ],
+        [
+          94,
+          68
+        ]
+      ]
+    },
+    {
+      "case_id": "ResourceCompareInput-1-2",
+      "old_member": "eclipseTest/ResourceCompareInput_1.java",
+      "new_member": "eclipseTest/ResourceCompareInput_2.java",
+      "reference_member": "eclipseTest/ResourceCompareInput.xml",
+      "reference_checked": true,
+      "old_line_count": 152,
+      "new_line_count": 178,
+      "old_sha256": "540aaaf7894131ddc2c8dea97f0bd3f1c1a6373b031161f67d59ad95ac318628",
+      "new_sha256": "f7688fec9fbd542ad3ca02fdf2eaa1193d6a549ce9cc7e07050420c51080e554",
+      "elapsed_ms_including_jvm_startup": 419.2667999304831,
+      "status": "ok",
+      "true_positives": 12,
+      "expected_pairs": 13,
+      "predicted_pairs": 14,
+      "precision": 0.8571428571428571,
+      "recall": 0.9230769230769231,
+      "f1": 0.8888888888888888,
+      "labeled_old_lines": 15,
+      "correct_labeled_old_lines": 13,
+      "change": 1,
+      "spurious": 1,
+      "eliminate": 0,
+      "labeled_line_accuracy": 0.8666666666666667,
+      "missing_pairs": [
+        [
+          83,
+          149
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          83,
+          140
+        ],
+        [
+          88,
+          76
+        ]
+      ]
+    },
+    {
+      "case_id": "ResourceInfo-1-2",
+      "old_member": "eclipseTest/ResourceInfo_1.java",
+      "new_member": "eclipseTest/ResourceInfo_2.java",
+      "reference_member": "eclipseTest/ResourceInfo.xml",
+      "reference_checked": true,
+      "old_line_count": 319,
+      "new_line_count": 314,
+      "old_sha256": "cdaa719eed6be582e1d710627c030c77c73572c6c0e5f2b4548cc22b35cb19a3",
+      "new_sha256": "bd5f9b1c8cd7fc58e9151dcb0daacc4f5b44ac19455c2fadd4c41d4dd8513893",
+      "elapsed_ms_including_jvm_startup": 334.4413999002427,
+      "status": "ok",
+      "true_positives": 6,
+      "expected_pairs": 6,
+      "predicted_pairs": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "labeled_old_lines": 13,
+      "correct_labeled_old_lines": 13,
+      "change": 0,
+      "spurious": 0,
+      "eliminate": 0,
+      "labeled_line_accuracy": 1.0,
+      "missing_pairs": [],
+      "unexpected_pairs": []
+    },
+    {
+      "case_id": "SaveManager-1-2",
+      "old_member": "eclipseTest/SaveManager_1.java",
+      "new_member": "eclipseTest/SaveManager_2.java",
+      "reference_member": "eclipseTest/SaveManager.xml",
+      "reference_checked": true,
+      "old_line_count": 1521,
+      "new_line_count": 1340,
+      "old_sha256": "ef7e77a48a8bd6e70c587edc8f2990f26a376a3fe3eee2af2e402f821ad33934",
+      "new_sha256": "16e5cab2e2d0ec20252002e5141e6d3a7d1a1140dba7acddf4af7b122473271e",
+      "elapsed_ms_including_jvm_startup": 717.6359000150114,
+      "status": "ok",
+      "true_positives": 1,
+      "expected_pairs": 4,
+      "predicted_pairs": 2,
+      "precision": 0.5,
+      "recall": 0.25,
+      "f1": 0.3333333333333333,
+      "labeled_old_lines": 6,
+      "correct_labeled_old_lines": 3,
+      "change": 1,
+      "spurious": 0,
+      "eliminate": 2,
+      "labeled_line_accuracy": 0.5,
+      "missing_pairs": [
+        [
+          214,
+          160
+        ],
+        [
+          215,
+          161
+        ],
+        [
+          218,
+          163
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          218,
+          959
+        ]
+      ]
+    },
+    {
+      "case_id": "TabFolder-1-2",
+      "old_member": "eclipseTest/TabFolder_1.java",
+      "new_member": "eclipseTest/TabFolder_2.java",
+      "reference_member": "eclipseTest/TabFolder.xml",
+      "reference_checked": true,
+      "old_line_count": 610,
+      "new_line_count": 603,
+      "old_sha256": "09e5754d5d05fbbb4792c02a4646929e6de08ec088e89b5126470649676bf814",
+      "new_sha256": "06dad1f71c54fa94f085a5349778b9c247f56a4bc46fbdff2f985cb907342f69",
+      "elapsed_ms_including_jvm_startup": 433.3875998854637,
+      "status": "ok",
+      "true_positives": 4,
+      "expected_pairs": 8,
+      "predicted_pairs": 8,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "labeled_old_lines": 12,
+      "correct_labeled_old_lines": 6,
+      "change": 2,
+      "spurious": 2,
+      "eliminate": 2,
+      "labeled_line_accuracy": 0.5,
+      "missing_pairs": [
+        [
+          243,
+          243
+        ],
+        [
+          244,
+          244
+        ],
+        [
+          246,
+          244
+        ],
+        [
+          251,
+          246
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          242,
+          240
+        ],
+        [
+          243,
+          202
+        ],
+        [
+          244,
+          203
+        ],
+        [
+          250,
+          207
+        ]
+      ]
+    },
+    {
+      "case_id": "asdf-1-2",
+      "old_member": "eclipseTest/asdf_1.java",
+      "new_member": "eclipseTest/asdf_2.java",
+      "reference_member": "eclipseTest/asdf.xml",
+      "reference_checked": true,
+      "old_line_count": 12,
+      "new_line_count": 11,
+      "old_sha256": "762b87b5fdcdfe1717151d2cb23fd7f5270bc6ad2bdfa4459c4210eeb6e923bb",
+      "new_sha256": "b2182eeaf18988a3144fed7c6aa419a513e0f7e570b627cb2ed280a8cb15a2a2",
+      "elapsed_ms_including_jvm_startup": 268.1936000008136,
+      "status": "ok",
+      "true_positives": 3,
+      "expected_pairs": 4,
+      "predicted_pairs": 4,
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1": 0.75,
+      "labeled_old_lines": 6,
+      "correct_labeled_old_lines": 4,
+      "change": 0,
+      "spurious": 1,
+      "eliminate": 1,
+      "labeled_line_accuracy": 0.6666666666666666,
+      "missing_pairs": [
+        [
+          5,
+          5
+        ]
+      ],
+      "unexpected_pairs": [
+        [
+          9,
+          7
+        ]
+      ]
+    }
+  ]
+}

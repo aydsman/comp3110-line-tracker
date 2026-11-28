@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-28T01:08:00Z",
+  "candidate_commit": "be967fbde5962df005ef728d4e81eefadef732dd",
+  "candidate_branch": "development",
+  "candidate_clean": true,
+  "workflow_run": "https://github.com/aydsman/comp3110-line-tracker/actions/runs/45940106720",
+  "workflow_head_sha": "be967fbde5962df005ef728d4e81eefadef732dd",
+  "artifact": {
+    "id": 15172222992,
+    "name": "line-tracker-native-Windows-X64",
+    "download_sha256": "066e9b98314d16a1b1b6a3a487ba1206928027ecd1c0cf0bb9be74f6eeb1a9d9"
+  },
+  "archive": {
+    "name": "line-tracker-windows-x86_64-be967fbde596.zip",
+    "sha256": "e3fcddbf8be7868e1f47443524b09a4e2b8deeebac5ede14c757cc605013d8c2",
+    "matches_ci_package_smoke_record": true
+  },
+  "jar": {
+    "path_in_archive": "app/line-tracker.jar",
+    "sha256": "202b9d256b194b33fe1a15b9e350e37337a4933d5a3d4d951f826a4958a5926f",
+    "matches_build_info": true
+  },
+  "java": {
+    "path_in_archive": "runtime/bin/java.exe",
+    "version": "17.0.21+9",
+    "vendor": "Eclipse Adoptium"
+  },
+  "existing_benchmark": {
+    "name": "EvaluationDataset.zip",
+    "sha256": "d29b174a6b381ebf0a86ecd44981224d0da8c57259e7279270132f1cb945e604",
+    "supplied_locally": true,
+    "published": false
+  },
+  "verifier": {
+    "script": "scripts/verify_release.py",
+    "sha256": "723a6ab2a6cd8250a8c50eb8261444f9f6126168b3b8d3162c7c31a63e9def68"
+  },
+  "command": "python scripts/verify_release.py --jar <package>/app/line-tracker.jar --java <package>/runtime/bin/java.exe --code-revision be967fbde5962df005ef728d4e81eefadef732dd --existing-zip <private>/EvaluationDataset.zip --output target/release-qa-be967fb"
+}

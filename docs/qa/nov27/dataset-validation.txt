@@ -1,0 +1,33 @@
+PASS requests-version: 14 old / 14 new lines; peer review source review recorded; PR approval pending
+PASS flask-main: 15 old / 14 new lines; peer review source review recorded; PR approval pending
+PASS urllib3-version: 4 old / 4 new lines; peer review source review recorded; PR approval pending
+PASS certifi-main: 2 old / 12 new lines; peer review source review recorded; PR approval pending
+PASS idna-version: 2 old / 2 new lines; peer review source review recorded; PR approval pending
+PASS is-stream-functions: 28 old / 29 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS escape-string-regexp: 13 old / 11 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS strip-bom: 14 old / 15 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-plain-obj: 10 old / 10 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-unicode-supported: 11 old / 12 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-path-inside: 12 old / 12 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-fullwidth-code-point: 46 old / 50 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-docker: 29 old / 29 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS path-exists: 23 old / 19 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS is-obj: 6 old / 4 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-api: 159 old / 157 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-hooks: 34 old / 33 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-sessions: 831 old / 833 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-models: 1035 old / 1034 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-auth: 315 old / 315 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-structures: 99 old / 99 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-adapters: 584 old / 538 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-utils: 1086 old / 1094 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-status_codes: 123 old / 128 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS requests-cookies: 549 old / 561 new lines; peer review AI-assisted source review recorded; release approval separate
+PASS identical-foundation: 3 old / 3 new lines; peer review Original foundation fixture preserved; no separate annotation-review evidence recorded
+PASS identical-qa: 2 old / 2 new lines; peer review source review recorded; PR approval pending
+PASS insert-delete: 3 old / 4 new lines; peer review source review recorded; PR approval pending
+PASS both-empty: 0 old / 0 new lines; peer review source review recorded; PR approval pending
+PASS empty-to-content: 0 old / 1 new lines; peer review source review recorded; PR approval pending
+PASS content-to-empty: 1 old / 0 new lines; peer review source review recorded; PR approval pending
+PASS split-wrap: 2 old / 3 new lines; peer review AI-assisted source review recorded; release approval separate
+Validated 32 cases. These checks do not establish semantic correctness or teammate approval.

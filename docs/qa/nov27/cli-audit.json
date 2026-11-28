@@ -1,0 +1,425 @@
+{
+  "created_utc": "2026-11-28T01:07:12.492008+00:00",
+  "code_revision": "be967fbde5962df005ef728d4e81eefadef732dd",
+  "jar_sha256": "202b9d256b194b33fe1a15b9e350e37337a4933d5a3d4d951f826a4958a5926f",
+  "audit_sha256": "60fe452d8cd0c7cde6d9225aa5de172f2b2b16239394bc27c92294e9d629ce83",
+  "failed_checks": 0,
+  "passed_checks": 71,
+  "limitations": [
+    "CLI text/JSON equivalence only; actual GUI and final release candidate still require testing."
+  ],
+  "checks": [
+    {
+      "case_id": "requests-version",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 12
+    },
+    {
+      "case_id": "requests-version",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 14
+    },
+    {
+      "case_id": "flask-main",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 13
+    },
+    {
+      "case_id": "flask-main",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 14
+    },
+    {
+      "case_id": "urllib3-version",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 3
+    },
+    {
+      "case_id": "urllib3-version",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 4
+    },
+    {
+      "case_id": "certifi-main",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 1
+    },
+    {
+      "case_id": "certifi-main",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 1
+    },
+    {
+      "case_id": "idna-version",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 1
+    },
+    {
+      "case_id": "idna-version",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "is-stream-functions",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 4
+    },
+    {
+      "case_id": "is-stream-functions",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 16
+    },
+    {
+      "case_id": "escape-string-regexp",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 8
+    },
+    {
+      "case_id": "escape-string-regexp",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 10
+    },
+    {
+      "case_id": "strip-bom",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 8
+    },
+    {
+      "case_id": "strip-bom",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 14
+    },
+    {
+      "case_id": "is-plain-obj",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 9
+    },
+    {
+      "case_id": "is-plain-obj",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 10
+    },
+    {
+      "case_id": "is-unicode-supported",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 10
+    },
+    {
+      "case_id": "is-unicode-supported",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 10
+    },
+    {
+      "case_id": "is-path-inside",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 8
+    },
+    {
+      "case_id": "is-path-inside",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 9
+    },
+    {
+      "case_id": "is-fullwidth-code-point",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 26
+    },
+    {
+      "case_id": "is-fullwidth-code-point",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 45
+    },
+    {
+      "case_id": "is-docker",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 19
+    },
+    {
+      "case_id": "is-docker",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 25
+    },
+    {
+      "case_id": "path-exists",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 11
+    },
+    {
+      "case_id": "path-exists",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 15
+    },
+    {
+      "case_id": "is-obj",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "is-obj",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 3
+    },
+    {
+      "case_id": "requests-api",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 149
+    },
+    {
+      "case_id": "requests-api",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 157
+    },
+    {
+      "case_id": "requests-hooks",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 30
+    },
+    {
+      "case_id": "requests-hooks",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 32
+    },
+    {
+      "case_id": "requests-sessions",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 830
+    },
+    {
+      "case_id": "requests-sessions",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 830
+    },
+    {
+      "case_id": "requests-models",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 1032
+    },
+    {
+      "case_id": "requests-models",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 1034
+    },
+    {
+      "case_id": "requests-auth",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 315
+    },
+    {
+      "case_id": "requests-auth",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 315
+    },
+    {
+      "case_id": "requests-structures",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 99
+    },
+    {
+      "case_id": "requests-structures",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 99
+    },
+    {
+      "case_id": "requests-adapters",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 537
+    },
+    {
+      "case_id": "requests-adapters",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 537
+    },
+    {
+      "case_id": "requests-utils",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 1076
+    },
+    {
+      "case_id": "requests-utils",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 1079
+    },
+    {
+      "case_id": "requests-status_codes",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 41
+    },
+    {
+      "case_id": "requests-status_codes",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 115
+    },
+    {
+      "case_id": "requests-cookies",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 479
+    },
+    {
+      "case_id": "requests-cookies",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 533
+    },
+    {
+      "case_id": "identical-foundation",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 3
+    },
+    {
+      "case_id": "identical-foundation",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 3
+    },
+    {
+      "case_id": "identical-qa",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "identical-qa",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "insert-delete",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "insert-delete",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 2
+    },
+    {
+      "case_id": "both-empty",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "both-empty",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "empty-to-content",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "empty-to-content",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "content-to-empty",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "content-to-empty",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 0
+    },
+    {
+      "case_id": "split-wrap",
+      "mode": "baseline",
+      "status": "pass",
+      "pair_count": 1
+    },
+    {
+      "case_id": "split-wrap",
+      "mode": "advanced",
+      "status": "pass",
+      "pair_count": 3
+    },
+    {
+      "check": "unknown option",
+      "status": "pass"
+    },
+    {
+      "check": "missing input",
+      "status": "pass"
+    },
+    {
+      "check": "invalid threshold",
+      "status": "pass"
+    },
+    {
+      "check": "memory guard",
+      "status": "pass"
+    },
+    {
+      "check": "JSON export to spaced path",
+      "status": "pass"
+    },
+    {
+      "check": "existing export preserved",
+      "status": "pass"
+    },
+    {
+      "check": "input export refused",
+      "status": "pass"
+    }
+  ]
+}

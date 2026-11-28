@@ -1,0 +1,18 @@
+test_cli_continues_after_timeout_and_saves_incomplete_report (test_evaluate_dataset.EvaluationTests.test_cli_continues_after_timeout_and_saves_incomplete_report) ... ok
+test_cli_parser_accepts_splits_and_rejects_invalid_ownership (test_evaluate_dataset.EvaluationTests.test_cli_parser_accepts_splits_and_rejects_invalid_ownership) ... ok
+test_empty_pair_rules (test_evaluate_dataset.EvaluationTests.test_empty_pair_rules) ... ok
+test_incorrect_and_missing_pairs (test_evaluate_dataset.EvaluationTests.test_incorrect_and_missing_pairs) ... ok
+test_line_count_matches_java_delimiters (test_evaluate_dataset.EvaluationTests.test_line_count_matches_java_delimiters) ... ok
+test_no_split_is_not_reported_as_perfect_split_accuracy (test_evaluate_dataset.EvaluationTests.test_no_split_is_not_reported_as_perfect_split_accuracy) ... ok
+test_output_cannot_overwrite_unselected_partition (test_evaluate_dataset.EvaluationTests.test_output_cannot_overwrite_unselected_partition) ... ok
+test_pooling_uses_counts_instead_of_average_file_scores (test_evaluate_dataset.EvaluationTests.test_pooling_uses_counts_instead_of_average_file_scores) ... ok
+test_real_advanced_cli_recovers_entire_split_fixture (test_evaluate_dataset.EvaluationTests.test_real_advanced_cli_recovers_entire_split_fixture) ... ok
+test_split_requires_the_entire_group (test_evaluate_dataset.EvaluationTests.test_split_requires_the_entire_group) ... ok
+test_all_split_targets_required_for_line_correctness (test_evaluate_existing.ExistingBenchmarkTests.test_all_split_targets_required_for_line_correctness) ... ok
+test_sparse_predictions_ignore_unlabeled_lines_and_count_deletions (test_evaluate_existing.ExistingBenchmarkTests.test_sparse_predictions_ignore_unlabeled_lines_and_count_deletions) ... ok
+test_version_one_is_source_not_a_second_reference (test_evaluate_existing.ExistingBenchmarkTests.test_version_one_is_source_not_a_second_reference) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.616s
+
+OK
