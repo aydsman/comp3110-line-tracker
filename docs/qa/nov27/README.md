@@ -1,7 +1,7 @@
 # Final release QA — 27 November 2026
 
 Fresh final QA of the nominated integrated release candidate, run by Mujtaba
-(AI-assisted) against the exact Windows CI package.
+ against the exact Windows CI package.
 
 ## Tested build
 
